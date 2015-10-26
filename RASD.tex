@@ -1,0 +1,78 @@
+\documentclass[11pt, a4paper,titlepage]{article}
+\usepackage[hidelinks]{hyperref}
+\author{Edoardo Giacomello \and Mattia Fontana}
+\title{SE2 Requirement Analysis and Specification Document} %Definisce il titolo
+\newcommand{\productname}{MyTaxiService }
+\begin{document}
+%Genera il titolo
+\maketitle
+%Inserisce tabella dei contenuti
+\tableofcontents
+\newpage
+\section{Introduction}
+\subsection{Purpose} This document represents the Requirement Analysis and Specification Document (RASD). The main goal of this document is to completely describe the system in terms of functional and non-functional requirements, analyse the real need of the customer to modelling the system, show the constraints and the limit of the software and simulate the typical use cases that will occur after the development. This document is intended to all developer and programmer who have to implement the requirements, to system analyst who want to integrate other system with this one, and could be used as a contractual basis between the customer and the developer.
+\subsection{Scope}
+The scope of \productname is to manage a taxi service in a more efficient way, along with an emprovement in the interaction between the customers and the service providers. 
+\newline In particular, the following goals have be highlighted by the stakeholders:
+\subsubsection{Goals}
+	\begin{enumerate}
+	\item \label{itm:Goal_PassengerInterface} Providing the passenger a \textit{\textbf{\hyperref[itm:Desc_SimplifiedAccess]{simplified access}}} for making real-time request for the taxi service, according to appropriate \textit{\textbf{\hyperref[itm:Desc_UsabilityMetric]{usability metrics}}}.
+	\item \label{itm:Goal_Reservation} Providing the passenger the possibility to reserve a taxi for a later moment.
+	\item \label{itm:Goal_Confirmation} Providing the passenger a clear confirmation of the taxi ride he’s requesting for.
+	\item \label{itm:Goal_WaitingTime} Providing the passenger an estimation of the waiting time for a taxi ride.
+	\item \label{itm:Goal_TaxiInterface} Providing the taxi drivers a \textit{\textbf{\hyperref[itm:Desc_SimplifiedAccess]{simplified access}}} for receiving and handling transportation requests from the passengers.
+	\item \label{itm:Goal_FairManagement} Guaranteeing a fair management of the taxi queue, in term of minimizing the passenger \textit{\textbf{\hyperref[itm:Desc_WaitingTime]{waiting time}}}.
+	\item \label{itm:Goal_DeveloperInterface} Providing \textit{\textbf{\hyperref[itm:Actor_SysDevs]{system developers}}}  a programmatic interface to further extend the system.
+		\end{enumerate}
+\subsubsection{Actors and Stakeholders}
+\begin{description}
+	\item[Customer] \label{itm:Actor_Customer} The person(s) who requested the developing of the system. Also referred as Government in the assignment text.
+	\item[Passenger] \label{itm:Actor_Passenger} The person who avails of the taxi service, in particular those who make a request for a Taxi ride.
+	\item[Taxi Driver] \label{itm:Actor_TaxiDriver} The employee which is in charge to meet the passenger and take him to the desired location
+	\item[User]\label{itm:Actor_User} General term for describing whoever interacts with the system interfaces. It can be a passenger, a taxi driver, a system developer, a system administrator, etc.
+	\item[System Developers] \label{itm:Actor_SysDevs} The persons which are qualified and in charge to extend the present system with additional features or services
+\end{description}
+
+\subsection{Definitions, Acronyms, Abbreviations}
+\subsubsection{Definitions}
+	\begin{description}
+		\item[Simplified Access] \label{itm:Desc_SimplifiedAccess} Human-to-Machine interaction that satisfy some usability metrics
+		\item[Usability Metric] \label{itm:Desc_UsabilityMetric} Precise measurable requirements that an interface has to satisfy in order to provide an efficient and easy experience to the user.
+		\item[Waiting time] \label{itm:Desc_WaitingTime} Time in minutes between the submission of a request and the arrival of a taxi.
+	\end{description}
+\subsubsection{Acronyms}
+\subsubsection{Abbreviations}
+\subsection{Reference Documents}
+\subsection{Document Overview}
+The following part of this document will focus on a deeper analysis of the goals highlighted by the stakeholders in addition to some assumptions that must hold in order to keep the system properties valid. The last part of the document will exhibit the software requirements that resulted from the goals examination along with some scenario and use cases that will offer the stakeholders a better comprehension of the final system.   
+\section{Overall description}
+This section will cover the overall description of the product. In particular it will put this product into the perspective of other products or systems. 
+\subsection{Product perspective}
+The \productname system will partially replace any former traditional system that is based on phone calls, by a new interactive system based on mobile and web interfaces. \newline
+The decision of completely dismissing the former phone call system in favor to the new one will be left to the customer, since \productname requires the passengers to access a web interface or a mobile application, which is still not feasible for some users.
+\subsubsection{System Interfaces}
+\subsubsection{User Interfaces}
+\subsubsection{Hardware Interfaces}
+\subsubsection{Software Interfaces}
+\subsubsection{Communications Interfaces}
+\subsubsection{Memory Constraints}
+\subsubsection{Operations}
+\subsubsection{Site Adaptation Requirements}
+\subsection{Product Functions}
+\subsection{User charateristics}
+\subsection{Constraints}
+\subsubsection{Regulatory Policies}
+\subsubsection{Hardware Limitations}
+\subsubsection{Interfaces to other applications}
+\subsubsection{Reliability Requirements}
+\subsubsection{Criticality of the application}
+%Spiegare qui le usability metrics utilizzate e il fatto che non devono esserci sprechi di risorse, come taxi inutilizzati o clienti non serviti
+\subsubsection{Safety and Security Consideration}
+%Parlare della sicurezza dei conducenti nell'utilizzo dell'app, del fatto di impedire alla gente di chiamare taxi a caso e del mantenimento dei dati personali dell'utente
+\subsection{Assumptions and Dependancies}
+\subsubsection{Assumptions}
+
+\section{Specific Requirements}
+
+\appendix
+\end{document}
