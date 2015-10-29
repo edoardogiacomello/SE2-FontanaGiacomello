@@ -57,7 +57,7 @@ This section will cover the overall description of the product. In particular it
 The \productname system will partially replace any former traditional system that is based on phone calls with a new interactive system based on mobile and web interfaces. \newline
 The decision of completely dismissing the former phone call system in favor to the new one will be left to the customer, since \productname requires the passengers to access a web interface or a mobile application, which is still generally not accessible by some users.
 \newline
-The project will therefore consists to release a web application and a mobile app which are not integrated with any other existing taxi management service.
+The project will therefore consists in releasing a web application and a mobile app which are not integrated with any other existing taxi management service.
 The system is created to improve the possibility to connect with the taxi service for requesting a taxi, that is based on phone calls.
 With this system, the taxi service can provide a fast and innovative system that allow to manage the user request rapidly, without any loss of time.
 Both the mobile application and the web interface are connected to the central system and allow the user to know in real time the waiting time, the taxi occupation and their location, and allows to make a taxi request receiving a rapid response.
@@ -68,6 +68,12 @@ The application will furthermore provide a programmatic interface for the integr
 		\item \productname web application will run on every terminal which is provided an internet connection and a web browser
 	\end{enumerate}
 \subsubsection{User Interfaces}
+Both the web and mobile applications will have a similar user interface, rearranged to fit the device screen.
+
+\textbf{Application for passengers}
+It has to provide a login page that allows users to be recognized by the system, along with a registration form that let the user to sign up to the service and a link for resetting the user password.
+In the home page after the login, it is possible to see the map of the zone in which the user is and the taxis that are nearby, along with a menu for accessing the other functionalities.
+%TODO: Finish this
 \subsubsection{Hardware Interfaces}
 \subsubsection{Software Interfaces}
 \subsubsection{Communications Interfaces}
@@ -78,13 +84,32 @@ The application will furthermore provide a programmatic interface for the integr
 \subsection{User charateristics}
 \subsection{Constraints}
 \subsubsection{Regulatory Policies}
+The system shall comply with the following regulatory policies:
+\begin{itemize}
+	\item CODICE IN MATERIA DI PROTEZIONE DEI DATI PERSONALI "Decreto legislativo 30 giugno 2003, n. 196"
+\end{itemize}
 \subsubsection{Hardware Limitations}
 \subsubsection{Interfaces to other applications}
 \subsubsection{Reliability Requirements}
 \subsubsection{Criticality of the application}
 %Spiegare qui le usability metrics utilizzate e il fatto che non devono esserci sprechi di risorse, come taxi inutilizzati o clienti non serviti
 \subsubsection{Safety and Security Consideration}
-%Parlare della sicurezza dei conducenti nell'utilizzo dell'app, del fatto di impedire alla gente di chiamare taxi a caso e del mantenimento dei dati personali dell'utente
+\productname should comply to the serurity statements listed above: \newline
+\begin{itemize}
+	\item Only logged users can request a taxi ride. This is for preventing any malicious behaviour in which unknown users can make taxi request without making use of the transportation service.
+	\item At the time of registration, a user must read and accept any privacy policy about the user data management
+	\item The system must undertake to not divulge the user data to third parties, in addition the user data will be used only for the supply of the service
+	\item For the reason stated before, the user MUST supply:
+		\begin{itemize}
+			\item Name
+			\item Surname
+			\item e-mail address
+			\item Phone number or Tax Code
+		\end{itemize}
+	\item The system should therefore warn the user about the regulation policy about false impersonation.
+	\item The system will hash the user password before storing it into the database, preventing unauthorized access in the case of data leak.
+	\item The system will ask the user the email address or the phone number in order to reset his password. The new password will be sent on the user e-mail address.
+\end{itemize}
 \subsection{Assumptions and Dependancies}
 \subsubsection{Assumptions}
 	\begin{enumerate}
