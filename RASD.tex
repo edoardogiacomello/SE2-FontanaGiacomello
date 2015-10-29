@@ -43,14 +43,30 @@ The scope of \productname is to manage a taxi service in a more efficient way, a
 \subsubsection{Acronyms}
 \subsubsection{Abbreviations}
 \subsection{Reference Documents}
+	\begin{itemize}
+		\item Specification Document: Assignments 1 and 2 (RASD and DD).pdf.
+		\item Specification Document:Project Description And Rules.pdf
+		\item IEEE Std 830-1998 IEEE Recommended Practice for Software Requirements Specifications.
+		
+	\end{itemize}
 \subsection{Document Overview}
 The following part of this document will focus on a deeper analysis of the goals highlighted by the stakeholders in addition to some assumptions that must hold in order to keep the system properties valid. The last part of the document will exhibit the software requirements that resulted from the goals examination along with some scenario and use cases that will offer the stakeholders a better comprehension of the final system.   
 \section{Overall description}
 This section will cover the overall description of the product. In particular it will put this product into the perspective of other products or systems. 
 \subsection{Product perspective}
-The \productname system will partially replace any former traditional system that is based on phone calls, by a new interactive system based on mobile and web interfaces. \newline
-The decision of completely dismissing the former phone call system in favor to the new one will be left to the customer, since \productname requires the passengers to access a web interface or a mobile application, which is still not feasible for some users.
+The \productname system will partially replace any former traditional system that is based on phone calls with a new interactive system based on mobile and web interfaces. \newline
+The decision of completely dismissing the former phone call system in favor to the new one will be left to the customer, since \productname requires the passengers to access a web interface or a mobile application, which is still generally not accessible by some users.
+\newline
+The project will therefore consists to release a web application and a mobile app which are not integrated with any other existing taxi management service.
+The system is created to improve the possibility to connect with the taxi service for requesting a taxi, that is based on phone calls.
+With this system, the taxi service can provide a fast and innovative system that allow to manage the user request rapidly, without any loss of time.
+Both the mobile application and the web interface are connected to the central system and allow the user to know in real time the waiting time, the taxi occupation and their location, and allows to make a taxi request receiving a rapid response.
+The application will furthermore provide a programmatic interface for the integration with future systems and extensions.
 \subsubsection{System Interfaces}
+	\begin{enumerate}
+		\item \productname mobile application will run on tablets and smartphones
+		\item \productname web application will run on every terminal which is provided an internet connection and a web browser
+	\end{enumerate}
 \subsubsection{User Interfaces}
 \subsubsection{Hardware Interfaces}
 \subsubsection{Software Interfaces}
@@ -71,6 +87,14 @@ The decision of completely dismissing the former phone call system in favor to t
 %Parlare della sicurezza dei conducenti nell'utilizzo dell'app, del fatto di impedire alla gente di chiamare taxi a caso e del mantenimento dei dati personali dell'utente
 \subsection{Assumptions and Dependancies}
 \subsubsection{Assumptions}
+	\begin{enumerate}
+		\item The city is already divided in Taxi Zones of approximately 2x2 km each. 
+		\item Taxis or Taxi Drivers are assumed to be in possession of a mobile device that  1) have GPS functionalities and 2) is capable of establishing an internet connection with the facility in which the system is hosted. In the case one of these assumption does not hold, the Taxi driver must contact his referent in order to solve the issue.
+		\item The number of taxi in service are at least equal to the number of zones.
+		\textbf{Rationale}: In this way, in the case that a zone queue is empty, an incoming request is guaranteed to be served by at least one taxi in an estimable time by propagating the request to adjacent zone and forwarding the request to the first taxi that is either available or have the scheduled arrival location in that zone.
+		\item The service is currently running a traditional system based on phone calls
+		
+	\end{enumerate}
 
 \section{Specific Requirements}
 
