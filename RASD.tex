@@ -31,6 +31,7 @@ The scope of \productname is to manage a taxi service in a more efficient way, a
 	\item[Taxi Driver] \label{itm:Actor_TaxiDriver} The employee which is in charge to meet the passenger and take him to the desired location
 	\item[User]\label{itm:Actor_User} General term for describing whoever interacts with the system interfaces. It can be a passenger, a taxi driver, a system developer, a system administrator, etc.
 	\item[System Developers] \label{itm:Actor_SysDevs} The persons which are qualified and in charge to extend the present system with additional features or services
+	\item[System Administrator] \label{itm:Actor_SysAdmin}: The persons in charge to manage the relationship between the transportation service and the system. For example a system administrator could register new taxi drivers’ profiles, manage the passenger profiles or manage data backups.
 \end{description}
 
 \subsection{Definitions, Acronyms, Abbreviations}
@@ -75,11 +76,130 @@ It has to provide a login page that allows users to be recognized by the system,
 In the home page after the login, it is possible to see the map of the zone in which the user is and the taxis that are nearby, along with a menu for accessing the other functionalities.
 %TODO: Finish this
 \subsubsection{Hardware Interfaces}
+The \productname mobile application will require a smartphone or tablet and will support the most common screen resolutions. \newline
+For the correct functionality of \productname mobile and web application (both for passenger and taxi drivers) the device will be required to support the GPS localization and a WiFi or data internet connection. 
 \subsubsection{Software Interfaces}
+\begin{itemize}
+	\item \productname Application Server
+		\begin{itemize}
+			\item Database Management System (DBMS):
+			\begin{itemize}
+				\item[Name]: MySQL.
+				\item[Version]:  5.6.19
+				\item[Source]: http://www.mysql.it/
+			\end{itemize}
+			\item Application server:
+			\begin{itemize}
+				\item[Name]:  Jboss application server J2EE open source.
+				\item[Source]: http://www.jboss.org/
+			\end{itemize}
+			\item Operative Systems:
+			\begin{itemize}
+				\item: Ubuntu/Debian Linux
+				\item: Windows Server, Windows 7, Windows 8, Windows 10
+			\end{itemize}
+		\end{itemize}
+		
+	\item \productname Application Server
+	\begin{itemize}
+		\item Mobile Application
+		\begin{itemize}
+			\item[OS]: Android 4.4.2 or higher, iOS, Windows Mobile.
+		\end{itemize}
+	\end{itemize}
+	\begin{itemize}
+		\item Web Application
+		\begin{itemize}
+			\item[Web Browsers]: Chrome, Firefox, Safari, Opera, Internet Explorer
+			\item[Other]: JRE 1.7 or higher
+		\end{itemize}
+	\end{itemize}	
+		
+\end{itemize}
 \subsubsection{Communications Interfaces}
+	The communication between the server and mobile application will make use of the following ports:
+	\newline \newline
+	\begin{tabular}{c c c}
+		\textbf{Protocol} & \textbf{Application} & \textbf{Port} \\
+		\hline
+		TCP & HTTP & 80 \\
+		\hline
+		TCP & HTTPS & 443 \\
+		\hline
+		TCP & DBMS & 3306 \\
+		\hline
+	\end{tabular}
+	\newline
+	The default communication protocol will be HTTPS.
+	
 \subsubsection{Memory Constraints}
+The suggested memory requirements are: \newline
+\begin{itemize}
+	\item Application Server
+	\begin{itemize}
+		\item[Main Memory]: 4GB
+		\item[Secondary Memory]: 2GB
+	\end{itemize}
+	\item Mobile Application
+	\begin{itemize}
+			\item[Main Memory]: 500Mb
+			\item[Secondary Memory]: 100Mb
+	\end{itemize}
+\end{itemize}
 \subsubsection{Operations}
-\subsubsection{Site Adaptation Requirements}
+	In this section will be described what operations each kind of user can do by interacting with the system interface: \newline
+	\begin{enumerate}
+		\item Passengers (Web and Mobile Application)
+			\begin{description}
+				\item[Registration] The user can create a new account filling in his personal informations
+				\item[Login] The user can access the main page by inserting his email and password.
+				\item[Map] The user can visualize the map of the zone he is in.
+				\item[Request] The user can request a taxi immediately, or adding to the queue according to the taxi availability
+				\item[Reservation] The user can make a reservation of a taxi ride for a later moment
+				\item[Pending Reservation] The user can visualize data such the estimated taxi arrival time about the reservation he made and cancel a reservation.
+				\item[Information] The user can access some information about the system usage and rules
+				\item[Profile] The user can access its profile personal data
+				\item[Logout] The user can logout from the system
+			\end{description}
+			
+		\item Taxi Drivers (Mobile Application Only)
+			\begin{description}
+				\item[Login] The user can access the main page by inserting his taxi code and password. This will state the availability of accepting requests.
+				\item[Map] The user can see a map of the nearby area. When a request arrives the map will show the meeting point
+				\item[Request Incoming] The user can accept or refuse an incoming request
+				\item[Active Ride] The user can complete a ride when the passenger is at his desired location, or release the ride to another taxi driver if some unexpected event occurs.
+				\item[Logout] The user can logout from the system and state his unavailability of taking requests.
+			\end{description}
+	
+		\item System Administrators (Web Interface Only)  
+			\begin{description}
+				\item[Login] The user can login and access the administration page
+				\item[Taxi Management] The user can acess the list of all active and unactive taxi accounts. He can Add and Remove taxi driver accounts or change their passwords.
+				\item [User Management] The user can access user profiles to provide support to end users and reset their passwords.
+				\item[Logs] The user can view and download the logs associated to each accepted/refused request, all ride data such passenger account, departure/arrival date and location, and the taxi driver who made the ride.
+				\item[Backup/Restore] The user can make security backups of account data and restore them.
+			\end{description}
+		
+		\item System Operations
+		\begin{description}
+			\item[Store user information] Creates or updates a passenger profile
+			\item[Store taxi information] Creates or updates a taxi profile
+			\item[Update Map] Update the map every 30 seconds with each taxi location
+			\item[Registration Confirmation] The system sends a confirmation email to the user upon registration
+			\item[Request Confirmation] The system sends a confirmation email about the acceptance of a taxi request
+			\item[Reservation Confirmation]  The system sends a confirmation email about the acceptance of a taxi reservation
+			\item[Reservation Reminder] The system sends a remainder email to the user who reserved a taxi 2 hour before the meeting time
+			\item[Time estimation] The system estimate the time needed to move by car from a location A to a location B. It can make use of external map services for this purpose.
+		\end{description}
+		
+		\item[System Support Operation]
+			\begin{description}
+				\item[Backup Database] The system make a backup of the database and logs
+				\item[Restore Database] The system make a restore of a previous backup of the database
+				\item
+			\end{description}
+			
+	\end{enumerate}
 \subsection{Product Functions}
 \subsection{User charateristics}
 \subsection{Constraints}
@@ -113,11 +233,12 @@ The system shall comply with the following regulatory policies:
 \subsection{Assumptions and Dependancies}
 \subsubsection{Assumptions}
 	\begin{enumerate}
-		\item The city is already divided in Taxi Zones of approximately 2x2 km each. 
-		\item Taxis or Taxi Drivers are assumed to be in possession of a mobile device that  1) have GPS functionalities and 2) is capable of establishing an internet connection with the facility in which the system is hosted. In the case one of these assumption does not hold, the Taxi driver must contact his referent in order to solve the issue.
-		\item The number of taxi in service are at least equal to the number of zones.
+		\item \label{itm: Assumption_Zones} The city is already divided in Taxi Zones of approximately 2x2 km each. 
+		\item \label{itm: Assumption_MobileProvisioning} Taxis or Taxi Drivers are assumed to be in possession of a mobile device that  1) have GPS functionalities and 2) is capable of establishing an internet connection with the facility in which the system is hosted. In the case one of these assumption does not hold, the Taxi driver must contact his referent in order to solve the issue.
+		\item \label{itm: Assumption_NumberOfTaxis} The number of taxi in service are at least equal to the number of zones.
 		\textbf{Rationale}: In this way, in the case that a zone queue is empty, an incoming request is guaranteed to be served by at least one taxi in an estimable time by propagating the request to adjacent zone and forwarding the request to the first taxi that is either available or have the scheduled arrival location in that zone.
-		\item The service is currently running a traditional system based on phone calls
+		\item \label{itm: Assumption_FormerSystems} The service is currently running a traditional system based on phone calls	
+		\item \label{itm: Assumption_Payment} The payment will occur directly to the taxi driver by cash or credit card and it will be managed by the transportation company
 		
 	\end{enumerate}
 
