@@ -63,6 +63,7 @@ The scope of \productname is to manage a taxi service in a more efficient way, a
 	\end{itemize}
 \subsection{Document Overview}
 The following part of this document will focus on a deeper analysis of the goals highlighted by the stakeholders in addition to some assumptions that must hold in order to keep the system properties valid. The last part of the document will exhibit the software requirements that resulted from the goals examination along with some scenario and use cases that will offer the stakeholders a better comprehension of the final system.   
+\pagebreak
 \section{Overall description}
 This section will cover the overall description of the product. In particular it will put this product into the perspective of other products or systems. 
 \subsection{Product Perspective}
@@ -78,7 +79,7 @@ The application will furthermore provide a programmatic interface for the integr
 
 	\image{perspective_schema.png}
 
-
+\pagebreak
 \subsubsection{System Interfaces}
 	\begin{enumerate}
 		\item \productname mobile application will run on tablets and smartphones
@@ -101,17 +102,18 @@ Both the web and mobile applications will have a similar user interface, rearran
 			\item[Logout] Ends the session and leads to the login page
 		\end{description}
 	\end{itemize}
+	\pagebreak
 	\item \textbf{Example of the mobile application for passengers: } \newline
 	\image{gui_passenger_login.png}
 	\image{gui_passenger_home.png}
 	\image{gui_passenger_confirmation.png}
-	
 	\item \textbf{Application for System Administrators (Web)}
 		\begin{itemize}
 			\item From the same \textbf{login page} for the users, system administrators can access the administration page by inserting their login data. \newline
 			From the administration panel the user can see the list of all the taxis and their current status.
 			From the menu they can access the log page from which it is possible to read all the system history, the account administrator page or the backup/restore facility.
 		\end{itemize}
+		\pagebreak
 		\item \textbf{Example of the web application for administrators: } \newline
 		\image{gui_admin.png}
 	
@@ -255,37 +257,71 @@ This section will list the general functions of the system, with an eventual ref
 	\begin{enumerate}
 		\item \textit{Relative to goal \linkitm{itm:Goal_PassengerInterface}}: The system shall provide the passengers both a web and a mobile application with equivalent functionalities for requesting a ride
 		\item \textit{Relative to goal \linkitm{itm:Goal_TaxiInterface}}: The system shall provide a mobile application for taxi drivers, in which they can inform the system about their availability and confirm or refuse the proposed request.
-		%TODO Finish this
+		\item \textit{Relative to goal \linkitm{itm:Goal_FairManagement}}: The system shall associate a queue of taxis to each zone according to the GPS location of the taxis
+		\item \textit{Relative to goals \linkitm{itm:Goal_Confirmation} and \linkitm{itm:Goal_WaitingTime}}: The system shall provide a response to the passenger who requested a ride, the notification will contain the code of the taxi that accepted the request and the estimated waiting time.
+		\item \textit{Relative to goal \linkitm{itm:Goal_DeveloperInterface}}: The system shall comprehend a programmatic interface that offer the access for the main functionality of the system itself.
+		\item \textit{Relative to goal \linkitm{itm:Goal_Reservation}}: The system interface for passengers shall provide the functionality of taxi reservation for rides that will take place after 2 hours. The information required by the system include the origin and destination and the departure date.
+		\item {Relative to goal \linkitm{itm:Goal_FairManagement} and security}: The system shall keep track of any active ride, along with the current taxi position and arrival location.
+		\item \textit{Relative to goal \linkitm{itm:Goal_TaxiInterface} and Administration}: The system should provide a web interface for system administrators, in which they can manage the taxi drivers and the passenger profiles
+		\item \textit{Relative to goal \linkitm{itm:Goal_Confirmation}} The system sends a remainder email or push notification to the user who reserved a taxi 2 hour before the meeting time, just after that it has assigned a taxi to that request.
+		\item \textit{Relative to goal \linkitm{itm:Goal_FairManagement}}: The system should manage exceptional situations such the availability of taxis or accidents/vehicle failures.
 		
 	\end{enumerate}
 \subsection{User charateristics}
+	There are 4 types of system users: \newline
+	\begin{description}
+		\item[passenger] Who access the system for requesting a transportation. For this purpose, the user must have an internet connection on his smartphone or computer. In the case he's using a smartphone, the user can have the \productname application installed or using the web interface. For using the web interface the user must have a compatible browser.
+		\item[Taxi Driver] Who provide the transportation to the passengers. The user interacts with the system for receiving transportation tasks. The user will be provided a compatible device in advance, and must be in possess of his login credentials, which are generated by the system and managed by system administrators. 
+		\item[System Administrator] Who manages the transportation service. The system administrator is in charge to give support to taxi drivers and passengers, in particular to create and supervise taxi drivers' accounts. It's the only figure that have access to the system logs and taxi managements.
+		\item[System Developers] Who is in charge to further extends the system. System developers will make use of this document and the Design document for planning the addition of new functionalities.
+	\end{description}
 \subsection{Constraints}
 \subsubsection{Regulatory Policies}
 The system shall comply with the following regulatory policies:
 \begin{itemize}
 	\item CODICE IN MATERIA DI PROTEZIONE DEI DATI PERSONALI "Decreto legislativo 30 giugno 2003, n. 196"
 \end{itemize}
-\subsubsection{Hardware Limitations}
-\subsubsection{Interfaces to other applications}
 \subsubsection{Reliability Requirements}
+	\begin{itemize}
+		\item In case of system faliure, the system must be recoverable from a previous backup
+		
+		\item The system infrastructure (data centers, servers, network infrastructures, etc) must be sized accordingly to the expected user base size. 
+		
+	\end{itemize}
 \subsubsection{Criticality of the application}
-%Spiegare qui le usability metrics utilizzate e il fatto che non devono esserci sprechi di risorse, come taxi inutilizzati o clienti non serviti
+The main criticalities of this project are:
+\begin{itemize}
+	\item The compliance of the interface according to the usability metrics explained in section 3.
+	\item The fair management of taxis. In particular the system must not waste resources such as not reallocating unemployed taxi when necessary and must allocate requests according to well defined precedence rules.
+\end{itemize}
+A failure in one or more of this criticalities will lead to the loss of clients.
+
+
 \subsubsection{Safety and Security Consideration}
 \productname should comply to the serurity statements listed above: \newline
 \begin{itemize}
 	\item Only logged users can request a taxi ride. This is for preventing any malicious behaviour in which unknown users can make taxi request without making use of the transportation service.
 	\item At the time of registration, a user must read and accept any privacy policy about the user data management
 	\item The system must undertake to not divulge the user data to third parties, in addition the user data will be used only for the supply of the service
-	\item For the reason stated before, the user MUST supply:
+	\item For the reason stated before, the passenger must supply at least:
 		\begin{itemize}
 			\item Name
 			\item Surname
 			\item e-mail address
 			\item Phone number or Tax Code
+			\item Password
+		\end{itemize}
+		\item While the taxi drivers must supply at least:
+		\begin{itemize}
+			\item Taxi Code
+			\item e-mail address
+			\item Phone number or Tax Code
+			\item Password
 		\end{itemize}
 	\item The system should therefore warn the user about the regulation policy about false impersonation.
 	\item The system will hash the user password before storing it into the database, preventing unauthorized access in the case of data leak.
 	\item The system will ask the user the email address or the phone number in order to reset his password. The new password will be sent on the user e-mail address.
+	\item In the case of taxi drivers, the password is generated by the system and it's updated periodically. The taxi drivers will receive their new password by email.
 \end{itemize}
 \subsection{Assumptions and Dependancies}
 \subsubsection{Assumptions}
@@ -298,7 +334,7 @@ The system shall comply with the following regulatory policies:
 		\item \label{itm: Assumption_Payment} The payment will occur directly to the taxi driver by cash or credit card and it will be managed by the transportation company
 		
 	\end{enumerate}
-
+\pagebreak
 \section{Specific Requirements}
 
 \appendix
