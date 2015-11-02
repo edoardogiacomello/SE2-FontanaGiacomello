@@ -1,8 +1,17 @@
 \documentclass[11pt, a4paper,titlepage]{article}
 \usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\graphicspath{{img/}}
 \author{Edoardo Giacomello \and Mattia Fontana}
 \title{SE2 Requirement Analysis and Specification Document} %Definisce il titolo
 \newcommand{\productname}{MyTaxiService }
+\newcommand{\image}[1]{
+	\begin{center}
+		\noindent \includegraphics[width=\linewidth]{#1}
+	\end{center}
+	}
+\newcommand{\link}[2]{\underline{\textbf{\hyperref[#1]{#2}}}}
+\newcommand{\linkitm}[1]{\underline{\textbf{\ref{#1}}}}
 \begin{document}
 %Genera il titolo
 \maketitle
@@ -16,13 +25,13 @@ The scope of \productname is to manage a taxi service in a more efficient way, a
 \newline In particular, the following goals have be highlighted by the stakeholders:
 \subsubsection{Goals}
 	\begin{enumerate}
-	\item \label{itm:Goal_PassengerInterface} Providing the passenger a \textit{\textbf{\hyperref[itm:Desc_SimplifiedAccess]{simplified access}}} for making real-time request for the taxi service, according to appropriate \textit{\textbf{\hyperref[itm:Desc_UsabilityMetric]{usability metrics}}}.
-	\item \label{itm:Goal_Reservation} Providing the passenger the possibility to reserve a taxi for a later moment.
+	\item \label{itm:Goal_PassengerInterface} Providing the passenger a \textit{\link{itm:Desc_SimplifiedAccess}{simplified access}} for making real-time \link{itm:Desc_Request}{requests} for the taxi service, according to appropriate \textit{\link{itm:Desc_UsabilityMetric}{usability metrics}}.
+	\item \label{itm:Goal_Reservation} Providing the passenger the possibility to \link{itm:Desc_Reservation}{reserve} a taxi for a later moment.
 	\item \label{itm:Goal_Confirmation} Providing the passenger a clear confirmation of the taxi ride he’s requesting for.
-	\item \label{itm:Goal_WaitingTime} Providing the passenger an estimation of the waiting time for a taxi ride.
-	\item \label{itm:Goal_TaxiInterface} Providing the taxi drivers a \textit{\textbf{\hyperref[itm:Desc_SimplifiedAccess]{simplified access}}} for receiving and handling transportation requests from the passengers.
-	\item \label{itm:Goal_FairManagement} Guaranteeing a fair management of the taxi queue, in term of minimizing the passenger \textit{\textbf{\hyperref[itm:Desc_WaitingTime]{waiting time}}}.
-	\item \label{itm:Goal_DeveloperInterface} Providing \textit{\textbf{\hyperref[itm:Actor_SysDevs]{system developers}}}  a programmatic interface to further extend the system.
+	\item \label{itm:Goal_WaitingTime} Providing the passenger an estimation of the \link{itm:Desc_WaitingTime}{waiting time} for a taxi ride.
+	\item \label{itm:Goal_TaxiInterface} Providing the taxi drivers a \textit{\link{itm:Desc_SimplifiedAccess}{simplified access}} for receiving and handling transportation requests from the passengers.
+	\item \label{itm:Goal_FairManagement} Guaranteeing a fair management of the taxi queue, in term of minimizing the passenger \textit{\link{itm:Desc_WaitingTime}{waiting time}}.
+	\item \label{itm:Goal_DeveloperInterface} Providing \textit{\link{itm:Actor_SysDevs}{system developers}}  a programmatic interface to further extend the system.
 		\end{enumerate}
 \subsubsection{Actors and Stakeholders}
 \begin{description}
@@ -40,6 +49,8 @@ The scope of \productname is to manage a taxi service in a more efficient way, a
 		\item[Simplified Access] \label{itm:Desc_SimplifiedAccess} Human-to-Machine interaction that satisfy some usability metrics
 		\item[Usability Metric] \label{itm:Desc_UsabilityMetric} Precise measurable requirements that an interface has to satisfy in order to provide an efficient and easy experience to the user.
 		\item[Waiting time] \label{itm:Desc_WaitingTime} Time in minutes between the submission of a request and the arrival of a taxi.
+		\item[Request \textit{(when made by the passenger to the taxi service)}] \label{Itm:Desc_Request} In this document we refer to a \textit{request} when the passenger's intent is to meet the taxi as soon as possible.
+		\item[Reservation] \label{Itm:Desc_Reservation} In this document we refer to a \textit{reservation} when the passenger's intent is to meet the taxi at a precise moment in the future
 	\end{description}
 \subsubsection{Acronyms}
 \subsubsection{Abbreviations}
@@ -54,7 +65,7 @@ The scope of \productname is to manage a taxi service in a more efficient way, a
 The following part of this document will focus on a deeper analysis of the goals highlighted by the stakeholders in addition to some assumptions that must hold in order to keep the system properties valid. The last part of the document will exhibit the software requirements that resulted from the goals examination along with some scenario and use cases that will offer the stakeholders a better comprehension of the final system.   
 \section{Overall description}
 This section will cover the overall description of the product. In particular it will put this product into the perspective of other products or systems. 
-\subsection{Product perspective}
+\subsection{Product Perspective}
 The \productname system will partially replace any former traditional system that is based on phone calls with a new interactive system based on mobile and web interfaces. \newline
 The decision of completely dismissing the former phone call system in favor to the new one will be left to the customer, since \productname requires the passengers to access a web interface or a mobile application, which is still generally not accessible by some users.
 \newline
@@ -63,6 +74,11 @@ The system is created to improve the possibility to connect with the taxi servic
 With this system, the taxi service can provide a fast and innovative system that allow to manage the user request rapidly, without any loss of time.
 Both the mobile application and the web interface are connected to the central system and allow the user to know in real time the waiting time, the taxi occupation and their location, and allows to make a taxi request receiving a rapid response.
 The application will furthermore provide a programmatic interface for the integration with future systems and extensions.
+/newline
+
+	\image{perspective_schema.png}
+
+
 \subsubsection{System Interfaces}
 	\begin{enumerate}
 		\item \productname mobile application will run on tablets and smartphones
@@ -70,11 +86,45 @@ The application will furthermore provide a programmatic interface for the integr
 	\end{enumerate}
 \subsubsection{User Interfaces}
 Both the web and mobile applications will have a similar user interface, rearranged to fit the device screen.
+\begin{enumerate}
+	\item \textbf{Application for passengers} \newline
+	\begin{itemize}
+		\item It has to provide a \textbf{login page} that allows users to be recognized by the system, along with a registration form that let the user to sign up to the service and a link for resetting the user password.
+		In the home page after the login, it is possible to see the map of the zone in which the user is and the taxis that are nearby, along with a menu for accessing the other functionalities. If a taxi is available, the user can request a ride by selecting the button "Call Now". If a taxi is not available, a text message will display the estimated waiting time and the button will let the user to queue. When the user select the request button, a \textbf{confirmation dialog} will ask the user to insert the precise meeting location and, in the case the user is making a reservation, the meeting time.
+		After the user has made a taxi request, the system will show directly in the home page the  estimated waiting time for that request. In the case he has made a reservation, the home page is steal usable for making a request, while clicking on \textbf{"your reservation"} a page will display the current reservation status.
+		\item \textbf{Passenger menu}
+		\begin{description}
+			\item[Home] Shows the home page from which is possible to make a new request or check the arrival time and the taxi code of the pending request.
+			\item[Your Reservation] Shows the list of pending reservations along with the status or estimated arrival time/taxi code.
+			\item[Reserve a Taxi] Display the \textbf{confirmation dialog} in which the passenger can set the meeting time and location
+			\item[Your Account] Lead to the account administration page in which the user can show and edit his account
+			\item[Logout] Ends the session and leads to the login page
+		\end{description}
+	\end{itemize}
+	\item \textbf{Example of the mobile application for passengers: } \newline
+	\image{gui_passenger_login.png}
+	\image{gui_passenger_home.png}
+	\image{gui_passenger_confirmation.png}
+	
+	\item \textbf{Application for System Administrators (Web)}
+		\begin{itemize}
+			\item From the same \textbf{login page} for the users, system administrators can access the administration page by inserting their login data. \newline
+			From the administration panel the user can see the list of all the taxis and their current status.
+			From the menu they can access the log page from which it is possible to read all the system history, the account administrator page or the backup/restore facility.
+		\end{itemize}
+		\item \textbf{Example of the web application for administrators: } \newline
+		\image{gui_admin.png}
+	
+	\item \textbf{Application for taxi drivers (Mobile)}
+		\begin{itemize}
+			\item The taxi drivers have a particular login page that allows them to access by taxi code/email and password. \newline The taxi application interface is as simple as can be, for avoiding loss of time and incomprehensions.
+			In the homepage the user can see a map of the newarby area. When a request arrives, the user is notified about the time and location of the request. Two buttons allow to accept/decline the request, and when a request is accepted the taxi driver can state he completed the ride or release the ride for another drive.
+		\end{itemize}
+		\item \textbf{Example of the mobile application for taxi drivers: } \newline
+		\image{gui_driver.png}
+	
+\end{enumerate}
 
-\textbf{Application for passengers}
-It has to provide a login page that allows users to be recognized by the system, along with a registration form that let the user to sign up to the service and a link for resetting the user password.
-In the home page after the login, it is possible to see the map of the zone in which the user is and the taxis that are nearby, along with a menu for accessing the other functionalities.
-%TODO: Finish this
 \subsubsection{Hardware Interfaces}
 The \productname mobile application will require a smartphone or tablet and will support the most common screen resolutions. \newline
 For the correct functionality of \productname mobile and web application (both for passenger and taxi drivers) the device will be required to support the GPS localization and a WiFi or data internet connection. 
@@ -175,7 +225,7 @@ The suggested memory requirements are: \newline
 			\begin{description}
 				\item[Login] The user can login and access the administration page
 				\item[Taxi Management] The user can acess the list of all active and unactive taxi accounts. He can Add and Remove taxi driver accounts or change their passwords.
-				\item [User Management] The user can access user profiles to provide support to end users and reset their passwords.
+				\item [Account Management] The user can access user profiles to provide support to end users and reset their passwords.
 				\item[Logs] The user can view and download the logs associated to each accepted/refused request, all ride data such passenger account, departure/arrival date and location, and the taxi driver who made the ride.
 				\item[Backup/Restore] The user can make security backups of account data and restore them.
 			\end{description}
@@ -201,6 +251,13 @@ The suggested memory requirements are: \newline
 			
 	\end{enumerate}
 \subsection{Product Functions}
+This section will list the general functions of the system, with an eventual reference to the goal they contribute to satisfy.
+	\begin{enumerate}
+		\item \textit{Relative to goal \linkitm{itm:Goal_PassengerInterface}}: The system shall provide the passengers both a web and a mobile application with equivalent functionalities for requesting a ride
+		\item \textit{Relative to goal \linkitm{itm:Goal_TaxiInterface}}: The system shall provide a mobile application for taxi drivers, in which they can inform the system about their availability and confirm or refuse the proposed request.
+		%TODO Finish this
+		
+	\end{enumerate}
 \subsection{User charateristics}
 \subsection{Constraints}
 \subsubsection{Regulatory Policies}
