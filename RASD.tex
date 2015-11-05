@@ -166,8 +166,10 @@ For the correct functionality of \productname mobile and web application (both f
 			\item[Other]: JRE 1.7 or higher
 		\end{itemize}
 	\end{itemize}	
-		
 \end{itemize}
+
+The internal system must make use of these tecnologies for the internal component interfacing
+
 \subsubsection{Communications Interfaces}
 	The communication between the server and mobile application will make use of the following ports:
 	\newline \newline
@@ -181,8 +183,11 @@ For the correct functionality of \productname mobile and web application (both f
 		TCP & DBMS & 3306 \\
 		\hline
 	\end{tabular}
-	\newline
-	The default communication protocol will be HTTPS.
+	\newline \newline
+	The default communication protocol will be HTTPS. \newline
+	The data exchange between the server and the mobile applications will occur by the JSON data format, while the web interface will make use of both JSON and AJAX for the communication between the Web Browser and the server.
+		
+	\image{schema_communication_interface.png}
 	
 \subsubsection{Memory Constraints}
 The suggested memory requirements are: \newline
@@ -342,7 +347,7 @@ A failure in one or more of this criticalities will lead to the loss of clients.
 \pagebreak
 \section{Specific Requirements}
 \subsection{External Interfaces} %This should be a detailed description of all inputs into and outputs from complement the interface descriptions in 5.2 and should not repeat informati
-
+%TODO: Do this according to uml classes and use cases
 
 
 \subsection{Functions} %Functional requirements should deÞne the fundamental actions that must take place in the software in accepting and processing the inputs and in processing and generating the outputs.
@@ -365,22 +370,40 @@ This section will list specific functional requirements needed in order to accep
 	\end{enumerate}
 
 \subsection{Performance Requirements} %Es: 95% of the transactions shall be processed in less than 1 s.
+\begin{itemize}
+	\item The server shall process the 95\% of operations in less than 1 second.
+	\item In optimal network conditions the user shall get a response for a confirmation in less than 5 seconds. This not includes email confirmations. 
+\end{itemize}
+
 \subsection{Logical Database Requirements}
+%TODO: Complete this according to uml classes
 \subsection{Design Constraints}
+ The client application will be a \textbf{thin client}.
 \subsubsection{Standard Compliance}
+	The mobile application for passenger must comply with the application store regulation policy, depending on the mobile OS for which will be deployed.
 \subsection{Software System Attributes}
 \subsubsection{Reliability}
+%TODO: Check the slides
 \subsubsection{Availability}
+%TODO: Check the slides
 \subsubsection{Security}
  \begin{enumerate}
  	\item The login information and the user data must be kept safe by the system. In particular, the user data can be accessed only by the user itself or a system administrator, which can see and edit the entire user profile except the password.
  	\item A taxi request or reservation can be made only by registered and logged users, in order to avoid unintentional or malicious requests.
- 	
+ 	\item The transport layer will make use of SSL and HTTP (HTTPS) 
+ 	\item The passenger password can be reset by inserting the user email. The server will then provide a new temporary password and send it by email to the user.
+ 	\item The taxi driver password is managed directly by the system and can be resetted only by contacting a system administrator. This is for avoiding disturbance in the case a malevolent user learns about the taxi driver email and tries to reset the taxi driver password. 
+ 	The taxi driver password is reset every six month and sent automatically to the taxi driver email recipient
+ 	\item All user password must have a costraint in the number of characters, which will be between 8 and 20.
  \end{enumerate}
 \subsubsection{Maintainability}
+%TODO: Check Slides
 \subsubsection{Portability}
+%TODO: Check Slides
 \subsection{Scenarios}
+%TODO: Insert Scenarios
 \subsection{Class Diagram}
+
 \subsection{Use Cases}
 \subsection{Alloy}
 
