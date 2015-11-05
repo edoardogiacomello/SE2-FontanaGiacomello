@@ -1,6 +1,7 @@
 \documentclass[11pt, a4paper,titlepage]{article}
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
+\usepackage{tabularx}
 \graphicspath{{img/}}
 \author{Edoardo Giacomello \and Mattia Fontana}
 \title{SE2 Requirement Analysis and Specification Document} %Definisce il titolo
@@ -401,10 +402,165 @@ This section will list specific functional requirements needed in order to accep
 \subsubsection{Portability}
 %TODO: Check Slides
 \subsection{Scenarios}
+\begin{enumerate}
+	\item Alice is at the Garibaldi railway station, as he has just arrived from Rome.
+	She needs a lift to his office as soon as possible, so he decides to look for a taxi.
+	On her smartphone she installed the \productname app.
+	As soon as she get off of the train, Alice checks the application and control the situation of taxis in the zone of the station, then she requests a taxi service by inserting her position.
+	After a few seconds the application replies with the code of a taxi which is near the station.
+	When Alice will get out of the station, she will find the taxi with the corresponding code that will take her to his office.
+	\item Tomorrow Bob will have to go to the airport, as he has a flight at 23:00.
+	He must be at the airport at 21:00 and he need to take a taxi.
+	Since he’s at home, Bob decides to register to \productname website from his computer in order to reserve a taxi for the airport. After inserting a few informations he is able to reserve a taxi for the 20:00 of the day after.
+	The day after, a taxi driver receives a request at 18:00, the request indicates Bob’s home address and the arrival time which is at 19:50.
+	When the taxi drivers accepts the request, Bob receives an email asserting that a taxi is on the way for his home and will be waiting there when he will get out at 20:00.
+	\item Carl works for an important society of import-export; today afternoon he will take the plane for going to Usa to close an important deal. His friend Daniel will bring him to the airport.
+	Unfortunately his friend had an accident so he can’t bring Giovanni to the airport.
+	The inconvenient occurs at 14:30 and Giovanni must be at the airport at 15:30.
+	Carl uses the web application to request a taxi at 14:45; but he sees on the web page that no taxis are available in that zone right now, but the nearest available will arrive in 25 minutes. He still decides to queue for a taxi anyway and the system accepts his request.
+\end{enumerate}
 %TODO: Insert Scenarios
+\pagebreak
 \subsection{Class Diagram}
-
+	 \includegraphics[width=\textwidth]{schema_class_diagram.png}
+\pagebreak
 \subsection{Use Cases}
+\subsubsection{Use Case: Login}
+	\begin{tabularx}{\textwidth}{| c | X |}
+		\hline
+		\textbf{Name} & 
+			Login
+			\\
+		\hline
+		\textbf{Actors} & 
+			User (Passenger, Taxi Driver, System Administrator), System 
+			\\
+		\hline
+		\textbf{Entry Conditions} &
+			 The user has successfully inserted username and password in the login form 
+			\\
+		\hline
+		\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item The user goes to the home page of the application.
+				\item The user clicks the button “login”.
+				\item The user enters his username and password in the form provided
+				\item The system shows the private page of the user
+				\item The system controls the informations that the user inserts. 
+				
+			\end{enumerate}						
+		\\
+		\hline
+		\textbf{Exit conditions} & 
+			The user clicks on logout. 
+			\\
+		\hline
+		\textbf{Exceptions} & 
+			The information inserted in the form is wrong, an error message is shown and so the user re-inserts the information. 
+			\\
+		\hline		
+	\end{tabularx}
+	\image{usecase_login.png}
+	\newpage
+\subsubsection{Use Case: Registration}
+	\begin{tabularx}{\textwidth}{| c | X |}
+		\hline
+		\textbf{Name} & 
+		Registration
+		\\
+		\hline
+		\textbf{Actors} & 
+		User(Passenger), System 
+		\\
+		\hline
+		\textbf{Entry Conditions} &
+		The user isn’t registered. 
+		\\
+		\hline
+		\textbf{Flow of events} & 
+		\begin{enumerate}
+			\item The user clicks on “Registration” button to start the registration process.
+			\item The user fills in the form with :
+				\begin{itemize}
+					\item e-mail
+					\item name
+					\item surname
+					\item cell phone number
+					\item tax code
+					\item password
+					\item verification password
+				\end{itemize}
+			\item User clicks on “submit” button.
+			\item The application will save the data in the DataBase.
+			\item User can now enter in the home page and he can make a reservation for a taxi service.	
+		\end{enumerate}						
+		\\
+		\hline
+		\textbf{Exit conditions} & 
+		The user clicks on cancel or "submit" button. 
+		\\
+		\hline
+		\textbf{Exceptions} & 
+		\begin{itemize}
+			\item One or more mandatory fields are not valid.
+			\item Password not match
+			\item Password don't meet the requirements
+			\item Email address is already associated to another user.
+		\end{itemize} 
+		\\
+		\hline		
+	\end{tabularx}
+	\image{usecase_registration.png}
+
+\subsubsection{Use Case: Profile}
+	\begin{tabularx}{\textwidth}{| c | X |}
+		\hline
+		\textbf{Name} & 
+		Profile
+		\\
+		\hline
+		\textbf{Actors} & 
+		User(Passenger), System 
+		\\
+		\hline
+		\textbf{Entry Conditions} &
+		Registered user must be already logged in. 
+		\\
+		\hline
+		\textbf{Flow of events} & 
+		\begin{enumerate}
+			\item The user clicks on “Profile” button to see the private information that he inserts when he registered to the application.
+			\item If user wants to see the information, the system had to store them in the database.
+				
+		\end{enumerate}						
+		\\
+		\hline
+		\textbf{Exit conditions} & 
+		The user clicks on logout or another menu item
+		\\
+		\hline
+		\textbf{Exceptions} & 
+		\begin{itemize}
+			\item The system can not show the user information.
+		\end{itemize} 
+		\\
+		\hline		
+	\end{tabularx}
+	\image{usecase_information.png}
+	\newpage
+\subsubsection{Use Case: Map}
+	%TODO: Continue this
+\subsubsection{Use Case: Reservation}
+\subsubsection{Use Case: Request}
+\subsubsection{Use Case: Pending Reservation}
+\subsubsection{Use Case: Active Ride}
+\subsubsection{Use Case: Logs}
+\subsubsection{Use Case: User Management}
+\subsubsection{Use Case: Taxi Management}
+\subsubsection{Use Case: Request Incoming}
+\subsubsection{Use Case: Backup}
+\subsubsection{Use Case: Restore}
+\subsubsection{Use Case: Information}
 \subsection{Alloy}
 
 
