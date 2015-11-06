@@ -348,8 +348,498 @@ A failure in one or more of this criticalities will lead to the loss of clients.
 	\end{enumerate}
 \pagebreak
 \section{Specific Requirements}
-\subsection{External Interfaces} %This should be a detailed description of all inputs into and outputs from complement the interface descriptions in 5.2 and should not repeat informati
-%TODO: Do this according to uml classes and use cases
+\subsection{External Interfaces} %This should be a detailed description of all inputs into and outputs from complement the interface descriptions in 5.2 and should not repeat information
+	This section will list the main input/outputs of the system. \newline
+	\begin{tabularx}{\textwidth}{| c | X |}
+		\hline
+		\textbf{Name} & 
+		Login
+		\\
+		\hline
+		\textbf{Context} & 
+		Login
+		\\
+		\hline
+		\textbf{Description} & 
+		A user requests to Login
+		\\
+		\hline
+		\textbf{Source} &
+		Passenger
+		\\
+		\hline
+		\textbf{Destination} & 
+		System
+		\\
+		\hline
+		\textbf{Relations} & 
+		None
+		\\
+		\hline
+		\textbf{Channel} & 
+		Internal to application (via Web)
+		\\
+		\hline
+		\textbf{Data Format} & 
+		\begin{itemize}
+			\item email: string
+			\item password: string
+		\end{itemize}
+		\\
+		\hline		
+	\end{tabularx}	
+	\begin{tabularx}{\textwidth}{| c | X |}
+		\hline
+		\textbf{Name} & 
+		TaxiProbe
+		\\
+		\hline
+		\textbf{Context} & 
+		Taxi Request or Reservation
+		\\
+		\hline
+		\textbf{Description} & 
+		The passenger application retrives informations on taxi availability
+		\\
+		\hline
+		\textbf{Source} &
+		Passenger Application
+		\\
+		\hline
+		\textbf{Destination} & 
+		System
+		\\
+		\hline
+		\textbf{Relations} & 
+		None
+		\\
+		\hline
+		\textbf{Channel} & 
+		Internal to application (via Web)
+		\\
+		\hline
+		\textbf{Data Format} & 
+		\begin{itemize}
+			\item User Location (GPS)
+		\end{itemize}
+		\\
+		\hline		
+	\end{tabularx}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			TaxiProbeResponse
+			\\
+			\hline
+			\textbf{Context} & 
+			Taxi Request or Reservation
+			\\
+			\hline
+			\textbf{Description} & 
+			The system replies to a TaxiProbe with the current taxi availability informations
+			\\
+			\hline
+			\textbf{Source} &
+			System
+			\\
+			\hline
+			\textbf{Destination} & 
+			Passenger Application
+			\\
+			\hline
+			\textbf{Relations} & 
+			Response to TaxiProbe
+			\\
+			\hline
+			\textbf{Channel} & 
+			Internal to application (via Web)
+			\\
+			\hline
+			\textbf{Data Format} & 
+			\begin{itemize}
+				\item taxisAvailable: boolean
+				\item taxiLocations(taxiCode, taxiLocation, isAvailable): list of locations
+				\item waitingTime: integer, in seconds
+			\end{itemize}
+			\\
+			\hline		
+		\end{tabularx}
+	
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			TaxiRequest
+			\\
+			\hline
+			\textbf{Context} & 
+				Taxi Request
+			\\
+			\hline
+			\textbf{Description} & 
+			The user makes a real-time taxi request
+			\\
+			\hline
+			\textbf{Source} &
+				Passenger
+			\\
+			\hline
+			\textbf{Destination} & 
+				System
+			\\
+			\hline
+			\textbf{Relations} & 
+				None
+			\\
+			\hline
+			\textbf{Channel} & 
+				Internal to application (via Web)
+			\\
+			\hline
+			\textbf{Data Format} & 
+			 \begin{itemize}
+				 \item User Email: string
+				 \item currentTime: long
+				 \item Meeting Location: location
+			 \end{itemize}
+			\\
+			\hline		
+		\end{tabularx}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			TaxiReservation
+			\\
+			\hline
+			\textbf{Context} & 
+			Taxi Reservation
+			\\
+			\hline
+			\textbf{Description} & 
+			The user makes a taxi reservation
+			\\
+			\hline
+			\textbf{Source} &
+			Passenger
+			\\
+			\hline
+			\textbf{Destination} & 
+			System
+			\\
+			\hline
+			\textbf{Relations} & 
+			None
+			\\
+			\hline
+			\textbf{Channel} & 
+			Internal to application (via Web)
+			\\
+			\hline
+			\textbf{Data Format} & 
+			\begin{itemize}
+				\item User Email
+				\item currentTime: Timestamp
+				\item meetingTime: Timestamp
+				\item meetingLocation: Location
+				\item arrivalLocation: Location
+			\end{itemize}
+			\\
+			\hline		
+		\end{tabularx}
+				\begin{tabularx}{\textwidth}{| c | X |}
+					\hline
+					\textbf{Name} & 
+					Confirmation
+					\\
+					\hline
+					\textbf{Context} & 
+					Taxi Request or Reservation
+					\\
+					\hline
+					\textbf{Description} & 
+					The system confirms a Taxi request or reservation
+					\\
+					\hline
+					\textbf{Source} &
+					System
+					\\
+					\hline
+					\textbf{Destination} & 
+					Passenger
+					\\
+					\hline
+					\textbf{Relations} & 
+					Response to a TaxiRequest or TaxiReservation
+					\\
+					\hline
+					\textbf{Channel} & 
+					Email or Internal to application (optional, for push notifications)
+					\\
+					\hline
+					\textbf{Data Format} & 
+					\begin{itemize}
+						\item User Email
+						\item requestId
+						\item requestTime: Timestamp
+						\item meetingTime: Timestamp
+						\item meetingLocation: Location
+						\item arrivalLocation: Location
+						\item accepted: boolean
+					\end{itemize}
+					\\
+					\hline		
+				\end{tabularx}
+				
+				\begin{tabularx}{\textwidth}{| c | X |}
+					\hline
+					\textbf{Name} & 
+					Notification
+					\\
+					\hline
+					\textbf{Context} & 
+					Taxi Request or Reservation
+					\\
+					\hline
+					\textbf{Description} & 
+					The system updates the information about a request or a reservation
+					\\
+					\hline
+					\textbf{Source} &
+					System
+					\\
+					\hline
+					\textbf{Destination} & 
+					Passenger
+					\\
+					\hline
+					\textbf{Relations} & 
+					Triggered by a pending reservation or request
+					\\
+					\hline
+					\textbf{Channel} & 
+					Email or Internal to application (optional, for push notifications)
+					\\
+					\hline
+					\textbf{Data Format} & 
+					\begin{itemize}
+						\item User Email
+						\item requestId
+						\item requestTime: Timestamp
+						\item meetingTime: Timestamp
+						\item meetingLocation: Location
+						\item arrivalLocation: Location
+						\item accepted: boolean
+						\item taxiArriving: boolean
+						\item taxiCode
+						\item waitingTime: integer
+					\end{itemize}
+					\\
+					\hline		
+				\end{tabularx}
+				
+				\begin{tabularx}{\textwidth}{| c | X |}
+					\hline
+					\textbf{Name} & 
+					DriverRequest
+					\\
+					\hline
+					\textbf{Context} & 
+					Taxi Request or Reservation
+					\\
+					\hline
+					\textbf{Description} & 
+					The system inform the taxi driver of an incoming ride request
+					\\
+					\hline
+					\textbf{Source} &
+					System
+					\\
+					\hline
+					\textbf{Destination} & 
+					Taxi Driver
+					\\
+					\hline
+					\textbf{Relations} & 
+					Triggered by a pending reservation or request
+					\\
+					\hline
+					\textbf{Channel} & 
+					Internal to application
+					\\
+					\hline
+					\textbf{Data Format} & 
+					\begin{itemize}
+						\item requestId
+						\item requestTime: Timestamp
+						\item isReservation: boolean
+						\item meetingLocation: Location
+						\item arrivalLocation: Location (optional)
+						\item meetingTime: Timestamp (only if isReservation)
+					\end{itemize}
+					\\
+					\hline		
+				\end{tabularx}
+				
+				\begin{tabularx}{\textwidth}{| c | X |}
+					\hline
+					\textbf{Name} & 
+					DriverResponse
+					\\
+					\hline
+					\textbf{Context} & 
+					Taxi Request or Reservation
+					\\
+					\hline
+					\textbf{Description} & 
+					The taxi driver accepts or refuses a DriverRequest
+					\\
+					\hline
+					\textbf{Source} &
+					Taxi Driver
+					\\
+					\hline
+					\textbf{Destination} & 
+					System
+					\\
+					\hline
+					\textbf{Relations} & 
+					Response to a DriverRequest
+					\\
+					\hline
+					\textbf{Channel} & 
+					Internal to application
+					\\
+					\hline
+					\textbf{Data Format} & 
+					\begin{itemize}
+						\item requestId
+						\item email
+						\item requestTime: Timestamp
+						\item isReservation: boolean
+						\item meetingLocation: Location
+						\item arrivalLocation: Location (optional)
+						\item meetingTime: Timestamp (only if isReservation)
+					\end{itemize}
+					\\
+					\hline		
+				\end{tabularx}
+				\begin{tabularx}{\textwidth}{| c | X |}
+					\hline
+					\textbf{Name} & 
+					DriverNotification
+					\\
+					\hline
+					\textbf{Context} & 
+					Taxi Request or Reservation
+					\\
+					\hline
+					\textbf{Description} & 
+					The taxi driver inform the system he has completed a ride or he is releasing it.
+					\\
+					\hline
+					\textbf{Source} &
+					Taxi Driver
+					\\
+					\hline
+					\textbf{Destination} & 
+					System
+					\\
+					\hline
+					\textbf{Relations} & 
+					Only accepted if an affermative DriverResponse arrived to the system
+					\\
+					\hline
+					\textbf{Channel} & 
+					Internal to application
+					\\
+					\hline
+					\textbf{Data Format} & 
+					\begin{itemize}
+						\item requestId
+						\item email
+						\item requestTime: Timestamp
+						\item currentLocation: Location
+						\item isCompleted: boolean
+						\item isReleased: boolean
+					\end{itemize}
+					\\
+					\hline		
+				\end{tabularx}
+				\begin{tabularx}{\textwidth}{| c | X |}
+					\hline
+					\textbf{Name} & 
+					LocationUpdate
+					\\
+					\hline
+					\textbf{Context} & 
+					Taxi KeepAlive
+					\\
+					\hline
+					\textbf{Description} & 
+					The taxi application inform the system about its location.
+					\\
+					\hline
+					\textbf{Source} &
+					Taxi Driver Application
+					\\
+					\hline
+					\textbf{Destination} & 
+					System
+					\\
+					\hline
+					\textbf{Relations} & 
+					Only possible if the driver is Logged
+					\\
+					\hline
+					\textbf{Channel} & 
+					Internal to application
+					\\
+					\hline
+					\textbf{Data Format} & 
+					\begin{itemize}
+						\item email
+						\item currentLocation
+					\end{itemize}
+					\\
+					\hline		
+				\end{tabularx}
+				\begin{tabularx}{\textwidth}{| c | X |}
+					\hline
+					\textbf{Name} & 
+					NewPassword
+					\\
+					\hline
+					\textbf{Context} & 
+					Security
+					\\
+					\hline
+					\textbf{Description} & 
+					The system provides the user his new password
+					\\
+					\hline
+					\textbf{Source} &
+					System
+					\\
+					\hline
+					\textbf{Destination} & 
+					User
+					\\
+					\hline
+					\textbf{Relations} & 
+					Only if the password has been Resetted
+					\\
+					\hline
+					\textbf{Channel} & 
+					Email
+					\\
+					\hline
+					\textbf{Data Format} & 
+					\begin{itemize}
+						\item email
+						\item newPassword
+					\end{itemize}
+					\\
+					\hline		
+				\end{tabularx}
 
 
 \subsection{Functions} %Functional requirements should deÞne the fundamental actions that must take place in the software in accepting and processing the inputs and in processing and generating the outputs.
@@ -368,7 +858,8 @@ This section will list specific functional requirements needed in order to accep
 		\item \textit{Relative to goal \linkitm{itm:Goal_PassengerInterface}}: The system should provide passengers a "password reset" service.
 		\item \textit{Relative to goal \linkitm{itm:Goal_PassengerInterface}}: The system should let the user cancel a previous reservation he made until 2 hours before the meeting time.
 		\item \textit{Relative to goal \linkitm{itm:Goal_Confirmation}}: The system will send notification to a user as soon as the request has been accepted by a taxi driver
-		\item The GPS localization of the passenger is used merely for providing a better GUI experience (i.e. showing the right portion of the map) and it is an optional requirement for the passenger. The actual localization occurs by the information that the user provides by inserting the meeting location while making a request.	
+		\item The GPS localization of the passenger is used merely for providing a better GUI experience (i.e. showing the right portion of the map) and it is an optional requirement for the passenger. The actual localization occurs by the information that the user provides by inserting the meeting location while making a request.
+		\item If the Taxi Driver doesn't reply to a request within a minute, the request is considered refused.	
 	\end{enumerate}
 
 	\subsubsection{Exceptions Management}
