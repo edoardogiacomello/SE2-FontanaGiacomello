@@ -76,7 +76,7 @@ The system is created to improve the possibility to connect with the taxi servic
 With this system, the taxi service can provide a fast and innovative system that allow to manage the user request rapidly, without any loss of time.
 Both the mobile application and the web interface are connected to the central system and allow the user to know in real time the waiting time, the taxi occupation and their location, and allows to make a taxi request receiving a rapid response.
 The application will furthermore provide a programmatic interface for the integration with future systems and extensions.
-/newline
+\newline
 
 	\image{perspective_schema.png}
 
@@ -138,7 +138,7 @@ For the correct functionality of \productname mobile and web application (both f
 			\item Database Management System (DBMS):
 			\begin{itemize}
 				\item[Name]: MySQL.
-				\item[Version]:  5.6.19
+				\item[Version]: 5.6.19
 				\item[Source]: http://www.mysql.it/
 			\end{itemize}
 			\item Application server:
@@ -250,7 +250,7 @@ The suggested memory requirements are: \newline
 			\item[Time estimation] The system estimate the time needed to move by car from a location A to a location B. It can make use of external map services for this purpose.
 		\end{description}
 		
-		\item[System Support Operation]
+		\item System Support Operation
 			\begin{description}
 				\item[Backup Database] The system make a backup of the database and logs
 				\item[Restore Database] The system make a restore of a previous backup of the database
@@ -335,16 +335,19 @@ A failure in one or more of this criticalities will lead to the loss of clients.
 \subsubsection{Assumptions}
 	\begin{enumerate}
 		\item \label{itm: Assumption_Zones} The city is already divided in Taxi Zones of approximately 2x2 km each. 
-		\item \label{itm: Assumption_MobileProvisioning} Taxis or Taxi Drivers are assumed to be in possession of a mobile device that  1) have GPS functionalities and 2) is capable of establishing an internet connection with the facility in which the system is hosted. In the case one of these assumption does not hold, the Taxi driver must contact his referent in order to solve the issue.
+		\item \label{itm: Assumption_MobileProvisioning} Taxis or Taxi Drivers are assumed to be in possession of a mobile device that  
+			\subitem 1) have GPS functionalities 
+			\subitem 2) is capable of establishing an internet connection with the facility in which the system is hosted. In the case one of these assumption does not hold, the Taxi driver must contact his referent in order to solve the issue.
 		\item \label{itm: Assumption_NumberOfTaxis} The number of taxi in service are at least equal to the number of zones.
-		\textbf{Rationale}: In this way, in the case that a zone queue is empty, an incoming request is guaranteed to be served by at least one taxi in an estimable time by propagating the request to adjacent zone and forwarding the request to the nearest first taxi that is available.
+		\textbf{Rationale}: In this way, in the case that a zone queue is empty, an incoming request is guaranteed to forwarded by at least one taxi in an estimable time by propagating the request to adjacent zone and forwarding the request to the nearest first taxi that is available.
 		\item \label{itm: Assumption_FormerSystems} The service is currently running a traditional system based on phone calls	
 		\item \label{itm: Assumption_Payment} The payment will occur directly to the taxi driver by cash or credit card and it will be managed by the transportation company
 		\item \label{itm: Assumption_Destination} The taxi drivers should not know in advance what the ride destination will be. The passenger informs directly the taxi driver about the desired arrival location.
 		\item \label{itm: Assumption_OneReservation} The taxi Drivers are supposed to accept one request or reservation at a time.
 		\item \label{itm: Assumption_LengthTime} The maximum time length of a ride is 1 hour and 45 minutes.
 		\item \label{itm: Assumption_SquareZones} All zones have a square o rectangular shape
-		\item \label{itm: Assumption_Coverage} All zones have
+		\item \label{itm: Assumption_Coverage} There are no area in which the service operates that are not covered by a zone.
+		\item \label{itm: Assumption_Overlapping} Zones do not overlap.
 	\end{enumerate}
 \pagebreak
 \section{Specific Requirements}
@@ -866,7 +869,8 @@ This section will list specific functional requirements needed in order to accep
 		In the following diagram will be described the logical flow of steps to follow in some particular cases: \newline
 		\image{schema_exceptions.png}
 \subsection{Logical Database Requirements}
-%TODO: Complete this according to uml classes
+	This section contains a ER Schema draft for the database, meant for giving the designers a better understanding of the crucial application data.
+	\image{schema_database.png}
 \subsection{Design Constraints}
  The client application will be a \textbf{thin client}.
 \subsubsection{Standard Compliance}
@@ -946,6 +950,8 @@ This section will list specific functional requirements needed in order to accep
 	 \includegraphics[width=\textwidth]{schema_class_diagram.png}
 \pagebreak
 \subsection{Use Cases}
+\subsubsection{Use Case: General}
+	\image{usecase_general.png}
 \subsubsection{Use Case: Login}
 	\begin{tabularx}{\textwidth}{| c | X |}
 		\hline
@@ -1784,4 +1790,12 @@ This section will list specific functional requirements needed in order to accep
 		\end{verbatim}
 		\image{diagram_alloy5.png}
 		
+		\section{Tools}
+			For the redaction of this document, the following tools have been used:
+			\begin{enumerate}
+				\item Alloy 4.2
+				\item ProcessOn
+				\item Google Drive
+				\item TexStudio
+			\end{enumerate}
 \end{document}
