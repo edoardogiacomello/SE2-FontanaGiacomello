@@ -1480,143 +1480,308 @@ This section will list specific functional requirements needed in order to accep
 		\image{diagram_sequence_information.png}
 		\newpage
 \subsection{Alloy}
+	\subsubsection{definitions}
 	\begin{verbatim}
-		//DEFINITION OF DATA TYPE
-		sig Strings{}
-		abstract sig Date{
-			year : one Int,
-			month : one Int,
-			day : one Int,
-			hour : one Int,
-			minutes : one Int
-		}
-		sig Zone{
-		nameZone : Strings,
-		map : one Map
-		}
-		//DEFINITION OF ENTITY
-		sig City{
-		name : Strings,
-		popolation : Int,
-		zone : some Zone
-		}
-		
-		sig Queue{
-		id_queue : Int,
-		zone : one Zone,
-		taxi : some Taxi
-		}
-		sig Taxi{
-		id_Taxi : Int,
-		registration_number : Strings,
-		registration_year : Int,
-		//queue : one Queue
-		}
-		abstract sig User{
-		fiscal_code : Strings,
-		name : Strings,
-		surname : Strings,
-		phone_number : Int,
-		email : Strings
-		}
-		sig Passenger extends User{}
-		sig Taxi_Driver extends User{
-		licence : Strings,
-		taxi : lone Taxi
-		}
-		sig System_Administrator extends User{}
-		sig System_Developer extends User{}
-		sig Position{
-		street : one Strings,
-		number : Int
-		}
-		sig Reservation{
-		date : Date,
-		origin : Position,
-		destination :Position,
-		user : one Passenger
-		}
-		sig Request{
-		date : Date,
-		position : Position,
-		user : one Passenger
-		}
-		sig Map{
-		id_mappa : Strings,
-		// zona : some Zone
-		}
-		sig Reply{
-		id_reply : Int,
-		date : Date,
-		answer : Strings,
-		user : one Passenger,
-		taxi_driver : some Taxi_Driver
-		}
-		sig System{
-		queue : some Queue,
-		taxi : some Taxi,
-		taxi_driver : some Taxi_Driver,
-		user : some User
-		}
-		
-		//FACTS
-		// no city with 2 zone equal
-		fact NoZonei{
-		no c : City | some z1,z2 : Zone |z1!=z2 and c.zone=z1 and c.zone=z2
-		}
-		//no 2 taxi_driver with the same taxi
-		fact NoDoubleTaxi{
-		no t : Taxi| some t1,t2 : Taxi_Driver| t1!=t2 and t in t1.taxi and t in t2.taxi
-		}
-		//no 2 queue of the same zone
-		fact NoDoubleQueue{
-		no z : Zone| some q1,q2 : Queue|q1!=q2 and z in q1.zone and z in q2.zone
-		}
-		//no 2 queue with the same taxi
-		fact NoDoubleTaxiQueue{
-		no t : Taxi| some q1,q2 : Queue|q1!=q2 and t in q1.taxi and t in q2.taxi
-		}
-		// no 2 taxi with the same passenger
-		fact NoDoubleReservation{
-		no p : Passenger| some r1,r2 : Reservation|r1!=r2 and p in r1.user and p in r2.user and r1.date=r2.date
-		and (r1.origin!=r2.origin or r1.destination!=r2.destination)
-		}
-		// no empty date
-		fact noEmptyDate{
-		all r : Reservation|(#r.date.hour=1)and(#r.date.minutes=1)
-		}
-		// no empty position
-		fact noEmptyPosition{
-		all r : Request|(#r.position.street=1)and(#r.position.number=1)
-		}
-		//no duplicate user
-		fact noDuplicateUser{
-		no disj u1,u2 : User | (u1.fiscal_code=u2.fiscal_code)
-		}
-		//no 2 different reply
-		fact noDoubleReply{
-		no p : Passenger|some r1,r2 : Reply|r1!=r2 and r1.user=p and r2.user=p and r1.date=r2.date and r1.answer!=r2.answer
-		}
-		
-		assert noDoubleReservation{
-		no disj r1,r2 : Reservation, p : Passenger | r1.user =p and r2.user=p and
-		r1.origin=r2.origin and r1.destination=r2.destination and r1.date=r2.date
-		}
-		check noDoubleReservation for 5
-		assert addUser{
-		all u,u1,u2 : User | (u not in u1)implies (u in u2)
-		}
-		check addUser for 5
-		
-		
-		pred show{
-		#System=1
-		#Passenger=14
-		#Zone=4
-		#Queue=4
-		#Taxi=4
-		}
-		run show for 10
-		
+	//DEFINITION OF DATA TYPE
+	sig Strings{}
+	sig Integer{}
+	sig Zone{
+	nameZone : Strings,
+	map : one Map
+	}
+	sig City{
+	name : Strings,
+	popolation : Integer,
+	zone : some Zone
+	}
+	
+	sig Map{
+	id_mappa : Strings,
+	}
+	sig Queue{
+	id_queue : Integer,
+	zone : one Zone,
+	taxi : some Taxi
+	}
+	sig Taxi{
+	id_Taxi : Integer,
+	registration_number : Strings,
+	registration_year : Integer,
+	}
+	sig Position{
+	street : one Strings,
+	number : Integer
+	}
+	sig Reservation{
+	date : Date,
+	origin : Position,
+	destination :Position,
+	user : one Passenger
+	}
+	sig Request{
+	date : Date,
+	position : Position,
+	user : one Passenger
+	}
+	sig Reply{
+	id_reply : Integer,
+	date : Date,
+	answer : Strings,
+	user : one Passenger,
+	taxi_driver : some Taxi_Driver
+	}
+	sig Date{
+	year : one Integer,
+	month : one Integer,
+	day : one Integer,
+	hour : one Integer,
+	minutes : one Integer
+	}
+	//ABSTRACT ENTITY
+	abstract sig User{
+	fiscal_code : Strings,
+	name : Strings,
+	surname : Strings,
+	phone_number : Integer,
+	email : Strings,
+	Password : Strings
+	}
+	//DEFINITION OF ABSTRACT ENTITY
+	sig Passenger extends User{}
+	sig Taxi_Driver extends User{
+	licence : Strings,
+	taxi : lone Taxi
+	}
+	sig System_Administrator extends User{}
+	sig System_Developer extends User{}
 	\end{verbatim}
+	\subsubsection{Facts}
+	\begin{verbatim}
+	//FACTS
+	// no city with 2 zone equal
+	fact NoZone{
+	no c : City | some z1,z2 : Zone |z1!=z2 and c.zone=z1 and c.zone=z2
+	}
+	//no 2 taxi_driver with the same taxi
+	fact NoDoubleTaxi{
+	no t : Taxi| some t1,t2 : Taxi_Driver| t1!=t2 and t in t1.taxi and t in t2.taxi
+	}
+	//no 2 queue of the same zone
+	fact NoDoubleQueue{
+	no z : Zone| some q1,q2 : Queue|q1!=q2 and z in q1.zone and z in q2.zone
+	}
+	//no 2 queue with the same taxi
+	fact NoDoubleTaxiQueue{
+	no t : Taxi| some q1,q2 : Queue|q1!=q2 and t in q1.taxi and t in q2.taxi
+	}
+	// no 2 taxi with the same passenger
+	fact NoDoubleReservation{
+	no p : Passenger| some r1,r2 : Reservation|r1!=r2 and p in r1.user and p in r2.user and r1.date=r2.date and (r1.origin!=r2.origin or r1.destination!=r2.destination)
+	}
+	// no empty date
+	fact noEmptyDate{
+	all r : Reservation|(#r.date.hour=1)and(#r.date.minutes=1)
+	}
+	// no empty position
+	fact noEmptyPosition{
+	all r : Request|(#r.position.street=1)and(#r.position.number=1)
+	}
+	//no duplicate user
+	fact noDuplicateUser{
+	no disj u1,u2 : User | (u1.fiscal_code=u2.fiscal_code)
+	}
+	//no 2 different reply
+	fact noDoubleReply{
+	no p : Passenger|some r1,r2 : Reply|r1!=r2 and r1.user=p and r2.user=p and r1.date=r2.date and r1.answer!=r2.answer
+	}
+	// no duplicate password and email
+	fact noDuplicateEmail{
+	no disj u1,u2 : User | (u1.password=u2.password)and (u1.email=u2.email)
+	}
+	//no empty reply
+	fact noEmptyReply{
+	all r : Reply |(#r.answer=1)
+	}
+	//no empty reservation
+	fact noEmptyReservation{
+	all r : Reservation |(#r.date=1)and(#r.origin=1)and(#r.destination=1)
+	}
+	//no empty request
+	fact noEmptyReservation{
+	all r : Request |(#r.date=1)and(#r.position=1)
+	}
+		\end{verbatim}
+		\subsubsection{Assertions}
+		\begin{verbatim}
+	//ASSERT
+	//check if the system don't do two reservation for the user
+	assert noDoubleReservation{
+	no disj r1,r2 : Reservation, p : Passenger | r1.user =p and r2.user=p and
+	r1.origin=r2.origin and r1.destination=r2.destination and r1.date=r2.date and r1=r2
+	}
+	check noDoubleReservation for 5
+	//check if the system don't do two request for the user
+	assert noDoubleRequest{
+	no disj r1,r2 : Request, p : Passenger | r1.user =p and r2.user=p and
+	r1.position=r2.position and r1.date=r2.date and r1=r2
+	}
+	check noDoubleRequest for 5
+	//check if the new user is insert
+	assert addUser{
+	all u,u1,u2 : User | (u not in u1)and addUser[u,u1,u2]implies (u in u2)
+	}
+	check addUser for 5
+	//check if city has two zone equal
+	assert NoZone{
+	no c : City | some z1,z2 : Zone |z1!=z2 and c.zone=z1 and c.zone=z2
+	}
+	check NoZone for 5
+	//check if the request is insert in the system
+	assert addRequest{
+	all r,r1,r2 : Request | (r not in r1)and addRequest[r,r1,r2]implies (r in r2)
+	}
+	check addRequest for 5
+	//check if the reservation is insert in the system
+	assert addReservation{
+	all r,r1,r2 : Reservation | (r not in r1)and addReservation[r,r1,r2]implies (r in r2)
+	}
+	check addReservation for 5
+	//check to insert a taxi to a queue
+	assert addTaxiToQueue{
+	all t : Taxi, q,q1: Queue|(t not in q.taxi)and addTaxi[t,q,q1]implies(t in q1.taxi)
+	}
+	check addTaxiToQueue for 5
+	//check no double taxi for a taxi driver
+	assert NoDoubleTaxi{
+	no t : Taxi| some t1,t2 : Taxi_Driver| t1!=t2 and t in t1.taxi and t in t2.taxi
+	}
+	check NoDoubleTaxi for 5
+		\end{verbatim}
+		\subsubsection{Predicates}
+		\begin{verbatim}
+	//PREDICATES
+	//pred for add user to the system
+	pred addUser(u,u1,u2 : Passenger){
+	#City=1
+	u not in u1 implies u2=u1+u
+	}
+	run addUser for 5
+	//pred for insert request of taxi
+	pred addRequest(r,r1,r2 : Request){
+	#City=1
+	r not in r1 implies r2=r1+r
+	}
+	run addRequest for 5
+	//pred for insert a reservation
+	pred addReservation(r,r1,r2 : Reservation){
+	#City=1
+	r not in r1 implies r2=r1+r
+	}
+	run addReservation for 5
+	//pred for insert a taxi in the queue
+	pred addTaxi(t : Taxi,q,q1 : Queue){
+	#City=1
+	t not in q.taxi implies q1.taxi=q.taxi+t
+	}
+	run addTaxi for 5
+	//pred show
+	pred show{
+	#City=1
+	#Passenger>1
+	#Taxi>1
+	#Taxi_Driver>1
+	}
+	run show for 10
+		\end{verbatim}
+		\subsubsection{Output}
+		\begin{verbatim}
+			Executing "Check noDoubleReservation for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12567 vars. 1070 primary vars. 23687 clauses. 32ms.
+			No counterexample found. Assertion may be valid. 10ms.
+			Executing "Check noDoubleRequest for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12493 vars. 1070 primary vars. 23453 clauses. 40ms.
+			No counterexample found. Assertion may be valid. 0ms.
+			Executing "Check addUser for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12289 vars. 1070 primary vars. 22837 clauses. 43ms.
+			No counterexample found. Assertion may be valid. 20ms.
+			Executing "Check NoZone for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12390 vars. 1070 primary vars. 23011 clauses. 40ms.
+			No counterexample found. Assertion may be valid. 0ms.
+			Executing "Check addRequest for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12369 vars. 1070 primary vars. 22977 clauses. 40ms.
+			No counterexample found. Assertion may be valid. 0ms.
+			Executing "Check addReservation for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12369 vars. 1070 primary vars. 22977 clauses. 40ms.
+			No counterexample found. Assertion may be valid. 0ms.
+			Executing "Check addTaxiToQueue for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12429 vars. 1070 primary vars. 23187 clauses. 43ms.
+			No counterexample found. Assertion may be valid. 0ms.
+			Executing "Check NoDoubleTaxi for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12326 vars. 1070 primary vars. 22852 clauses. 40ms.
+			No counterexample found. Assertion may be valid. 20ms.
+			Executing "Run addUser for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12281 vars. 1070 primary vars. 22811 clauses. 42ms.
+			. found. Predicate is consistent. 73ms.
+			Executing "Run addRequest for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12361 vars. 1070 primary vars. 22951 clauses. 40ms.
+			. found. Predicate is consistent. 40ms.
+			Executing "Run addReservation for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12361 vars. 1070 primary vars. 22951 clauses. 52ms.
+			. found. Predicate is consistent. 40ms.
+			Executing "Run addTaxi for 5"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			12421 vars. 1070 primary vars. 23161 clauses. 73ms.
+			. found. Predicate is consistent. 42ms.
+			Executing "Run show for 10"
+			Solver=sat4j Bitwidth=0 MaxSeq=0 SkolemDepth=1 Symmetry=20
+			53372 vars. 4060 primary vars. 109871 clauses. 338ms.
+			. found. Predicate is consistent. 517ms.
+			13 commands were executed.
+		\end{verbatim}
+		\subsubsection{Results}
+		
+		\begin{verbatim}
+			#1: No counterexample found. noDoubleReservation may be valid.
+			#2: No counterexample found. noDoubleRequest may be valid.
+			#3: No counterexample found. addUser may be valid.
+			#4: No counterexample found. NoZone may be valid.
+			#5: No counterexample found. addRequest may be valid.
+			#6: No counterexample found. addReservation may be valid.
+			#7: No counterexample found. addTaxiToQueue may be valid.
+			#8: No counterexample found. NoDoubleTaxi may be valid.
+		\end{verbatim}
+		
+		\begin{verbatim}
+			#9: Instance Found.addUser is consistent.
+		\end{verbatim}
+		\image{diagram_alloy1.png}
+		\begin{verbatim}
+			#10: Instance Found.addRequest is consistent.
+		\end{verbatim}
+		\image{diagram_alloy2.png}
+		\begin{verbatim}
+			#11: Instance Found.addReservation is consistent.
+		\end{verbatim}
+		\image{diagram_alloy3.png}
+		\begin{verbatim}
+		
+			#12: Instance Found .addTaxi is consistent.
+		\end{verbatim}
+		\image{diagram_alloy4.png}
+		\begin{verbatim}
+			#13: Instance Found .show is consistent.
+		\end{verbatim}
+		\image{diagram_alloy5.png}
+		
 \end{document}
