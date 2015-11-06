@@ -343,7 +343,8 @@ A failure in one or more of this criticalities will lead to the loss of clients.
 		\item \label{itm: Assumption_Destination} The taxi drivers should not know in advance what the ride destination will be. The passenger informs directly the taxi driver about the desired arrival location.
 		\item \label{itm: Assumption_OneReservation} The taxi Drivers are supposed to accept one request or reservation at a time.
 		\item \label{itm: Assumption_LengthTime} The maximum time length of a ride is 1 hour and 45 minutes.
-		
+		\item \label{itm: Assumption_SquareZones} All zones have a square o rectangular shape
+		\item \label{itm: Assumption_Coverage} All zones have
 	\end{enumerate}
 \pagebreak
 \section{Specific Requirements}
@@ -373,12 +374,6 @@ This section will list specific functional requirements needed in order to accep
 	\subsubsection{Exceptions Management}
 		In the following diagram will be described the logical flow of steps to follow in some particular cases: \newline
 		\image{schema_exceptions.png}
-\subsection{Performance Requirements} %Es: 95% of the transactions shall be processed in less than 1 s.
-\begin{itemize}
-	\item The server shall process the 95\% of operations in less than 1 second.
-	\item In optimal network conditions the user shall get a response for a confirmation in less than 5 seconds. This not includes email confirmations. 
-\end{itemize}
-
 \subsection{Logical Database Requirements}
 %TODO: Complete this according to uml classes
 \subsection{Design Constraints}
@@ -386,10 +381,18 @@ This section will list specific functional requirements needed in order to accep
 \subsubsection{Standard Compliance}
 	The mobile application for passenger must comply with the application store regulation policy, depending on the mobile OS for which will be deployed.
 \subsection{Software System Attributes}
-\subsubsection{Reliability}
-%TODO: Check the slides
+\subsubsection{Performance Requirements} %Es: 95% of the transactions shall be processed in less than 1 s.
+\begin{itemize}
+	\item The server shall process the 95\% of operations in less than 1 second.
+	\item In optimal network conditions the user shall get a response for a confirmation in less than 5 seconds. This not includes email confirmations. 
+\end{itemize}
 \subsubsection{Availability}
-%TODO: Check the slides
+ Here follows a draft of the interal system phisical architecture, which aids to bettere comprehend the availability analysis.
+  \image{schema_availability.png}
+ \begin{itemize}
+ \item Each database and web application server shall have at least a 3-nine availability.
+ \item The load balancer, firewall and application server shall have at least a 5-nine availability since they are crucial for the business process and they are more cost-effective.
+\end{itemize}
 \subsubsection{Security}
  \begin{enumerate}
  	\item The login information and the user data must be kept safe by the system. In particular, the user data can be accessed only by the user itself or a system administrator, which can see and edit the entire user profile except the password.
@@ -400,10 +403,13 @@ This section will list specific functional requirements needed in order to accep
  	The taxi driver password is reset every six month and sent automatically to the taxi driver email recipient
  	\item All user password must have a costraint in the number of characters, which will be between 8 and 20.
  \end{enumerate}
-\subsubsection{Maintainability}
-%TODO: Check Slides
 \subsubsection{Portability}
-%TODO: Check Slides
+	The \productname service will be written in Java. All system modules will have to be developed accordingly to the inherent java portability, in particular the testing phase will comprehend the following systems:
+	\begin{enumerate}
+		\item Android 4.4 and later
+		\item iOS
+		\item Internet Explorer, Chrome, Safari, Opera, Firefox
+	\end{enumerate}
 \subsection{Scenarios}
 \begin{enumerate}
 	\item Alice is at the Garibaldi railway station, as he has just arrived from Rome.
@@ -421,6 +427,23 @@ This section will list specific functional requirements needed in order to accep
 	Unfortunately his friend had an accident so he can’t bring Giovanni to the airport.
 	The inconvenient occurs at 14:30 and Giovanni must be at the airport at 15:30.
 	Carl uses the web application to request a taxi at 14:45; but he sees on the web page that no taxis are available in that zone right now, but the nearest available will arrive in 25 minutes. He still decides to queue for a taxi anyway and the system accepts his request.
+	\item Kevin is a taxi driver and on his smartphone has installed \productname taxi application.
+	He has just done a ride for bring Mrs Thompson from the station to her house.
+	As soon as he leave Mrs Thompson and receives the payment, he select the “Ride Completed” button. After a few seconds, a new request arrives.
+	He accepts the request and he leaves for the new meeting location.
+	\item Samuel is a taxi driver and on his smartphone has installed \productname taxi application.
+	He has just done a ride for bring Ms Rossi from the station to her house in the other side of the city.
+	When he left her, on his smartphone, a request for a ride arrives.
+	As his shift is about to end, he refuses the request and logs out, so the system contacts another taxi driver that accepts the request.
+	\item Giovanna is a passenger. Since she hasn’t used the service for a long time, she cannot remember her password, so she press the “forgot password” button in the login page and inserts her email address. After a few seconds the system sends her a new password, that she uses to log-in and access the profile page where she can input a new password inserting the generated password and the new one.
+	\item As the trains are on strike, the taxi service is literally overwhelmed by requests.
+	Luca wants to request a ride from the station in the zone 1 of the city so he opens the web application home page.
+	In his zone there are no taxi available, so the system checks if there’s an available taxi in the other zones but no available taxis are found.\newline 
+	Luca sees a notification about that and he decides that he can wait a bit, so he commit request and the system puts that in a queue. \newline
+	When a taxi will be available, it will receive the request, and if the taxi driver accepts, Luca will receive an email informing him that a taxi is on the way, along with the estimated waiting time.
+	
+	
+	
 \end{enumerate}
 \pagebreak
 \subsection{State Machines}
@@ -558,8 +581,6 @@ This section will list specific functional requirements needed in order to accep
 	\image{usecase_profile.png}
 	\image{diagram_sequence_profile.png}
 	\newpage
-\subsubsection{Use Case: Map}
-	%TODO: Check if it's the case
 \subsubsection{Use Case: Reservation}
 		\begin{tabularx}{\textwidth}{| c | X |}
 			\hline
@@ -972,11 +993,11 @@ This section will list specific functional requirements needed in order to accep
 		//DEFINITION OF DATA TYPE
 		sig Strings{}
 		abstract sig Date{
-		year : one Int,
-		month : one Int,
-		day : one Int,
-		hour : one Int,
-		minutes : one Int
+			year : one Int,
+			month : one Int,
+			day : one Int,
+			hour : one Int,
+			minutes : one Int
 		}
 		sig Zone{
 		nameZone : Strings,
