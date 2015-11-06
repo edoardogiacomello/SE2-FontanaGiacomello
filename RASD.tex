@@ -370,6 +370,9 @@ This section will list specific functional requirements needed in order to accep
 		\item The GPS localization of the passenger is used merely for providing a better GUI experience (i.e. showing the right portion of the map) and it is an optional requirement for the passenger. The actual localization occurs by the information that the user provides by inserting the meeting location while making a request.	
 	\end{enumerate}
 
+	\subsubsection{Exceptions Management}
+		In the following diagram will be described the logical flow of steps to follow in some particular cases: \newline
+		\image{schema_exceptions.png}
 \subsection{Performance Requirements} %Es: 95% of the transactions shall be processed in less than 1 s.
 \begin{itemize}
 	\item The server shall process the 95\% of operations in less than 1 second.
@@ -461,6 +464,7 @@ This section will list specific functional requirements needed in order to accep
 		\hline		
 	\end{tabularx}
 	\image{usecase_login.png}
+	\image{diagram_sequence_login.png}
 	\newpage
 \subsubsection{Use Case: Registration}
 	\begin{tabularx}{\textwidth}{| c | X |}
@@ -511,6 +515,7 @@ This section will list specific functional requirements needed in order to accep
 		\hline		
 	\end{tabularx}
 	\image{usecase_registration.png}
+	\image{diagram_sequence_registration.png}
 
 \subsubsection{Use Case: Profile}
 	\begin{tabularx}{\textwidth}{| c | X |}
@@ -546,23 +551,556 @@ This section will list specific functional requirements needed in order to accep
 		\\
 		\hline		
 	\end{tabularx}
-	\image{usecase_information.png}
+	\image{usecase_profile.png}
+	\image{diagram_sequence_profile.png}
 	\newpage
 \subsubsection{Use Case: Map}
-	%TODO: Continue this
+	%TODO: Check if it's the case
 \subsubsection{Use Case: Reservation}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Reservation
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(Passenger), System 
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application. 
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item Passenger clicks on “Reservation” button to request a taxi.
+				\item For requesting a taxi the user must insert position and destination of his ride.
+				\item The system sends an email to confirm a reservation.
+				\item The system sends a reminder e-mail to the user to remind him the taxi  reservation two hours before the meeting time.
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout or another menu item
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item The system can not do a reservation because the request of reservation arrive after the limit time to do a reservation..
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_reservation.png}
+		\image{diagram_sequence_reservation.png}
+		\newpage
 \subsubsection{Use Case: Request}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Request
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(Passenger), System 
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application. 
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item Passenger clicks on “Request” button to request a taxi.
+				\item For requesting a taxi the user must insert his position.
+				\item The system sends an email to confirm a request when it has a reply of a one taxi driver available for a ride
+				
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout or another menu item
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item The system can not answer to the request because no taxi driver are available to reply.
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_request.png}
+		\image{diagram_sequence_request.png}
+		\newpage
 \subsubsection{Use Case: Pending Reservation}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Pending Reservation
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(Passenger), System 
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application. 
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item Passenger clicks on “Pending Reservation” button to see the estimated taxi arrival time about the reservation.
+				Passenger can also cancel a reservation.
+				The System updates the time estimation for informing the user.
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout or another menu item
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item The user has no pending reservation
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_pending_reservation.png}
+		\image{diagram_sequence_pending_reservation.png}
+		\newpage
 \subsubsection{Use Case: Active Ride}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Active Ride
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(Taxi Driver), System 
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application and he accepted a request
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item Taxi driver clicks on “Accept Request” button to see the information of the ride..
+				\item Taxi driver can release the ride to another taxi for problems that block it.
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout or release the request successfully
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item The taxi driver can not release his request, because there aren’t other taxi available in this moment.
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_active_ride.png}
+		\image{diagram_sequence_active_ride.png}
+		\newpage
 \subsubsection{Use Case: Logs}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Reservation
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(System Administrator), System 
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application. 
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item System administrator clicks on “Logs” button to view and download the logs associated to each accepted/refused request, all ride data such passenger account, departure/arrival date and location, and the taxi driver who made the ride.
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item The system can not see all the information because not all of the information are available.
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_logs.png}
+		\image{diagram_sequence_logs.png}
+		\newpage
 \subsubsection{Use Case: User Management}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Reservation
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(System Administrator), System
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application. 
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item The system administrator can access user profiles to provide support to end users and reset their passwords by providing the user email.
+				\item The system had to update and store the passenger information.
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout or another menu item.
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item The system can not see all the information because not all of the information are available. 
+				\item The user doesn’t exists in the database
+				
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_user_management.png}
+		\image{diagram_sequence_user_management.png}
+		\newpage
 \subsubsection{Use Case: Taxi Management}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Taxi Management
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(System Administrator), System  
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application. 
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item The system administrator can access the list of all active and inactive taxi accounts. 
+				\item He can also add and remove taxi driver accounts or reset their passwords.
+				\item The system had to update and store the taxi driver information.
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout or another menu item
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item The system can not see all the information because not all of the information are available.
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_taxi_management.png}
+		\image{diagram_sequence_taxi_management.png}
+		\newpage
 \subsubsection{Use Case: Request Incoming}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Request Incoming
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(Taxi Driver), System
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application. 
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item The taxi driver can accept or refuse a request that arrive from a passenger. 
+				\item The system receives the reply of the taxi driver and inform the passenger if the taxi driver accepted
+				
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout or another menu item
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item The system can not send a request to a taxi driver (Driver is offline or connection problem)
+				\item No response from the driver				
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_request_incoming.png}
+		\image{diagram_sequence_request_incoming.png}
+		\newpage
 \subsubsection{Use Case: Backup}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Backup
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(System Administrator), System  
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application. 
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item The system administrator makes a security backup of the user information on the database.
+				\item The system stores the database in a backup device
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout.
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item No connection with the database
+				\item No enough space on device
+				\item DBMS failure
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_backup.png}
+		\image{diagram_sequence_backup.png}
+		\newpage
 \subsubsection{Use Case: Restore}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Restore
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(System Administrator), System 
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application. 
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item The system administrator makes a restore of the user information on the database.
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout or another menu item
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item Corrupted Backup
+				\item No connection to database
+				\item Different data format
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_restore.png}
+		\image{diagram_sequence_restore.png}
+		\newpage
 \subsubsection{Use Case: Information}
+		\begin{tabularx}{\textwidth}{| c | X |}
+			\hline
+			\textbf{Name} & 
+			Information
+			\\
+			\hline
+			\textbf{Actors} & 
+			User(Passenger), System 
+			\\
+			\hline
+			\textbf{Entry Conditions} &
+			Registered user must be already logged to the application. 
+			\\
+			\hline
+			\textbf{Flow of events} & 
+			\begin{enumerate}
+				\item The passenger can see the information that can help him to request a taxi with  the application.
+			\end{enumerate}						
+			\\
+			\hline
+			\textbf{Exit conditions} & 
+			The user clicks on logout or another menu item
+			\\
+			\hline
+			\textbf{Exceptions} & 
+			\begin{itemize}
+				\item Web server failure
+			\end{itemize} 
+			\\
+			\hline		
+		\end{tabularx}
+		\image{usecase_information.png}
+		\image{diagram_sequence_information.png}
+		\newpage
 \subsection{Alloy}
-
-
-\appendix
+	\begin{verbatim}
+		//DEFINITION OF DATA TYPE
+		sig Strings{}
+		abstract sig Date{
+		year : one Int,
+		month : one Int,
+		day : one Int,
+		hour : one Int,
+		minutes : one Int
+		}
+		sig Zone{
+		nameZone : Strings,
+		map : one Map
+		}
+		//DEFINITION OF ENTITY
+		sig City{
+		name : Strings,
+		popolation : Int,
+		zone : some Zone
+		}
+		
+		sig Queue{
+		id_queue : Int,
+		zone : one Zone,
+		taxi : some Taxi
+		}
+		sig Taxi{
+		id_Taxi : Int,
+		registration_number : Strings,
+		registration_year : Int,
+		//queue : one Queue
+		}
+		abstract sig User{
+		fiscal_code : Strings,
+		name : Strings,
+		surname : Strings,
+		phone_number : Int,
+		email : Strings
+		}
+		sig Passenger extends User{}
+		sig Taxi_Driver extends User{
+		licence : Strings,
+		taxi : lone Taxi
+		}
+		sig System_Administrator extends User{}
+		sig System_Developer extends User{}
+		sig Position{
+		street : one Strings,
+		number : Int
+		}
+		sig Reservation{
+		date : Date,
+		origin : Position,
+		destination :Position,
+		user : one Passenger
+		}
+		sig Request{
+		date : Date,
+		position : Position,
+		user : one Passenger
+		}
+		sig Map{
+		id_mappa : Strings,
+		// zona : some Zone
+		}
+		sig Reply{
+		id_reply : Int,
+		date : Date,
+		answer : Strings,
+		user : one Passenger,
+		taxi_driver : some Taxi_Driver
+		}
+		sig System{
+		queue : some Queue,
+		taxi : some Taxi,
+		taxi_driver : some Taxi_Driver,
+		user : some User
+		}
+		
+		//FACTS
+		// no city with 2 zone equal
+		fact NoZonei{
+		no c : City | some z1,z2 : Zone |z1!=z2 and c.zone=z1 and c.zone=z2
+		}
+		//no 2 taxi_driver with the same taxi
+		fact NoDoubleTaxi{
+		no t : Taxi| some t1,t2 : Taxi_Driver| t1!=t2 and t in t1.taxi and t in t2.taxi
+		}
+		//no 2 queue of the same zone
+		fact NoDoubleQueue{
+		no z : Zone| some q1,q2 : Queue|q1!=q2 and z in q1.zone and z in q2.zone
+		}
+		//no 2 queue with the same taxi
+		fact NoDoubleTaxiQueue{
+		no t : Taxi| some q1,q2 : Queue|q1!=q2 and t in q1.taxi and t in q2.taxi
+		}
+		// no 2 taxi with the same passenger
+		fact NoDoubleReservation{
+		no p : Passenger| some r1,r2 : Reservation|r1!=r2 and p in r1.user and p in r2.user and r1.date=r2.date
+		and (r1.origin!=r2.origin or r1.destination!=r2.destination)
+		}
+		// no empty date
+		fact noEmptyDate{
+		all r : Reservation|(#r.date.hour=1)and(#r.date.minutes=1)
+		}
+		// no empty position
+		fact noEmptyPosition{
+		all r : Request|(#r.position.street=1)and(#r.position.number=1)
+		}
+		//no duplicate user
+		fact noDuplicateUser{
+		no disj u1,u2 : User | (u1.fiscal_code=u2.fiscal_code)
+		}
+		//no 2 different reply
+		fact noDoubleReply{
+		no p : Passenger|some r1,r2 : Reply|r1!=r2 and r1.user=p and r2.user=p and r1.date=r2.date and r1.answer!=r2.answer
+		}
+		
+		assert noDoubleReservation{
+		no disj r1,r2 : Reservation, p : Passenger | r1.user =p and r2.user=p and
+		r1.origin=r2.origin and r1.destination=r2.destination and r1.date=r2.date
+		}
+		check noDoubleReservation for 5
+		assert addUser{
+		all u,u1,u2 : User | (u not in u1)implies (u in u2)
+		}
+		check addUser for 5
+		
+		
+		pred show{
+		#System=1
+		#Passenger=14
+		#Zone=4
+		#Queue=4
+		#Taxi=4
+		}
+		run show for 10
+		
+	\end{verbatim}
 \end{document}
