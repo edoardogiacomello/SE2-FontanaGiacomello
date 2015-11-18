@@ -1,0 +1,112 @@
+\documentclass[11pt, a4paper,titlepage]{article}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\graphicspath{{img/}}
+\author{Edoardo Giacomello \and Mattia Fontana}
+\title{SE2 Design Document} 
+%Definisce il titolo
+\newcommand{\productname}{MyTaxiService }
+\newcommand{\image}[1]{
+	\begin{center}
+		\noindent \includegraphics[width=\linewidth]{#1}
+	\end{center}
+	}
+\newcommand{\link}[2]{\underline{\textbf{\hyperref[#1]{#2}}}}
+\newcommand{\linkitm}[1]{\underline{\textbf{\ref{#1}}}}
+\begin{document}
+%Genera il titolo
+\maketitle
+%Inserisce tabella dei contenuti
+\tableofcontents
+\newpage
+\section{Introduction}
+\subsection{Purpose}
+\subsection{Scope}
+\subsection{Definitions, Acronyms, Abbreviations}
+\begin{description}
+	\item[GUI]: Graphical User Interface. It is the set of graphical elements such text, buttons and images which the user can interact with.
+	\item[Thin Client]: It is a design style for the client in which the application running on the client contains the least business logic possible. In our case the client application will only serve as a presentation interface.
+\end{description}
+\subsection{Reference Documents}
+	\begin{itemize}
+		\item Structure of the Design Document
+	\end{itemize}
+\subsection{Document Structure}
+
+\section{Architectural Design}
+\subsection{Overview}
+The \productname application has been designed to run on a client-server architecture. \newline
+In particular, the general system has been divided in some sub-systems and each of those has been designed to run on a different phisical machine.
+Since the modularity of the system has been taken into account, eventual further design decisions that could increase or decrease the tier size of the architecture will be supported. \newline
+The sub-systems that have been identified are the following:
+\begin{description}
+	\item[Client Application (1..N)]: This is the user frontend of the system. It cames in form of a web-interface or a mobile web application and it has two possible realizations which are the Passenger Interface or the Taxi Driver interface. 
+	There's included also a realization that is currently designed only in a web interface form, which is the system administrator interface.
+	\item[Web Server (1..N)]: This is the main interface between the Backend and the Client application. The web-server could be distributed on several machines that are managed by a load-balancer, and should provide a firewall as well. The main purpose of this sub-system is that to generate the web-pages for the web-interface and forwarding/translating requests from the client and the backend.
+	\item[Backend (1)]: This is the sub-system in which the business logic resides.
+	\item[Database (1..N)] This is the sub-system in which the business data resides. It can be replicated or distributed for avoiding data corruption and undesired behaviours.
+	\item[Third Party Services (N)] Those sub-systems are auxiliary third-party services that the system can avail itself of for providing core services that will not be directly implemented on the system, such that email notification, DNS lookups, Map Services, etc. 
+\end{description}
+\newpage
+\subsection{High level components and their interaction}
+\image{diagram_components_hilevel.png}
+\newpage
+ Here follows the high-level description of each component or module of the application, which is devided in a particular subsystem.
+ \begin{enumerate}
+ 	\item \textbf{Client Application}
+ 	 \begin{enumerate}
+ 	 	\item \label{itm:Component_Website} \textbf{Website} This is the user interface for passenger and system administrators
+ 	 	\item \label{itm:Component_GUI} \textbf{Graphical Interface} These are the user interfaces for passenger or taxi drivers
+ 	 \end{enumerate}
+ 	\item \textbf{Web Server}
+	 	\begin{enumerate}
+	 		\item \label{itm:Component_WebInterface} \textbf{Web Interface} This component hosts the website and generates the page that will be sent to the user's web browsers
+	 		\item \label{itm:Component_JSONInterface} \textbf{JSON Interface} This component collects all the requests from the client (both from website and mobile application) and forwards them to the backend.
+	 	\end{enumerate}
+ 	\item \textbf{DataBase Manager}
+ 		 	\begin{enumerate}
+ 		 		\item \label{itm:Component_DBMS} \textbf{DBMS} This component is the actual DBMS which manages the business data.
+ 		 		\item \label{itm:Component_JDBC} \textbf{JDBC Drivers} Drivers that provide an interface between the DBMS and the application.
+ 		 		\item \label{itm:Component_DataManager} \textbf{Data Manager} This component will host all the functions useful for managing data on the server and it will offer an interface of the database for the backend. In particular, the SQL and DDL queries are stored here.
+ 		 	\end{enumerate}
+ 	\item \textbf{Backend}
+		 	\begin{enumerate}
+		 		\item \label{itm:Component_API} \textbf{API} This is the main interface for the backend and will provide all the system functionalities that can be accessed by other subsystems. It will parse all incoming JSON requests and activate the other components accordingly. It will also support an access for system developers, that will be regulated by an authorization token mechanism.
+		 		\item \label{itm:Component_AuthenticationManager} \textbf{Authentication Manager} This component will be in charge of managing all the authentications for the system. In particular it will manage the login functionality and the authorization token for accessing the APIs.
+		 		\item \label{itm:Component_AccountManager} \textbf{Account Manager} This component will manage the user accounts and the password reset service.
+		 		\item \label{itm:Component_QueueManager} \textbf{Queue Manager} This component will host the core algorithm which manages the taxi queues and will process the requests.
+		 		\item \label{itm:Component_TaxiManager} \textbf{Taxi Manager} This component will manage the distribution of the active taxis and the notification of incoming requests by interacting with the Notification Manager.
+		 		\item \label{itm:Component_ReservationManager} \textbf{Reservation Manager} This component will manage the reservations and will trigger their activation at the right moment.
+		 		\item \label{itm:Component_NotificationManager} \textbf{Notification Manager} This component will send notifications to the users, such as email for the passengers and notifications for the taxi drivers.
+		 		\item \label{itm:Component_ZoneManager} \textbf{Zone Manager} This component will manage the zones in which the area is divided. It will also make the look-up for a location into a zone and it will offer map utility functions.
+		 		\item \label{itm:Component_LogManager} \textbf{Log Manager} This component will manage all the system logs, both debugging and business inspection.
+		 	\end{enumerate}
+ 	\item \textbf{Third-Party Services}
+ 	\begin{enumerate}
+ 		\item \label{itm:Component_DNS} \textbf{DNS} This service will offer Domain Name Lookup for accessing the various subsystems.
+ 		\item \label{itm:Component_EmailServer} \textbf{Email Server} This service will allow the unidirectional communication between \productname and the users.
+ 	\end{enumerate}
+ \end{enumerate}
+ \newpage
+\subsection{Component View}
+\subsection{Deployment View}
+\subsection{Runtime View}
+\subsection{Component Interfaces}
+%Write JSON templates
+\subsection{Architectural Styles and Patterns}
+	The following design patterns have driven the design process of this project:
+	\begin{itemize}
+		\item MVC: Model-View-Controller design pattern. This pattern separates the business data, the user interface (or the interface between systems) and the core modules that runs the business logic. 
+		\item Thin-Client
+	\end{itemize}
+\subsection{Other Design Decisions}
+\section{Algorithm Design}
+\section{User Interfce Design}
+\section{Requirements Traceability}
+\section{References}
+\begin{itemize}
+	\item \productname Requirement Analysis and Specification Document
+\end{itemize}
+\section{Tools and Document Information}
+\end{document}
