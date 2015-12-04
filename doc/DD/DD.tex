@@ -14,6 +14,8 @@
 	}
 \newcommand{\link}[2]{\underline{\textbf{\hyperref[#1]{#2}}}}
 \newcommand{\linkitm}[1]{\underline{\textbf{\ref{#1}}}}
+
+
 \begin{document}
 %Genera il titolo
 \maketitle
@@ -22,10 +24,20 @@
 \newpage
 \section{Introduction}
 \subsection{Purpose}
+This document explains the general architecture of the \productname application and is intended to describe the architectural decisions taken in the design process, and justify them.
+It also describes the algorithms used in the application and show the interface design that describe the application.
+
+	Note that this document does not cover all the details about implementation and technologies needed for developing this system; this is made on purpose for taking advantage of the system developers' specific capabilities.
 \subsection{Scope}
+	Note that this document does not cover all the details about implementation and technologies which are needed for developing this system, this is made on purpose for taking advantage of the system developers' specific capabilities.
+	
+	A design document is a representation used for recording design information and communicating those information to the key design stakeholders.
+	A software design description is a written description of a software product that a software designer writes in order to give a software development team overall guidance to the architecture of the software project. A design document contains an architecture diagram with pointers to detailed feature specifications of smaller pieces of the design. 
+	It is useful to connect all parts of the software, and illustrate how they will work.
+	 
 \subsection{Definitions, Acronyms, Abbreviations}
 \begin{description}
-	\item[GUI]: Graphical User Interface. It is the set of graphical elements such text, buttons and images which the user can interact with.
+	\item[GUI]: Graphical User Interface. It is the set of graphical elements such text, buttons and images the user can interact with.
 	\item[Thin Client]: It is a design style for the client in which the application running on the client contains the least business logic possible. In our case the client application will only serve as a presentation interface.
 \end{description}
 \subsection{Reference Documents}
@@ -33,15 +45,30 @@
 		\item Structure of the Design Document
 	\end{itemize}
 \subsection{Document Structure}
+The first part of this document will focus on a description of the architecture of the system, it shows the components of the system, firstly from a higher level and then in a more detailed perspective. Then some BCE diagrams will allow to understand the operation of the system.
+The middle part of the document will show the algorithms that allow the system to manage the taxi drivers, the zonesand the passenger requests and reservations.
+The last part of the document will describe the relation between the requirements described in the RASD document and the component, the algorithms and the diagram described in the design document.
+
+The document is thus organized in:
+\begin{itemize}
+	\item \textbf{Introduction} : general description of design document.
+	\item \textbf{Architectural Design} : description of the structure of the application, with class diagram, Bce diagram and description of the interaction between components.
+	\item \textbf{Algorithm Design} : Shows the algorithms that are relevant to the core business.
+	\item \textbf{ User Interface Design} : shows the interface that allows user to interact with the system.
+	\item \textbf{Requirement Traceability} : explain the relation between requirements describe in the Rasd document and the elements of the design document.
+	\item \textbf{Reference} : reference material.
+\end{itemize}
+
+
 
 \section{Architectural Design}
 \subsection{Overview}
 The \productname application has been designed to run on a client-server architecture. \newline
-In particular, the general system has been divided in some sub-systems and each of those has been designed to run on a different phisical machine.
+In particular, the general system has been divided in some sub-systems and each of those has been designed to run on a different physical machine.
 Since the modularity of the system has been taken into account, eventual further design decisions that could increase or decrease the tier size of the architecture will be supported. \newline
 The sub-systems that have been identified are the following:
 \begin{description}
-	\item[Client Application (1..N)]: This is the user frontend of the system. It cames in form of a web-interface or a mobile web application and it has two possible realizations which are the Passenger Interface or the Taxi Driver interface. 
+	\item[Client Application (1..N)]: This is the user front-end of the system. It comes in form of a web-interface or a mobile web application and it has two possible realizations, which are the Passenger Interface or the Taxi Driver interface. 
 	There's included also a realization that is currently designed only in a web interface form, which is the system administrator interface.
 	\item[Web Server (1..N)]: This is the main interface between the Backend and the Client application. The web-server could be distributed on several machines that are managed by a load-balancer, and should provide a firewall as well. The main purpose of this sub-system is that to generate the web-pages for the web-interface and forwarding/translating requests from the client and the backend.
 	\item[Backend (1)]: This is the sub-system in which the business logic resides.
@@ -119,7 +146,7 @@ In this section a more detailed description of each component will be presented
  \subsubsection{API}
 	 \image{diagram_class_api.png}
 	 This component is the main input/output interface of the application server and its main purpose is that to route request and responses to the right component of the application. Another important aspect that the implementation must cover is the masking of responses, that is the removal of sensible business data from the responses: i.e. when a user requests for the available taxi, he is supposed to recevive only the taxi code and the taxi location and not all the data which belongs to the Taxi class. Another example can be the masking of authentication data for a system administrator who requests the list of the accounts.
-	 /newline This class will also offer a programmatic access for system developers. 
+	 \newline This class will also offer a programmatic access for system developers. 
 	 \begin{description}
 	 	\item[API] This is the main API class and will implement serveral interfaces explained below. In the case a request is incoming it will translate it into Java messages and call a proper function of the application server. Otherwise, if a request is outcoming of the application server it will build the message for the client.
 	 	\item[AuthenticationRequests] This interface contains all the methods useful for authenticating a system or a user.
@@ -204,12 +231,12 @@ The system is meant to be deployed in a 3-tier architecture, which consist in se
 
 \subsection{Runtime View}
 \subsubsection{BCE}
-For describe the BCE we used a Class Diagram with appropriate stereotypes \textless \textless boundary\textgreater \textgreater , \textless \textless entity\textgreater \textgreater  and \textless \textless control\textgreater \textgreater .
+For describing the BCE we used a Class Diagram with appropriate stereotypes \textless \textless boundary\textgreater \textgreater , \textless \textless entity\textgreater \textgreater  and \textless \textless control\textgreater \textgreater .
 This is the function of the stereotypes:
 \begin{enumerate}
-	\item 	boundary : represents the interface between users and system;
-	\item 	entity : represents a class that allow to use the data in a database;
-	\item 	control : controls the choise of the user.
+	\item 	\textbf{boundary} : represents the interface between users and system;
+	\item 	\textbf{entity} : represents a class that allow to use the data in a database;
+	\item 	\textbf{control} : controls the choice of the user.
 \end{enumerate}
 \subsubsection{BCE Passenger}
 It is divided in part:
@@ -292,11 +319,11 @@ It is divided in part:
 \image{BCETaxiDriver.png}
 \newpage
 \subsubsection{BCE System Administrator}
-It is divided in part:
+The description is divided into several sections:
 \begin{enumerate}
 	\item \textbf{Login}
 	\begin{enumerate}
-		\item \textbf{CheckLoginInformation}This controller manages the verification of login; it 
+		\item \textbf{CheckLoginInformation} This controller manages the verification of login; it 
 		examines if the fields are filled correctly, it examines the password and the email. 
 		If the fields are correctly, the controller can load the correspondent home page.
 		\item \textbf{ResetPassword}This controller manages the send of new password with email to a 
@@ -354,8 +381,2155 @@ It is divided in part:
 \end{enumerate}
 \image{BCESystemAdministrator.png}
 \newpage
+\subsubsection{Web Component}
+\image{page_component.png}
+\newpage
+\begin{enumerate}
+\item \textbf{Passenger Pages}\\
+\image{page_passenger.png}
+	\begin{tabularx}{\textwidth}{| c | X |}
+		\hline
+		\textbf{Name} & 
+		Register
+		\\
+		\hline
+		\textbf{Classification} & 
+	     Web Page
+		\\
+		\hline
+		\textbf{Definition} & 
+		Passenger interface for register a passenger to the system.\\
+		\hline
+		\textbf{Responsibilities} &
+		\begin{itemize}
+			\item Display to the Passenger a dialog showing the field to complete for register a new passenger.
+			\item  Capture the data insert by passenger.
+			\item Send data.
+			\item Confirm the success or not of the operation to the passenger.
+		\end{itemize}
+		\\
+		\hline
+		\textbf{Constraints} & 
+			\begin{itemize}
+				\item  The data in the fields are valid for sending and store.
+				\item The web page must be loaded completely.
+			\end{itemize}
+		\\
+		\hline
+		\textbf{Composition} & 
+		Login
+		\\
+		\hline
+		\textbf{User/Interactions} & 
+	When the registration is finished, the login page is displayed.
+		\\
+		\hline	
+	\end{tabularx}
 
-This diagram describe in detail that is show in the BCE diagram.
+\begin{tabularx}{\textwidth}{| c | X |}
+		\hline
+		\textbf{Name} & 
+		Login
+		\\
+		\hline
+		\textbf{Classification} & 
+		Web Page
+		\\
+		\hline
+		\textbf{Definition} & 
+		Passenger interface for login
+		\\
+		\hline
+		\textbf{Responsibilities} &
+		\begin{itemize}
+			\item Display to the Passenger a dialog showing the field to             complete for login(Email,Password)
+			\item  Capture the data insert by passenger.
+			\item Check data.
+			\item Confirm the success (show the HomePage) or not (show             LoginPage)of the operation to the passenger.
+		\end{itemize}
+		\\
+		\hline
+		\textbf{Constraints} & 
+		\begin{itemize}
+			\item  The data in the fields are valid for sending.
+			\item The web page must be loaded completely.
+		\end{itemize}
+		\\
+		\hline
+		\textbf{Composition} & 
+		HomePage
+		\\
+		\hline
+		\textbf{User/Interactions} & 
+	When the login is finished, the HomePage is displayed.
+		\\
+		\hline	
+	\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	HomePage
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Passenger interface for select the choice.
+	\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item 
+		Display to the Passenger a list of possible functions that he can do:
+		\begin{itemize}
+			\item ReserveATaxi
+			\item RequestATaxi
+			\item PendingReservation
+			\item YourAccount
+			\item Logout    
+		\end{itemize}
+		\item  Redirect Passenger to the page of the choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+		\begin{itemize}
+			\item RequestPage
+			\item ReservationPage    
+			\item LoginPage
+			\item YourReservationPage    
+			\item AccountPage
+		\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+		\begin{itemize}
+			\item When Passenger clicks to ReserveATaxi, the ReservationPage is load.            
+			\item When Passenger clicks to RequestATaxi, the RequestPage is load.        
+			\item When Passenger clicks to PendingReservation, the YourReservationPage is load.        
+			\item When Passenger clicks to YourAccount the PassengerPage is load.    
+			\item When Passenger clicks to Logout, the LoginPage is load.
+		\end{itemize}	
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	ConsultUserProfile
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Passenger interface for see the information that Passenger inserts when he registered to the system.
+	\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Passenger a list of data that he inserts.
+		\item Check data, if Passenger modify something information.
+		\item Confirm or not if the action is go to a successful conclusion.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item Parameters must be valid.
+		\item Button “Confirm” must be pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+	HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+     When Passenger clicks to Home, the HomePage is load.    
+	\\
+	\hline	
+\end{tabularx}	
+\newpage
+\item \textbf{Request Pages}\\
+\image{page_request.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	CreateRequest
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Passenger interface for insert a taxi request into the system.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Passenger a dialog showing the field to     complete for request a taxi.
+		\item  Capture the data insert by passenger.
+		\item Send data.
+		\item Insert request in the queue of request.
+		\item Confirm the success or not of the operation to the passenger.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The data in the fields are valid for sending and store.
+		\item The web page must be loaded completely.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+	SaveRequest
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+    When the request is finished, the SaveRequest is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	SaveRequest
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Passenger interface for confirm that the request is confirmed.
+	\\
+	\hline
+	\textbf{Responsibilities} &
+	Display to the Passenger the success or not of the operation.
+	\\
+	\hline
+	\textbf{Constraints} & 
+		 The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} & 
+	HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When the request is finished, the HomePage is displayed
+	\\
+	\hline	
+\end{tabularx}
+
+\newpage
+\item \textbf{Reservation Pages}\\
+\image{page_reservation.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	CreateReservation
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Passenger interface for insert a taxi reservation into the system.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Passenger a dialog showing the field to     complete for reservation a taxi.
+		\item  Capture the data insert by passenger.
+		\item Send data.
+		\item Insert reservation in the list of reservation.
+		\item Confirm the success or not of the operation to the passenger.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The data in the fields are valid for sending and store.
+		\item The web page must be loaded completely.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+	SaveReservation
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When the request is finished, the SaveReservation is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	SaveReservation
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Passenger interface for confirm that the reservation is store and for show the information insert by Passenger.
+	\\
+	\hline
+	\textbf{Responsibilities} &
+	Display to the Passenger the success or not of the operation with a resume.
+	\\
+	\hline
+	\textbf{Constraints} & 
+	The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} & 
+	HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When the operation of reservation is finished, the HomePage is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+\newpage
+\item \textbf{YourReservation Pages}\\
+\image{page_yourreservation.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	ConsultYourReservation
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Passenger interface for show what Passenger can do in this section.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Passenger a desciption of the service.
+		\item Display a button for continue with see the request did.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} & 
+	View
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When Passenger clicks on button, the View is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	View
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Passenger interface for see the list of request or reservation that he did.
+	\\
+	\hline
+	\textbf{Responsibilities} &
+		\begin{itemize}
+			\item Display to the Passenger a list of request or reservation with a button respectively
+			\item Capture the button clicks by passenger.    
+			\item Send choice.
+		\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+		\begin{itemize}
+			\item The button must be clicked
+			\item The web page must be loaded completely.
+		\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+	Request
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When Passenger clicks on button, the Request is displayed
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	Request
+	
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+
+	\\
+	\hline
+	\textbf{Definition} & 
+	Passenger interface for showing the information about the selected request.
+
+	\\
+	\hline
+	\textbf{Responsibilities} &
+		\begin{itemize}
+			\item Display to the Passenger a description of the request:
+				\begin{itemize}
+					\item hours
+					\item destination
+					\item taxi driver
+					\item taxi 
+					\item if it is a reservation 
+					\item location.
+				\end{itemize}
+			\item Display three buttons:
+			\begin{itemize}	
+				\item continue with see another request;
+				\item delete the request;
+				\item go to HomePage.
+			\end{itemize}
+			\item Capture the button clicks made by the passenger.    
+			\item Send choice.
+		\end{itemize}
+	
+	\\
+	\hline
+	\textbf{Constraints} & 
+	The web page must be loaded completely.
+	
+	\\
+	\hline
+	\textbf{Composition} & 
+		\begin{itemize}
+			\item HomePage
+			\item Delete
+			\item View
+		\end{itemize}
+	
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+		\begin{itemize}
+			\item When Passenger clicks on Home, the HomePage is load.        
+			\item When Passenger clicks on Delete the DeletePage is load.        
+			\item When Passenger clicks on Request, the ViewPage is load.
+		\end{itemize}
+
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	DeleteRequest
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+     Passenger interface for delete a request.
+	\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Passenger what happen if he deletes a request and if it is possible and a button for delete a request.
+		\item Capture the button clicks by passenger.    
+		\item Send choice.
+		\item Confirm the success or not of the operation to the passenger.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+		\begin{itemize}
+		\item The button must be pressed.
+		\item The web page must be loaded completely.
+		\end{itemize}	
+	\\
+	\hline
+	\textbf{Composition} &  HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When the delete is finished, the HomePage is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+\newpage
+\item \textbf{Administrator Pages}\\
+\image{page_administrator.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	Register
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Administrator interface for register a  particolar User to the system.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a dialog showing the field to             complete for register a new User.
+		\item  Capture the data insert.
+		\item Send data.
+		\item Confirm the success or not of the operation.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The data in the fields are valid for sending and store.
+		\item The web page must be loaded completely.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+	CreateUser
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When the registration is finished, the CreateUser page is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	Login
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Administrator interface for login
+	\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a dialog showing the field to     complete for login(Email,Password).
+		\item  Capture the data insert.
+		\item Check data.
+		\item Confirm the success (show the HomePage) or not (show             LoginPage)of the operation.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The data in the fields are valid for sending.
+		\item The web page must be loaded completely.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+	HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When the login is finished, the HomePage is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	HomePage
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Administrator interface for select the choice.
+	\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item 
+		Display to the Administrator a list of possible functions that he can do.
+		\item Redirect Administrator to the page of the choice
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+	\begin{itemize}
+		\item LogsPage
+		\item AccountManagementPage    
+		\item LoginPage
+		\item TaxiManagementPage    
+		\item AdministratorPage
+		\item ZonePage
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	\begin{itemize}
+		\item 
+		When Administrator clicks to TaxiManagement, the TaxiManagementPage is load.        
+		\item When Administrator clicks to AccountManagement, the AccountManagementPageis load.
+		\item When Administrator  clicks to Logs, the LogsPage is load.
+		\item When Administrator clicks to account the AdministratorPage is load.        
+		\item When Administrator clicks to Logout, the LoginPage is load.
+		\item When Administrator  clicks to Zone, the ZonePage is load.
+	\end{itemize}	
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	CreateUser
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Administrator interface for register a Administrator or a particolar User to the system.
+	\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a dialog showing the field to             complete for register a new User.
+		\item  Capture the data insert.
+		\item Check data.
+		\item Confirm the success (show the HomePage) or not (show             LoginPage)of the operation.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+	\\
+	\hline
+	\textbf{User/Interactions} &  	
+	\\
+	\hline	
+\end{tabularx}
+
+\newpage
+\item \textbf{Logs Pages}\\
+\image{page_log.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	ConsultLogs
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Administrator interface for show what Administrator can do in this section.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the service.
+		\item  Display a button for continue with see the log did.
+		\item Display a button for download all log do.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} & 
+	View
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When Administrator clicks on button, the View is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	View
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Administrator interface for see the list of log  that Passengers did..\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a list of logs with a button respectively organized by Passenger.
+		\item  Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+	Log
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When Administrator clicks on button, the LogPage is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	Log
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+     Administrator interface for show the information about the log select.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the log : hours,destination,taxi driver, taxi, passenger of the request and if it is a reservation the location, the reply of the taxi that receive the request.
+		\item Display four buttons :
+		 \begin{itemize}
+			\item continue with see another Log;
+			\item delete Log;
+			\item update Log
+			\item go to HomePage.
+		\end{itemize}
+		\item Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & 
+		\begin{itemize}
+			\item HomePage
+			\item Delete
+			\item View
+			\item Update
+		\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	\begin{itemize}
+		\item When Administrator clicks to Home, the HomePage is load.        
+		\item When Administrator clicks to Delete the DeletePage is load.        
+		\item When Administrator clicks to Log, the ViewPage is load.
+		\item When Administrator clicks to Update, the UpdatePage is load.
+	\end{itemize}
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	DeleteLog
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Administrator interface for delete a log.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator what happen if he deletes a log and if it is possible and a button for delete a log.
+		\item Confirm the success or not of the operation.
+		\item Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When the delete is finished, the HomePage is displayed
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	UpdateLog
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Administrator interface for update a log.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator what happen if he update a log and if it is possible.
+		\item Confirm the success or not of the operation.
+		\item Send data.
+		\item Check the informations update.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When the update is finished, the HomePage is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} & 
+	AllDownload
+	\\
+	\hline
+	\textbf{Classification} & 
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} & 
+	Administrator interface for download all logs.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a button to press for a download.
+		\item Show the finish of the download.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & 
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & 
+	When the download is finished, the HomePage is displayed.
+	\\
+	\hline	
+\end{tabularx}
+
+
+PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
+
+\newpage
+\item \textbf{Account Managements Pages}\\
+\image{page_accountmanagement.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	ConsultAccount
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for show what Administrator can do in this section.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the service.
+		\item Display a button for continue with see the account.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} &
+	AllAccount
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	When Administrator clicks on button, the AllAccountPage is displayed.
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	AllAccount
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for see the list of account.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a list of account with a button respectively.
+		\item Display two button for research a account or a button for add a new account.
+		\item  Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item Acccount
+		\item AddAccount
+		\item SearchAccount
+		\item HomePage
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks on button Account, the AccountPage is displayed.
+		\item When Administrator clicks on button AddAccount, the AddAccountPage is displayed.
+		\item When Administrator clicks on button SearchAccount, the SearchAccountPage is displayed.
+		\item When Administrator clicks to Home, the HomePage is load.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	Account
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for show the information about the account select.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the account : name, surname, email, address.
+		\item Display four buttons :
+		\begin{itemize}
+			\item continue with see another Account;
+			\item delete Account;
+			\item update Account
+			\item go to HomePage.
+		\end{itemize}
+		\item Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item HomePage
+		\item Delete
+		\item Update
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks to Home, the HomePage is load.    	
+		\item When Administrator clicks to Delete the DeletePage is load.    	
+		\item When Administrator clicks to Update, the UpdatePage is load.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	DeleteAccount
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for delete a account.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator what happen if he deletes a account with a button for delete account.
+		\item Confirm the success or not of the operation.
+		\item Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	When the delete is finished, the HomePage is displayed.
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	UpdateAccount
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for update one account.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator what happen if he update account.
+		\item Confirm the success or not of the operation.
+		\item Send data.
+		\item Check the informations update.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	When the update is finished, the HomePage is displayed.
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	SearchAccount
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for search one specific account.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator fields to complete for search a specific account.
+		\item Show the result of the research and a button for see all information about the account.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+		\item The account research must be exist.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item HomePage
+		\item Account
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks to Home, the HomePage is load.	
+		\item When Administrator clicks on button Account, the AccountPage is displayed
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	AddAccount
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for add one specific account.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator fields to complete for add a specific account.
+		\item Capture the button pressed by Administrator .	
+		\item Check the informations insert.
+		\item Send information.
+		\item Confirm the success or not of the operation.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item The web page must be loaded completely.
+		\item The button must be pressed for save the account.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & When Administrator clicks to Home, the HomePage is load.
+	\\
+	\hline 
+\end{tabularx}
+\newpage
+\item \textbf{Taxi Management Pages}\\
+\image{page_taximanagement.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	ConsultTaxi
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for show what Administrator can do in this section.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the service.
+		\item Display a button for continue with see the taxis.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} &
+	Alltaxi
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	When Administrator clicks on button, the AlltaxiPage is displayed.
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	Alltaxi
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for see the list of taxi.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a list of taxi with a button respectively.
+		\item Display two button for research a taxi or a button for add a new taxi.
+		\item  Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item Taxi
+		\item AddTaxi
+		\item SearchTaxi
+		\item HomePage
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks on button Taxi, the TaxiPage is displayed.
+		\item When Administrator clicks on button AddTaxi, the AddTaxiPage is displayed.
+		\item When Administrator clicks on button SearchTaxi, the SearchTaxiPage is displayed.
+		\item When Administrator clicks to Home, the HomePage is load.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	Taxi
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for show the information about the Taxi select.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the Taxi :taxiCode, plateNumber.
+		\item Display four buttons :
+		\begin{itemize}
+			\item continue with see another Taxi;
+			\item delete Taxi;
+			\item update Taxi
+			\item go to HomePage.
+		\end{itemize}
+		\item Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item HomePage
+		\item Delete
+		\item Update
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks to Home, the HomePage is load.    	
+		\item When Administrator clicks to Delete the DeletePage is load.    	
+		\item When Administrator clicks to Update, the UpdatePage is load.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	DeleteTaxi
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for delete a Taxi.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator what happen if he deletes a Taxi with a button for delete Taxi.
+		\item Confirm the success or not of the operation.
+		\item Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	When the delete is finished, the HomePage is displayed.
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	UpdateTaxi
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for update a Taxi.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator what happen if he update Taxi.
+		\item Confirm the success or not of the operation.
+		\item Send data.
+		\item Check the informations update.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	When the update is finished, the HomePage is displayed.
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	SearchTaxi
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for search one specific Taxi.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator fields to complete for search a specific Taxi(plateNumber).
+		\item Show the result of the research and a button for see all information about the taxi selected.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+		\item The Taxi research must be exist.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item HomePage
+		\item Taxi
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks to Home, the HomePage is load.	
+		\item When Administrator clicks on button Taxi, the TaxiPage is displayed
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	AddTaxi
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for add one specific Taxi.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator fields to complete for add a specific Taxi.
+		\item Capture the button pressed by Administrator .	
+		\item Check the informations insert.
+		\item Send information.
+		\item Confirm the success or not of the operation.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item The web page must be loaded completely.
+		\item The button must be pressed for save the account.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & When Administrator clicks to Home, the HomePage is load.
+	\\
+	\hline 
+\end{tabularx}
+\newpage
+\item \textbf{Zone Pages}\\
+\image{page_zone.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	ConsultZone
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for show what Administrator can do in this section.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the service.
+		\item Display a button for continue with see the Zones.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} &
+	AllZone
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	When Administrator clicks on button, the AllZonePage is displayed.
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	AllZone
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for see the list of taxi.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a list of Zone with a button respectively.
+		\item Display two button for research a Zone or a button for add a new Zone.
+		\item  Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item Zone
+		\item AddZone
+		\item SearchZone
+		\item HomePage
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks on button Zone, the ZonePage is displayed.
+		\item When Administrator clicks on button AddZone, the AddZonePage is displayed.
+		\item When Administrator clicks on button SearchZone, the SearchZonePage is displayed.
+		\item When Administrator clicks to Home, the HomePage is load.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	Zone
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for show the information about the Zone select.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the Zone :name, latitude, longitude.
+		\item Display four buttons :
+		\begin{itemize}
+			\item continue with see another Zone;
+			\item delete Zone;
+			\item update Zone;
+			\item go to HomePage.
+		\end{itemize}
+		\item Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item HomePage
+		\item Delete
+		\item Update
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks to Home, the HomePage is load.    	
+		\item When Administrator clicks to Delete the DeletePage is load.    	
+		\item When Administrator clicks to Update, the UpdatePage is load.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	DeleteZone
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for delete a Zone.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator what happen if he deletes a Zone with a button for delete Zone.
+		\item Confirm the success or not of the operation.
+		\item Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	When the delete is finished, the HomePage is displayed.
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	UpdateZone
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for update a Zone.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator what happen if he update Zone.
+		\item Confirm the success or not of the operation.
+		\item Send data.
+		\item Check the informations update.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	When the update is finished, the HomePage is displayed.
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	SearchZone
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for search one specific Zone.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator fields to complete for search a specific Zone(name).
+		\item Show the result of the research and a button for see all information about the Zone selected.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item The button must be pressed.
+		\item The Taxi research must be exist.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item HomePage
+		\item Zone
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks to Home, the HomePage is load.	
+		\item When Administrator clicks on button Zone, the ZonePage is displayed
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	AddZone
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for add one specific Zone.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator fields to complete for add a specific Zone.
+		\item Capture the button pressed by Administrator .	
+		\item Check the informations insert.
+		\item Send information.
+		\item Confirm the success or not of the operation.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item The web page must be loaded completely.
+		\item The button must be pressed for save the account.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & When Administrator clicks to Home, the HomePage is load.
+	\\
+	\hline 
+\end{tabularx}
+\newpage
+\item \textbf{Backup Pages}\\
+\image{page_backup.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	HomeBackup
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for show what Administrator can do in this section.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the service.
+		\item Display a button for backup.
+		\item Display a button for restore.
+		\item Capture the button pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item Restore
+		\item Backup
+		\item HomePage
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks on button Home, the HomePage is displayed.
+		\item When Administrator clicks on button Backup, the BackupPage is displayed.
+		\item When Administrator clicks on button Restore, the RestorePage is displayed.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	Backup
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for show as do a backup.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the service.
+		\item Display a button for start a backup.
+		\item Capture the button pressed.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item Backup
+		\item HomePage
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks on button Home, the HomePage is displayed.
+		\item When Administrator clicks on button Backup, the operation of backup start.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	Restore
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Administrator interface for show as do a restore.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Administrator a desciption of the service.
+		\item Display a button for start a restore
+		\item Capture the button clicks by Administrator.
+		\item Send choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item One button must be pressed for continue with the application.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item HomePage
+		\item Restore
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Administrator clicks on button Home, the HomePage is displayed.
+		\item When Administrator clicks on button Restore, the operation of restore start.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+
+\newpage
+\item \textbf{Taxi Driver Pages}\\
+\image{page_taxidriver.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	Login
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Taxi Driver interface for login.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Taxi Driver a dialog showing the field to complete for login(Email,Password).
+		\item Capture the data insert by Taxi Driver.	
+		\item Check data.    	
+		\item Confirm the success (show the HomePage) or not (show LoginPage).	
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item The web page must be loaded completely.
+		\item The data in the fields are valid for sending.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} & When the login is finished, the HomePage is displayed.
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	HomePage
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Taxi Driver interface for select the choice.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Taxi Driver a list of possible functions that he can do:
+		\begin{itemize}
+			\item IncomingRequest
+			\item Account
+		\end{itemize}
+		\item Redirect Taxi Driver to the page of the choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item LoginPage
+		\item IncomingRequest
+		\item Account
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Taxi Driver clicks to Account, the Taxi-Driver Page is load.    	
+		\item When Taxi Driver clicks to Logout, the LoginPage is load.
+		\item When Taxi Driver clicks to IncomingRequest, the IncomingRequestPage is load.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	ConsultUserProfile
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Taxi Driver interface for see the information that Taxi Driver inserts when he registered to the system.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Taxi Driver a list of data that he inserts.
+		\item Check data if Taxi Driver modify something.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} &
+	\begin{itemize}
+		\item  The web page must be loaded completely.
+		\item Parameters must be valid.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Composition} & HomePage
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	When Taxi Driver clicks to Home, the HomePage is load.
+	\\
+	\hline 
+\end{tabularx}
+
+\newpage
+\item \textbf{Incoming Request Pages}\\
+\image{page_incomingrequest.png}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	IncomingRequest
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Taxi Driver interface for accept or refuse the request that arrived.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Taxi Driver the request that has only just arrived.
+		\item Display two button:
+		\begin{itemize}
+			\item accept
+			\item decline
+		\end{itemize} 	
+		\item Capture the button pressed.
+		\item Send reply with the choice.	
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item HomePage
+		\item IncomingRequest
+		\item Reply
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Taxi Driver clicks to Home, the HomePage is loaded.
+		\item When Taxi Driver clicks to Decline, the IncomingRequestPage is preserved.
+		\item When Taxi Driver clicks to Accept, the ReplyPage is loaded.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c | X |}
+	\hline
+	\textbf{Name} &
+	Reply
+	\\
+	\hline
+	\textbf{Classification} &
+	Web Page
+	\\
+	\hline
+	\textbf{Definition} &
+	Taxi Driver interface that see when accept a request.\\
+	\hline
+	\textbf{Responsibilities} &
+	\begin{itemize}
+		\item Display to the Taxi Driver the request that has accepted.
+		\item Display two buttons:
+		\begin{itemize}
+			\item RideCompleted
+			\item Release
+		\end{itemize}
+		\item Capture the button pressed.
+		\item Send reply with the choice.
+	\end{itemize}
+	\\
+	\hline
+	\textbf{Constraints} & The web page must be loaded completely.
+	\\
+	\hline
+	\textbf{Composition} &
+	\begin{itemize}
+		\item HomePage
+		\item IncomingRequest
+	\end{itemize}
+	\\
+	\hline
+	\textbf{User/Interactions} &
+	\begin{itemize}
+		\item When Taxi Driver clicks to Home, the HomePage is load.	
+		\item When Taxi Driver clicks to RideComplete, the IncomingRequestPage is load.
+		\item When Taxi Driver clicks to Release, the IncomingRequestPage is load.
+	\end{itemize}
+	\\
+	\hline 
+\end{tabularx}
+
+
+\end{enumerate}
+	
+
+	
+	
+
+\subsubsection{Sequence Diagram }
+These diagram describe in detail that is show in the BCE diagram.
 \subsubsection{Sequence Diagram Login}
   Login can be done by all authorized User:
 	  * Passenger
@@ -430,7 +2604,47 @@ This diagram describe in detail that is show in the BCE diagram.
 			\image{ux_taxidriver.png}
 		\end{enumerate}
 	\end{enumerate}
-	
+	\subsubsection{UXSystemAdministrator}
+	We can see in the Diagram the possible action that the system administrator can do when he uses the application.This the most important pages:
+	\begin{enumerate}
+		\item \textbf{LoginPage} It is the first page that the system administrator see when start the application; in this page the user can do:
+		\begin{enumerate}
+			\item \textbf{forgotPassword} System administrator can request a new password because he forgot his;
+			\item \textbf{login} System administrator can insert password and email to enter in the application.
+		\end{enumerate}
+		\item \textbf{HomePage} It is the private page where the system administrator can manage all information about taxi, account, logs, backup, restore and zone; in this page the system administrator can do :
+		\begin{enumerate}
+			\item \textbf{taxiManagement} System administrator can visualized, add, delete and update the information about a taxi;
+			\item \textbf{accountManagement} System administrator can visualized, add, delete and update the information about a user: passenger, taxi driver.
+			\item \textbf{logs} System administrator can view, delete or update and download the informations about a ride: passenger, ride, taxi driver, request, date, location.
+			\item \textbf{zone} System administrator can visualized, add, delete and update the information about a zone.
+			\item \textbf{backup} System administrator can do a backup of the system.
+			\item \textbf{restore} System administrator can restore a previous backup of the system.
+			\item \textbf{logout} System administrator can exit from the application.
+		\end{enumerate}
+		\item \textbf{TaxiManagementPage} In this page system administrator can  visualized, add, delete and update the information about a taxi; in this page the system  administrator can do :
+		\begin{enumerate}
+			\item \textbf{allTaxi} System administrator can visualizzaed all taxi and then can select a taxi ; 
+			then he can delete or update the information about the taxi.
+			\item \textbf{taxi} System administrator can visualizzed a taxi that he requests with a form in what he inserts taxiCode and plateNumber.
+		\end{enumerate}
+		\item \textbf{AccountManagementPage} In this page system administrator can visualized, add, delete and update the information about a user; in this page the system administrator can do :
+		\begin{enumerate}
+			\item \textbf{allAccount} System administrator can visualizzaed all account and then can select a account or add a new account; then he can delete or update the information about the account.
+			\item \textbf{account} System administrator can visualizzed a account that he requests with a form in what he inserts name, surname and email.
+		\end{enumerate}
+		\item \textbf{ZonePage} In this page system administrator can visualized, add, delete and update the information about a zone; in this page the system administrator can do :
+		\begin{enumerate}
+			\item \textbf{allZone} System administrator can visualizzaed all zone and then can select a zone or add a new zone; then he can delete or update the information about the zone.
+			\item \textbf{zone} System administrator can visualizzed a zonethat he requests with a form in what he inserts name.
+		\end{enumerate}
+		\item \textbf{LogsPage} In this page system administrator can visualized, download, delete and update the information about log (ride, request, passenger, taxi driver, date, location); in this page the system administrator can do :
+		\begin{enumerate}
+			\item \textbf{view} System administrator can visualizzed all log and then can select a log ; then he can delete or update the information about the log.
+			\item \textbf{download} System administrator can download the all log.
+		\end{enumerate}
+	\end{enumerate}
+	\image{ux_systemadministrator.png}
 \subsection{Architectural Styles and Patterns}
 	The following design patterns have driven the design process of this project:
 	\begin{itemize}
@@ -438,13 +2652,271 @@ This diagram describe in detail that is show in the BCE diagram.
 		\item Thin-Client: The application client is used only for the data presentation and input, therefore it will contain the least business logic possible.
 	\end{itemize}
 \subsection{Other Design Decisions}
+\subsection{Implementation Technologies}
+	This service will be implemented using the Galssfish framework which contains all the modules needed to satisfy all the requirements. In particular it will make use of Jersey as an implementation of JAX-RS for RESTful systems. For the communication interface between the app, the webserver and the backend, a JSON plugin for Jersey will be used instead of XML, for its portability and it compatibility with mobile OS such android and because it's more lightweight than XML for this special case. The backend will be developed in JEE.
 
+\subsubsection{DataBase Description}
+In our system we have four types of Account:
+\begin{enumerate}
+	\item {PassengerAccount}
+	\item { DriverAccount}
+	\item {AdministratorAccount}
+	\item {SystemAccount}
+\end{enumerate}	
+PassengerAccount and AdministratorAccount have the same information, instead DriverAccount has the same information with a another characteristic : Licenze.
+So we decided to use a one table called Account with a boolean field :
+if it is 0 the user is a passenger or administrator; if it is 1 the user is a taxi driver.
+Licence must be completed if the Account is a DriverAccount.
+In our system we have two types of Request :
+RequestTaxi and Reservation.
+They have the same common information and the Reservation has ArrivalLocation and MeetingTime.
+So we decided to use one table called Request in that there is a boolean field called RequestReservation:
+if it is 1 the Request is a RequestTaxi and so the field ArrivalLocation and MeetingTime can be free;
+if it is 0 the Request is a Reservation and so the field ArrivalLocation and MeetingTime must be completed.
+System Administrator is connected to Zone, Logs and User with ManageZone, ManageLogs and ManageTaxi.
+ManageZone contains the list of Administrator and the zone that he manages.
+ManageLogs contains the list of Administrator and the logs that he manages.
+ManageTaxi contains the list of Administrator and the taxi that he manages.
+Taxi Driver is associate to a taxi with the table Drive, it contains the list of a taxi driver and the taxi that he used and the data of use.
+All Account are associate to a AuthorizedSystem that it contains a AuthToken.
+Logs defines a list of Request and it is one.
+Request can be contain from only one list, so in request there is a connection with a Logs.
+Location is associate to a only one Zone.
+Zone can have a lot of Location.
+Request is distinguishable only with the passenger information, the taxi driver and  the location with the basic information of the request.
+\image{schema_er_database.png}
+\subsubsection{Cardinalities}
+\begin{enumerate}
+	\item \textbf{Request - Contain - Logs}
+	Request can be contain from only one Logs and Logs can contains a lot of Request.
+	\item \textbf{Request - Serve - DriverAccount} 	
+	Request can be satisfied from only one Taxi Driver and DriverAccount can serve different Request.
+	\item \textbf{Request - Reply - DriverAccount} 	
+	Request can receive reply from different Taxi Driver if the request is send
+	to different taxi driver because same of them refuse the request and 
+	DriverAccount can reply to different request.
+	\item \textbf{Request - DoRequest - Account} 	
+	Request can be done by one Account and Account can do different Request.
+	\item \textbf{Request - FromLocation - Location} 	
+	Request can be done from one Location and from a Location can be done different Request.
+	\item \textbf{Location - FromZone - Zone} 	
+	Location can be associate to only one Zone and a Zone can have different location.
+	\item \textbf{Zone - Adjacent - Zone} 	
+	Zone can border with max 4 Zone and Zone can border with max 4 Zone.
+	\item \textbf{Zone - ManageZone - AdministratorAccount}
+	Zone can be managed by different System Administrator and AdministratorAccount can manage a lot of Zone.
+	\item \textbf{Logs - ManageLogs - AdministratorAccount} 	
+	Logs can be managed by different System Administrator and AdministratorAccount can manage a lot of Logs.
+	\item \textbf{Taxi - ManageTaxi - AdministratorAccount} 	
+	Taxi can be managed by different System Administrator and AdministratorAccount can manage a lot of Taxi.
+	\item \textbf{Taxi - Drive - DriverAccount} 	
+	Taxi can be drove by different Taxi Driver and DriverAccount can drive different Taxi.
+	\item \textbf{Account - IsAssociateTo - AuthorizedSystem} 	
+	Account has a only one AuthToken stored in a AuthorizedSystem and a AuthorizedSystem is associate to only one Account.
+\end{enumerate}
+\subsubsection{Translation to Logical Model}	
+\begin{enumerate}
+	\item Relation Contain between Logs and Request is translated inserting a foreign key into the table Request called Logs-idLog.
+	\item  Relation FromLocation between Request and Location is translated inserting two foreign keys into table Request called Location-Latitude and Location-Longitude.
+	\item  Relation DoRequest between Request and Account is translated inserting two foreign keys into table Request called Account-NamePassenger and Account-EmailPassenger.
+	\item  Relation Serve between Request and DriverAccount is translated inserting two foreign keys into table Request called Account-NameTaxiDriver and Account-EmailTaxiDriver.
+	\item  Relation Reply between Request and DriverAccount is translated inserting a table called Reply that contain two foreign keys called Account-NameTaxiDriver and Account-EmailTaxiDriver from table DriverAccount and one foreign key called Request-idRequest from table Request and a information called Date.
+	\item  Relation Drive between Taxi and DriverAccount is translated inserting a table called Drive that contain two foreign keys called Account-NameTaxiDriver and Account-EmailTaxiDriver from table DriverAccount and two foreign keys called Taxi-TaxiCode and Taxi-PlateNumber from table Taxi and a information called Date.
+	\item  Relation Adjacent between Zone and Zone is translated inserting a table called Adjacent that contain one foreign key called Zone-idZone from table Zone and one foreign key called Zone-idZoneAdj from table Zone.
+	\item  Relation ManageZone between Zone and AdministratorAccount is translated inserting a table called ManageZone that contain one foreign key called Zone-idZone from table Zone and two foreign keys called Account-NameAdmin and Account-EmailAdmin from table AdministratorAccount .
+	\item  Relation ManageLogs between Logs and AdministratorAccount  is translated inserting a table called ManageLogs that contain one foreign key called Logs-idLog from table Logs and two foreign keys called Account-NameAdmin and Account-EmailAdmin from table AdministratorAccount .
+	\item  Relation ManageTaxi between Taxi and AdministratorAccount  is translated inserting a table called ManageTaxi that contain two foreign keys called Taxi-TaxiCode and Taxi-PlateNumber from table Taxi and two foreign keys called Account-NameAdmin and Account-EmailAdmin from table AdministratorAccount .
+	\item  Relation IsAssociateTo between Account  and AuthorizedSystem is translated inserting one foreign key into table Account called AuthorizedSystem-AuthToken .
+	\item  Relation FromZone between Location and Zone is translated inserting a foreign key into table Location called Zone-idZone.
+	
+\end{enumerate}
+\image{schema_database.png}
+\subsubsection{Logical Scheme}
+\begin{enumerate}
+	\item \textbf{Zone}( IdZone, Name)
+	\item \textbf{ManageZone}(idZone, NameAdmin, EmailAdmin)
+	\item \textbf{Adjacent}(idZone, idZone)
+	\item \textbf{Request}(idRequest, MeetingLocation,RequestReservation, ArrivalLocation, MeetingTime, NamePassenger,EmailPassenger, NameTaxiDriver, EmailTaxiDriver, idZone, IdLog)
+	\item \textbf{Logs}(IdLog, TimeStamp)
+	\item \textbf{ManageLogs}(IdLog, NameAdmin, EmailAdmin)
+	\item \textbf{Drive}(NameTaxiDriver, EmailTaxiDriver, TaxiCode, PlateNumber, Date)
+	\item \textbf{Account} (Name, Email, Surname, Phone, Password, TaxCode,IsTaxiDriver,Licence,EmailS, AuthToken)
+	\item \textbf{AuthorizedSystem}(EmailS, AuthToken)
+	\item \textbf{Taxi}(TaxiCode, PlateNumber)
+	\item \textbf{ManageTaxi}(TaxiCode, PlateNumber, NameAdmin, EmailAdmin)
+	\item \textbf{Reply}(idRequest, NameTaxiDriver, EmailTaxiDriver, Answer)
+	\item \textbf{Location}(Latitude, Longitude, IdZone)
+\end{enumerate}
 \section{Algorithm Design}
-\section{User Interfce Design}
+	\subsection{Overview}
+	In this section we provide a general view of the main algorithms that must be implemented, for getting a better comprehension of how the system operates.
+	We will then focus on the core business algorithm which is hosted in the RequestManager.
+	We have chosen to represent the algorithms using an Event Driven Diagram, because it's easier to understand what is the context of a certain call and what is the flow of operations. Every implementation detail has been skipped for maintaining the description on a high level of abstraction.
+	\newpage
+	\subsection{General process}
+	\image{edp_general.png}
+	\newpage
+	\subsection{Request and Reservation Handling process}
+		\image{edp_request.png}
+	\newpage
+	\subsection{Taxi Interaction process}
+		\image{edp_taxi.png}
+	\newpage
+	\subsection{System Administrator process}
+		\image{edp_admin.png}
+		\newpage
+\section{User Interface Design}
 \section{Requirements Traceability}
+	This section will highlight the design choices that realizes the specific requirements stated in the RASD document. For each requirement, a small recap is presented and a description of the components involved will follow.
+	\subsection{Product Functions Requirements}
+		\begin{enumerate}
+			\item
+			\begin{quotation}
+				The system shall provide the passengers both a web and a mobile application with equivalent functionalities for requesting a ride
+			\end{quotation}
+			This requirement is satisfied by the web interface and the mobile client interfaces.
+			\item
+			\begin{quotation}
+				The system shall provide a mobile application for taxi drivers, in which they can inform the system about their availability and confirm or refuse the proposed request.
+			\end{quotation}
+			This is satisfied by the Taxi Client Application which interacts with the ZoneManager as shown in the component and algorithm section.
+			\item
+			\begin{quotation}
+				The system shall associate a queue of taxis to each zone according to the GPS location of the taxis
+			\end{quotation}
+			This is satisfied by the ZoneManager component.
+			\item
+			\begin{quotation}
+			 	 The system shall provide a response to the passenger who requested a ride, the notification will contain the code of the taxi that accepted the request and the estimated waiting time.
+			\end{quotation}
+			This is satisfied by the NotificationManager component.
+			
+			\item
+			\begin{quotation}		
+			 The system shall comprehend a programmatic interface that offer the access for the main functionality of the system itself.
+			\end{quotation}
+			This is satisfied by the API component: After suscribing as a dependent system, a developer could build his application on top of the current system using the same system call that the clients and administrator currently use.
+			\item
+			\begin{quotation}	
+		 The system interface for passengers shall provide the functionality of taxi reservation for rides that will take place after 2 hours. The information required by the system include the origin and destination and the departure date.
+			\end{quotation}
+			This is satisfied by the ReservationController in the RequestManager component.
+			\item
+			\begin{quotation}
+		 The system shall keep track of any active ride, along with the current taxi position and provide an history.
+			\end{quotation}
+			This is satisfied by the log functionalities.
+			\item
+			\begin{quotation}
+		 The system should provide a web interface for system administrators, in which they can manage the taxi drivers and the passenger profiles
+			\end{quotation}
+			This is satisfied by the administrator interface and the administration controller.
+			\item
+			\begin{quotation}
+		The system sends a remainder email or push notification to the user who reserved a taxi 2 hour before the meeting time, just after that it has assigned a taxi to that request.
+			\end{quotation}
+			This is satisfied by the request controller and the notification manager.
+			\item
+			\begin{quotation}
+		The system should manage exceptional situations such the availability of taxis or accidents/vehicle failures.
+			\end{quotation}
+			This is managed by the taxi driver interface, which provide the possibility to release an active drive, the TaxiController which offer the system interface and the RequestController that manages the exception as shown in the algorithm section.
+		\end{enumerate}
+		
+	\subsection{Specific Requirements}
+			\begin{enumerate}
+				\item
+				\begin{quotation}
+					 The mobile application for Taxi Drivers shall transmit the taxi GPS location to the system every 30 seconds, in order to keep the taxi queues updated.
+				\end{quotation}
+				This is satisfied by the Taxi Driver Application an the TaxiManager interface. The taxi queues will be kept updated by the zone controller
+				\item
+				\begin{quotation}
+					 When a taxi becomes available, the system shall store the taxi identifier in the queue of the corresponding zone
+				\end{quotation}
+				This is an implementation detal that must be implemented in the Zone Controller.
+				\item
+				\begin{quotation} 
+					When a request arrives from a certain zone and there is at least one available taxi in that zone, the system shall forward it to the first taxi queuing in that zone.
+				\end{quotation}
+				This is the default behaviour that is meant to obtain in the RequestController.
+				\item
+				\begin{quotation}
+			 Upon an incoming request, If the Taxi Drivers confirms  the system shall inform the passenger, if he doesn’t confirm then the system will forward the request to the next driver in queue and move the taxi driver which refused in the last position in the queue.
+			\end{quotation}
+			This behaviour is explained in the algorith section of this document.
+			\item
+			\begin{quotation} 
+				 The passenger will be informed of any unexpected event by email if he made the request via the web interface and via email and push notification if he’s using the mobile application. 
+			\end{quotation}
+			This is satisfied by the NotificationManager.
+			\item
+			\begin{quotation} 
+				 In any case, the passenger can check the request details and information by accessing the web or mobile interface
+		\end{quotation}
+			This is satisfied by the "YourReservation" page and the accountManager component.
+		\item
+		\begin{quotation} 
+			 If the taxi driver who accepted a request is unable to reach the passenger in a reasonable amount of time (i.e. due to an accident or a vehicle failure) then the taxi driver should be able to release its request. The request is forwarded to the first available taxi and the passenger will receive an update about the new taxi code and the new estimated waiting time.
+		\end{quotation}
+			This is satisfied by the "Release" functionality of the taxi client, and managed into the core algorithm section.
+		\item
+		\begin{quotation} 
+			 The reservation request is accepted only if it is made at least two hours before the ride. An earlier reservation should be made impossible to select from the GUI and double checked in the backend.
+			\end{quotation}
+			This is satisfied in the WebServer and the ReservationManager 
+			\item
+			\begin{quotation} 
+				For guaranteeing the precedence of reservation over real-time requests, a reservation is forwarded to a taxi 2 hours before the meeting time: in this way the taxi will result not available for eventual real-time requests (which has a maximum time length, as stated in the assumption \linkitm{itm:Assumption_LengthTime}) that occur in the meanwhile and the request will be forwarded to the next taxi.
+		\end{quotation}
+		This is managed both into the webserver and the API component: if the requirement on the time is not met, an exception will be issued and the webserver will show an error to the user.
+		\item
+		\begin{quotation} 
+			 Along with the taxi queue, there will be a Request Queue, with a FIFO policy. In this way, the first passenger who makes a real-time request is the first that is served by the first available taxi. 
+			\end{quotation}
+			This is satisfied by the RequestController and ZoneManager components.
+			\item
+			\begin{quotation} 
+				 The system should provide passengers a "password reset" service.
+		\end{quotation}
+			This is satisfied by the WebServer and the AccountManager.
+		\item
+		\begin{quotation} 
+			 The system should let the user cancel a previous reservation he made until 2 hours before the meeting time.
+			\end{quotation}
+			This is managed by the AccountManager, the RequestController and the YourReservations page.
+			\item
+			\begin{quotation} 
+				 The system will send notification to a user as soon as the request has been accepted by a taxi driver
+		\end{quotation}
+			This is satisfied by the TaxiManager interface and the NotificationManager
+		\item
+		\begin{quotation} 
+			 The GPS localization of the passenger is used merely for providing a better GUI experience (i.e. showing the right portion of the map) and it is an optional requirement for the passenger. The actual localization occurs by the information that the user provides by inserting the meeting location while making a request.
+			\end{quotation}
+			This is satisfied by the client interface and the OnTaxiProbe mechanism.
+			\item
+			\begin{quotation} 
+				 If the Taxi Driver doesn't reply to a request within a minute, the request is considered refused.	 
+			\end{quotation}
+			This is satisfied by the requestManager and the TaxiClient application.
+			\end{enumerate}
+		
 \section{References}
 \begin{itemize}
 	\item \productname Requirement Analysis and Specification Document
 \end{itemize}
 \section{Tools and Document Information}
+	\subsection{Tools}
+	\begin{description}
+		\item[Pencil] for the GUI
+		\item [Texstudio] for the Design Document
+		\item [ProcessOn.com] for the diagrams 
+		\item[MySQLWorkbench] For the ER-Schema 
+	\end{description}
+	\subsection{Work Hours}
+	\begin{itemize}
+		\item Edoardo Giacomello:
+		\item Mattia Fontana: 
+	\end{itemize}
 \end{document}
