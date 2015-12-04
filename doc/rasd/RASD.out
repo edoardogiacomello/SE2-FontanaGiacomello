@@ -1,0 +1,68 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Purpose}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Scope}{section.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Goals}{subsection.1.2}% 4
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Actors and Stakeholders}{subsection.1.2}% 5
+\BOOKMARK [2][-]{subsection.1.3}{Definitions, Acronyms, Abbreviations}{section.1}% 6
+\BOOKMARK [3][-]{subsubsection.1.3.1}{Definitions}{subsection.1.3}% 7
+\BOOKMARK [3][-]{subsubsection.1.3.2}{Acronyms}{subsection.1.3}% 8
+\BOOKMARK [3][-]{subsubsection.1.3.3}{Abbreviations}{subsection.1.3}% 9
+\BOOKMARK [2][-]{subsection.1.4}{Reference Documents}{section.1}% 10
+\BOOKMARK [2][-]{subsection.1.5}{Document Overview}{section.1}% 11
+\BOOKMARK [1][-]{section.2}{Overall description}{}% 12
+\BOOKMARK [2][-]{subsection.2.1}{Product Perspective}{section.2}% 13
+\BOOKMARK [3][-]{subsubsection.2.1.1}{System Interfaces}{subsection.2.1}% 14
+\BOOKMARK [3][-]{subsubsection.2.1.2}{User Interfaces}{subsection.2.1}% 15
+\BOOKMARK [3][-]{subsubsection.2.1.3}{Hardware Interfaces}{subsection.2.1}% 16
+\BOOKMARK [3][-]{subsubsection.2.1.4}{Software Interfaces}{subsection.2.1}% 17
+\BOOKMARK [3][-]{subsubsection.2.1.5}{Communications Interfaces}{subsection.2.1}% 18
+\BOOKMARK [3][-]{subsubsection.2.1.6}{Memory Constraints}{subsection.2.1}% 19
+\BOOKMARK [3][-]{subsubsection.2.1.7}{Operations}{subsection.2.1}% 20
+\BOOKMARK [2][-]{subsection.2.2}{Product Functions}{section.2}% 21
+\BOOKMARK [2][-]{subsection.2.3}{User charateristics}{section.2}% 22
+\BOOKMARK [2][-]{subsection.2.4}{Constraints}{section.2}% 23
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Regulatory Policies}{subsection.2.4}% 24
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Reliability Requirements}{subsection.2.4}% 25
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Criticality of the application}{subsection.2.4}% 26
+\BOOKMARK [3][-]{subsubsection.2.4.4}{Safety and Security Consideration}{subsection.2.4}% 27
+\BOOKMARK [2][-]{subsection.2.5}{Assumptions and Dependancies}{section.2}% 28
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Assumptions}{subsection.2.5}% 29
+\BOOKMARK [1][-]{section.3}{Specific Requirements}{}% 30
+\BOOKMARK [2][-]{subsection.3.1}{External Interfaces}{section.3}% 31
+\BOOKMARK [2][-]{subsection.3.2}{Functions}{section.3}% 32
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Exceptions Management}{subsection.3.2}% 33
+\BOOKMARK [2][-]{subsection.3.3}{Logical Database Requirements}{section.3}% 34
+\BOOKMARK [2][-]{subsection.3.4}{Design Constraints}{section.3}% 35
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Standard Compliance}{subsection.3.4}% 36
+\BOOKMARK [2][-]{subsection.3.5}{Software System Attributes}{section.3}% 37
+\BOOKMARK [3][-]{subsubsection.3.5.1}{Performance Requirements}{subsection.3.5}% 38
+\BOOKMARK [3][-]{subsubsection.3.5.2}{Availability}{subsection.3.5}% 39
+\BOOKMARK [3][-]{subsubsection.3.5.3}{Security}{subsection.3.5}% 40
+\BOOKMARK [3][-]{subsubsection.3.5.4}{Portability}{subsection.3.5}% 41
+\BOOKMARK [2][-]{subsection.3.6}{Scenarios}{section.3}% 42
+\BOOKMARK [2][-]{subsection.3.7}{State Machines}{section.3}% 43
+\BOOKMARK [2][-]{subsection.3.8}{Class Diagram}{section.3}% 44
+\BOOKMARK [2][-]{subsection.3.9}{Use Cases}{section.3}% 45
+\BOOKMARK [3][-]{subsubsection.3.9.1}{Use Case: General}{subsection.3.9}% 46
+\BOOKMARK [3][-]{subsubsection.3.9.2}{Use Case: Login}{subsection.3.9}% 47
+\BOOKMARK [3][-]{subsubsection.3.9.3}{Use Case: Registration}{subsection.3.9}% 48
+\BOOKMARK [3][-]{subsubsection.3.9.4}{Use Case: Profile}{subsection.3.9}% 49
+\BOOKMARK [3][-]{subsubsection.3.9.5}{Use Case: Reservation}{subsection.3.9}% 50
+\BOOKMARK [3][-]{subsubsection.3.9.6}{Use Case: Request}{subsection.3.9}% 51
+\BOOKMARK [3][-]{subsubsection.3.9.7}{Use Case: Pending Reservation}{subsection.3.9}% 52
+\BOOKMARK [3][-]{subsubsection.3.9.8}{Use Case: Active Ride}{subsection.3.9}% 53
+\BOOKMARK [3][-]{subsubsection.3.9.9}{Use Case: Logs}{subsection.3.9}% 54
+\BOOKMARK [3][-]{subsubsection.3.9.10}{Use Case: User Management}{subsection.3.9}% 55
+\BOOKMARK [3][-]{subsubsection.3.9.11}{Use Case: Taxi Management}{subsection.3.9}% 56
+\BOOKMARK [3][-]{subsubsection.3.9.12}{Use Case: Request Incoming}{subsection.3.9}% 57
+\BOOKMARK [3][-]{subsubsection.3.9.13}{Use Case: Backup}{subsection.3.9}% 58
+\BOOKMARK [3][-]{subsubsection.3.9.14}{Use Case: Restore}{subsection.3.9}% 59
+\BOOKMARK [3][-]{subsubsection.3.9.15}{Use Case: Information}{subsection.3.9}% 60
+\BOOKMARK [2][-]{subsection.3.10}{Alloy}{section.3}% 61
+\BOOKMARK [3][-]{subsubsection.3.10.1}{definitions}{subsection.3.10}% 62
+\BOOKMARK [3][-]{subsubsection.3.10.2}{Facts}{subsection.3.10}% 63
+\BOOKMARK [3][-]{subsubsection.3.10.3}{Assertions}{subsection.3.10}% 64
+\BOOKMARK [3][-]{subsubsection.3.10.4}{Predicates}{subsection.3.10}% 65
+\BOOKMARK [3][-]{subsubsection.3.10.5}{Output}{subsection.3.10}% 66
+\BOOKMARK [3][-]{subsubsection.3.10.6}{Results}{subsection.3.10}% 67
+\BOOKMARK [1][-]{section.4}{Tools}{}% 68

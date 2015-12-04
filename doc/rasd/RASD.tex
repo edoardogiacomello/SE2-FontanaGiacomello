@@ -68,7 +68,7 @@ The following part of this document will focus on a deeper analysis of the goals
 \section{Overall description}
 This section will cover the overall description of the product. In particular it will put this product into the perspective of other products or systems. 
 \subsection{Product Perspective}
-The \productname system will partially replace any former traditional system that is currently based on phone calls with a new interactive system based on mobile and web interfaces. \newline
+The \productname system will partially replace any former traditional system that is based on phone calls with a new interactive system based on mobile and web interfaces. \newline
 The decision of completely dismissing the former phone call system in favor to the new one will be left to the customer, since \productname requires the passengers to access a web interface or a mobile application, which is still generally not accessible by some users.
 \newline
 The project will therefore consists in releasing a web application and a mobile app which are not integrated with any other existing taxi management service.
@@ -93,7 +93,7 @@ Both the web and mobile applications will have a similar user interface, rearran
 	\begin{itemize}
 		\item It has to provide a \textbf{login page} that allows users to be recognized by the system, along with a registration form that let the user to sign up to the service and a link for resetting the user password.
 		In the home page after the login, it is possible to see the map of the zone in which the user is and the taxis that are nearby, along with a menu for accessing the other functionalities. If a taxi is available, the user can request a ride by selecting the button "Call Now". If a taxi is not available, a text message will display the estimated waiting time and the button will let the user to queue. When the user select the request button, a \textbf{confirmation dialog} will ask the user to insert the precise meeting location and, in the case the user is making a reservation, the meeting time.
-		After the user has made a taxi request, the system will show directly in the home page the  estimated waiting time for that request. In the case he has made a reservation, the home page is still usable for making a request, while clicking on \textbf{"your reservation"} a page will display the current reservation status.
+		After the user has made a taxi request, the system will show directly in the home page the  estimated waiting time for that request. In the case he has made a reservation, the home page is steal usable for making a request, while clicking on \textbf{"your reservation"} a page will display the current reservation status.
 		\item \textbf{Passenger menu}
 		\begin{description}
 			\item[Home] Shows the home page from which is possible to make a new request or check the arrival time and the taxi code of the pending request.
@@ -121,7 +121,7 @@ Both the web and mobile applications will have a similar user interface, rearran
 	\item \textbf{Application for taxi drivers (Mobile)}
 		\begin{itemize}
 			\item The taxi drivers have a particular login page that allows them to access by taxi code/email and password. \newline The taxi application interface is as simple as can be, for avoiding loss of time and incomprehensions.
-			In the homepage the user can see a map of the nearby area. When a request arrives, the user is notified about the time and location of the request. Two buttons allow to accept/decline the request, and when a request is accepted the taxi driver can state he completed the ride or release the ride for another drive.
+			In the homepage the user can see a map of the newarby area. When a request arrives, the user is notified about the time and location of the request. Two buttons allow to accept/decline the request, and when a request is accepted the taxi driver can state he completed the ride or release the ride for another drive.
 		\end{itemize}
 		\item \textbf{Example of the mobile application for taxi drivers: } \newline
 		\image{gui_driver.png}
@@ -267,7 +267,7 @@ This section will list the general functions of the system, with an eventual ref
 		\item \textit{Relative to goals \linkitm{itm:Goal_Confirmation} and \linkitm{itm:Goal_WaitingTime}}: The system shall provide a response to the passenger who requested a ride, the notification will contain the code of the taxi that accepted the request and the estimated waiting time.
 		\item \textit{Relative to goal \linkitm{itm:Goal_DeveloperInterface}}: The system shall comprehend a programmatic interface that offer the access for the main functionality of the system itself.
 		\item \textit{Relative to goal \linkitm{itm:Goal_Reservation}}: The system interface for passengers shall provide the functionality of taxi reservation for rides that will take place after 2 hours. The information required by the system include the origin and destination and the departure date.
-		\item {Relative to goal \linkitm{itm:Goal_FairManagement} and security}: The system shall keep track of any active ride, along with the current taxi position and history, for the system administrators.
+		\item {Relative to goal \linkitm{itm:Goal_FairManagement} and security}: The system shall keep track of any active ride, along with the current taxi position and provide an history.
 		\item \textit{Relative to goal \linkitm{itm:Goal_TaxiInterface} and Administration}: The system should provide a web interface for system administrators, in which they can manage the taxi drivers and the passenger profiles
 		\item \textit{Relative to goal \linkitm{itm:Goal_Confirmation}} The system sends a remainder email or push notification to the user who reserved a taxi 2 hour before the meeting time, just after that it has assigned a taxi to that request.
 		\item \textit{Relative to goal \linkitm{itm:Goal_FairManagement}}: The system should manage exceptional situations such the availability of taxis or accidents/vehicle failures.
@@ -327,7 +327,7 @@ A failure in one or more of this criticalities will lead to the loss of clients.
 		\end{itemize}
 	\item The system should therefore warn the user about the regulation policy about false impersonation.
 	\item The system will hash the user password before storing it into the database, preventing unauthorized access in the case of data leak.
-	\item The system will ask the user the email address in order to reset his password. The new password will be sent on the user e-mail address.
+	\item The system will ask the user the email address or the phone number in order to reset his password. The new password will be sent on the user e-mail address.
 	\item In the case of taxi drivers, the password is generated by the system and it's updated periodically. The taxi drivers will receive their new password by email.
 	\item Every request must be associated to the user identity and kept in a log for security reasons and kept available for  judicial authorities.
 \end{itemize}
@@ -342,7 +342,7 @@ A failure in one or more of this criticalities will lead to the loss of clients.
 		\textbf{Rationale}: In this way, in the case that a zone queue is empty, an incoming request is guaranteed to forwarded by at least one taxi in an estimable time by propagating the request to adjacent zone and forwarding the request to the nearest first taxi that is available.
 		\item \label{itm: Assumption_FormerSystems} The service is currently running a traditional system based on phone calls	
 		\item \label{itm: Assumption_Payment} The payment will occur directly to the taxi driver by cash or credit card and it will be managed by the transportation company
-		\item \label{itm: Assumption_Destination} The taxi drivers don't need to know in advance (when they accept a request) what the ride destination will be, as usually the passenger informs directly the taxi driver about the desired arrival location.
+		\item \label{itm: Assumption_Destination} The taxi drivers should not know in advance what the ride destination will be. The passenger informs directly the taxi driver about the desired arrival location.
 		\item \label{itm: Assumption_OneReservation} The taxi Drivers are supposed to accept one request or reservation at a time.
 		\item \label{itm: Assumption_LengthTime} The maximum time length of a ride is 1 hour and 45 minutes.
 		\item \label{itm: Assumption_SquareZones} All zones have a square o rectangular shape
@@ -905,14 +905,6 @@ This section will list specific functional requirements needed in order to accep
 		\item iOS
 		\item Internet Explorer, Chrome, Safari, Opera, Firefox
 	\end{enumerate}
-\subsubsection{Usability}
-	The system must comply with the following usability metrics (both for web and mobile application):
-		\begin{itemize}
-		\item At least a score of 95 percent in Completion Rates
-		\item The mean Task Time for taxi request must be at most 1 minute
-		\item The mean Task Time for taxi driver application (excluded the ride time) must be at most 10 seconds (From Logging to Ride Complete/Release).
-	\end{itemize}
-	Other usability metrics can be added during the design of the interface
 \subsection{Scenarios}
 \begin{enumerate}
 	\item Alice is at the Garibaldi railway station, as he has just arrived from Rome.
@@ -1179,8 +1171,9 @@ This section will list specific functional requirements needed in order to accep
 			\hline
 			\textbf{Flow of events} & 
 			\begin{enumerate}
-				\item Passenger clicks on “Pending Reservation” button to see the estimated taxi arrival time of the reservation he made.
-				\item from here, the passenger can also cancel a reservation.
+				\item Passenger clicks on “Pending Reservation” button to see the estimated taxi arrival time about the reservation.
+				Passenger can also cancel a reservation.
+				The System updates the time estimation for informing the user.
 			\end{enumerate}						
 			\\
 			\hline
@@ -1216,7 +1209,7 @@ This section will list specific functional requirements needed in order to accep
 			\textbf{Flow of events} & 
 			\begin{enumerate}
 				\item Taxi driver clicks on “Accept Request” button to see the information of the ride..
-				\item Taxi driver can release the ride to another taxi for problems that prevents him from reaching the passenger.
+				\item Taxi driver can release the ride to another taxi for problems that block it.
 			\end{enumerate}						
 			\\
 			\hline
@@ -1226,7 +1219,7 @@ This section will list specific functional requirements needed in order to accep
 			\hline
 			\textbf{Exceptions} & 
 			\begin{itemize}
-				\item The taxi driver can not release his request, because there isn't any other taxi available in this moment.
+				\item The taxi driver can not release his request, because there aren’t other taxi available in this moment.
 			\end{itemize} 
 			\\
 			\hline		
@@ -1326,7 +1319,7 @@ This section will list specific functional requirements needed in order to accep
 			\begin{enumerate}
 				\item The system administrator can access the list of all active and inactive taxi accounts. 
 				\item He can also add and remove taxi driver accounts or reset their passwords.
-				\item The system has to update and store the taxi driver information.
+				\item The system had to update and store the taxi driver information.
 			\end{enumerate}						
 			\\
 			\hline
@@ -1361,7 +1354,7 @@ This section will list specific functional requirements needed in order to accep
 			\hline
 			\textbf{Flow of events} & 
 			\begin{enumerate}
-				\item The taxi driver can accept or refuse a request that arrives from a passenger. 
+				\item The taxi driver can accept or refuse a request that arrive from a passenger. 
 				\item The system receives the reply of the taxi driver and inform the passenger if the taxi driver accepted
 				
 			\end{enumerate}						
@@ -1493,7 +1486,7 @@ This section will list specific functional requirements needed in order to accep
 		\image{diagram_sequence_information.png}
 		\newpage
 \subsection{Alloy}
-	\subsubsection{Definitions}
+	\subsubsection{definitions}
 	\begin{verbatim}
 	//DEFINITION OF DATA TYPE
 	sig Strings{}
@@ -1799,17 +1792,10 @@ This section will list specific functional requirements needed in order to accep
 		
 		\section{Tools}
 			For the redaction of this document, the following tools have been used:
-			\begin{itemize}
+			\begin{enumerate}
 				\item Alloy 4.2
 				\item ProcessOn
 				\item Google Drive
 				\item TexStudio
-			\end{itemize}
-		\section{Work Time}
-			The work time for releasing the rev. 1.0 has been of 
-				\begin{itemize}
-					\item Mattia Fontana: 42 Hours
-					\item Edoardo Giacomello: 48 Hours
-				\end{itemize}
-				
+			\end{enumerate}
 \end{document}

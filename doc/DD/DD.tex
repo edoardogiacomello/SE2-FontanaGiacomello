@@ -28,9 +28,7 @@ This document explains the general architecture of the \productname application 
 It also describes the algorithms used in the application and show the interface design that describe the application.
 
 	Note that this document does not cover all the details about implementation and technologies needed for developing this system; this is made on purpose for taking advantage of the system developers' specific capabilities.
-\subsection{Scope}
-	Note that this document does not cover all the details about implementation and technologies which are needed for developing this system, this is made on purpose for taking advantage of the system developers' specific capabilities.
-	
+\subsection{Scope}	
 	A design document is a representation used for recording design information and communicating those information to the key design stakeholders.
 	A software design description is a written description of a software product that a software designer writes in order to give a software development team overall guidance to the architecture of the software project. A design document contains an architecture diagram with pointers to detailed feature specifications of smaller pieces of the design. 
 	It is useful to connect all parts of the software, and illustrate how they will work.
@@ -39,6 +37,10 @@ It also describes the algorithms used in the application and show the interface 
 \begin{description}
 	\item[GUI]: Graphical User Interface. It is the set of graphical elements such text, buttons and images the user can interact with.
 	\item[Thin Client]: It is a design style for the client in which the application running on the client contains the least business logic possible. In our case the client application will only serve as a presentation interface.
+		\item[Waiting time] \label{itm:Desc_WaitingTime} Time in minutes between the submission of a request and the arrival of a taxi.
+		\item[Request \textit{(when made by the passenger to the taxi service)}] \label{Itm:Desc_Request} In this document we refer to a \textit{request} when the passenger's intent is to meet the taxi as soon as possible.
+		\item[Reservation] \label{Itm:Desc_Reservation} In this document we refer to a \textit{reservation} when the passenger's intent is to meet the taxi at a precise moment in the future
+		\item[Backend] Shorthand for the Data-Access layer. In this document is a reference to the application server, in between from the presentation layer and the data layer.
 \end{description}
 \subsection{Reference Documents}
 	\begin{itemize}
@@ -46,17 +48,17 @@ It also describes the algorithms used in the application and show the interface 
 	\end{itemize}
 \subsection{Document Structure}
 The first part of this document will focus on a description of the architecture of the system, it shows the components of the system, firstly from a higher level and then in a more detailed perspective. Then some BCE diagrams will allow to understand the operation of the system.
-The middle part of the document will show the algorithms that allow the system to manage the taxi drivers, the zonesand the passenger requests and reservations.
+The middle part of the document will show the algorithms that allow the system to manage the taxi drivers, the zones, and the passenger requests and reservations.
 The last part of the document will describe the relation between the requirements described in the RASD document and the component, the algorithms and the diagram described in the design document.
 
 The document is thus organized in:
 \begin{itemize}
-	\item \textbf{Introduction} : general description of design document.
-	\item \textbf{Architectural Design} : description of the structure of the application, with class diagram, Bce diagram and description of the interaction between components.
-	\item \textbf{Algorithm Design} : Shows the algorithms that are relevant to the core business.
-	\item \textbf{ User Interface Design} : shows the interface that allows user to interact with the system.
-	\item \textbf{Requirement Traceability} : explain the relation between requirements describe in the Rasd document and the elements of the design document.
-	\item \textbf{Reference} : reference material.
+	\item \textbf{Introduction}: general description of design document.
+	\item \textbf{Architectural Design}: description of the structure of the application, with class diagram, Bce diagram and description of the interaction between components.
+	\item \textbf{Algorithm Design}: Shows the algorithms that are relevant to the core business.
+	\item \textbf{ User Interface Design}: shows the interface that allows user to interact with the system.
+	\item \textbf{Requirement Traceability}: explain the relation between requirements describe in the Rasd document and the elements of the design document.
+	\item \textbf{Reference}: reference material.
 \end{itemize}
 
 
@@ -230,40 +232,42 @@ The system is meant to be deployed in a 3-tier architecture, which consist in se
 
 
 \subsection{Runtime View}
+\subsubsection{Overview}
+In this section, a different point of view of the system is given. In particular, while the class diagram in the previous section will give a more implementation-oriented perspective, we now present a BCE for describing the system in a more abstract way, highlighting the user inputs and outputs and the system operations. Every concept described in the BCE can be mapped to one or more classes explained above, even if this relation is kept implicit.
+We lastly present some sequence diagrams relative to the BCE section.
+
 \subsubsection{BCE}
-For describing the BCE we used a Class Diagram with appropriate stereotypes \textless \textless boundary\textgreater \textgreater , \textless \textless entity\textgreater \textgreater  and \textless \textless control\textgreater \textgreater .
+For describing the BCE we used a Class Diagram with appropriate stereotypes \textless \textless boundary\textgreater \textgreater , \textless \textless entity\textgreater \textgreater  and \textless \textless control\textgreater \textgreater.
 This is the function of the stereotypes:
 \begin{enumerate}
 	\item 	\textbf{boundary} : represents the interface between users and system;
-	\item 	\textbf{entity} : represents a class that allow to use the data in a database;
+	\item 	\textbf{entity} : represents a class that allows to access the data in a database;
 	\item 	\textbf{control} : controls the choice of the user.
 \end{enumerate}
+
+
 \subsubsection{BCE Passenger}
-It is divided in part:
 \begin{enumerate}	
 	\item \textbf{Login}
 	\begin{enumerate}
-		\item \textbf{CheckRegistration} This controller manages the insert of new user; it controls if the mandatory fields are complete and correctly.
-		If the fields are complete it stores the date in the database and creates a new user.  
-		\item \textbf{CheckLoginInformation} This controller manages the verification of   login; it  
+		\item \textbf{CheckRegistration} This controller manages the insertion of a new user and it controls if the mandatory fields are correctly filled.
+		If the fields are filled in in a proper way, it stores the data in the database and creates a new user.  
+		\item \textbf{CheckLoginInformation} This controller manages the authentication: it  
 		examines if the fields are filled correctly, it examines the password and the email. 
 		If the fields are correctly, the controller can load the correspondent home page.
-		\item \textbf{ResetPassword} this controller manages the send of new password with email to a  
-		user if he requires a new password.
-		It modify the user information in the database with a new password that it has generated.
+		\item \textbf{ResetPassword} this controller manages the reset of the password in the case the user forgot his one.
+		It modifies the user information in the database with a new password that is generated by the system and sent to the user via email.
 	\end{enumerate}
 	\item \textbf{ControlTaxi}
 	\begin{enumerate}
 		\item \textbf{getPassengerGPSLocation} This controller manages the position of the passenger  
-		and it selects the taxi that it is close to the passenger position;
-		\item \textbf{getAddressAndZone} This controller manages the address and the zone where the 
-		passenger is.
-		\item \textbf{checkAvailabilityTaxi} This controller manages the taxi availability, it checks 
-		the taxi position and the passenger position for reserch the best solution.
-		It shows to the user the taxi available.
+		and it shows the taxis that are close to the passenger position;
+		\item \textbf{getAddressAndZone} This controller manages the address and the zone where the passenger is.
+		\item \textbf{checkAvailabilityTaxi} This controller manages the taxi availability, it checks the taxi position and the passenger position for research the best solution.
+		It shows the user the available taxis.
 		\item \textbf{updateAvailabilityTaxi} This controller updates the taxi position and 
-		availablility, for a example when a taxi becomes free.
-		\item \textbf{updateMap} This controller update the position of the taxi on the map.
+		availability, for a example when a taxi becomes free.
+		\item \textbf{updateMap} This controller updates the position of the taxi on the map.
 	\end{enumerate}
 	\item \textbf{ControlChoice}
 	\begin{enumerate}
@@ -274,46 +278,37 @@ It is divided in part:
 		\item \textbf{updateAccount} This controller updates the passenger information and checks if 
 		the information that the passenger inserts are correctly.
 		\item \textbf{getRequest} This controller informs the passenger about his request.
-		\item \textbf{calculateWaitingTime} This controller manages the waiting time that the passenger 
-		must wait for a taxi.
+		\item \textbf{calculateWaitingTime} This controller manages the waiting time that the passenger must wait for a taxi.
 		\item \textbf{loadAccount} This controller manages the passenger account; it shows to the 
-		passenger the information that he requires.
-		\item \textbf{loadPendingReservation} This controller manages the passenger reservation and 
-		request; it shows the reservation or the request that the passenger will see.
-		\item \textbf{deleteReservation} This controller deletes the reservation that the passenger 
-		decides to remove; it deletes the reservation from the queue of reservations.
+		passenger the information that he required.
+		\item \textbf{loadPendingReservation} This controller manages the passenger reservation and request; it shows the reservation or the request that the passenger will see.
+		\item \textbf{deleteReservation} This controller deletes the reservation that the passenger decides to remove; it deletes the reservation from the queue of reservations.
 	\end{enumerate}
 \end{enumerate}
 \image{BCEPassenger.png}
 \newpage
 \subsubsection{BCE Taxi Driver}
-It is divided in part:
 \begin{enumerate}
 	\item \textbf{Login}
-	\begin{enumerate}
-		\item \textbf{CheckLoginInformation}This controller manages the verification of login; it 
-		examines if the fields are filled correctly, it examines the password and the email. 
-		If the fields are correctly, the controller can load the correspondent home page.
-		\item \textbf{ResetPassword}This controller manages the send of new password with email to a 
-		user if he requires a new password.
-		It modify the user information in the database with a new password that it has 
-		generated.
-	\end{enumerate}
+		\item \textbf{Login}
+		\begin{enumerate}
+			\item \textbf{CheckLoginInformation} This controller manages the authentication: it  
+			examines if the fields are filled correctly, it examines the password and the email. 
+			If the fields are correctly, the controller can load the correspondent home page.
+		\end{enumerate}
 	\item \textbf{ControlTaxi}
 	\begin{enumerate}
-		\item \textbf{sendGPSLocation}This controller manages the GPS position from the taxi and it 
-		uses this position for define if the taxi can reply to a request.
-		\item \textbf{updateTaxiLocation}This controller updates the position of the taxi on the map.
+		\item \textbf{sendGPSLocation} This controller manages the GPS position from the taxi and it 
+		uses this position for defining if the taxi can reply to a request.
+		\item \textbf{updateTaxiLocation} This controller updates the position of the taxi on the map.
 	\end{enumerate}	
 	\item \textbf{ControlChoice}
 	\begin{enumerate}
-		\item \textbf{taxiAccept}This controller manages the reply of the taxi driver where the reply   
-		is true; it sends a reply to the passenger about the taxi that will take him and the waiting time.
-		\item \textbf{taxiRefuse}This controller manages the reply of the taxi driver where the reply  
-		is false; it sends a request to another taxi driver;
+		\item \textbf{taxiAccept}This controller manages the reply of the taxi driver when he accepts a request; it sends a reply to the passenger about the taxi code and the waiting time.
+		\item \textbf{taxiRefuse}This controller manages the reply of the taxi driver when he refuses a request; it sends a request to another taxi driver;
 		\item \textbf{setRequestStatus}This controller manages the request; if the request is accepted, 
 		it delete the request from the queue of request and updates its status from free to 
-		accepted and deletes taxi from the queue of free taxi; if the request isn’t accepted, it insert taxi in the queue of free taxi.
+		accepted and deletes taxi from the taxi queue; if the request isn’t accepted, it reinsert taxi in the queue.
 	\end{enumerate}
 \end{enumerate}
 \image{BCETaxiDriver.png}
@@ -323,29 +318,23 @@ The description is divided into several sections:
 \begin{enumerate}
 	\item \textbf{Login}
 	\begin{enumerate}
-		\item \textbf{CheckLoginInformation} This controller manages the verification of login; it 
+		\item \textbf{CheckLoginInformation}This controller manages the authentication: it  
 		examines if the fields are filled correctly, it examines the password and the email. 
 		If the fields are correctly, the controller can load the correspondent home page.
-		\item \textbf{ResetPassword}This controller manages the send of new password with email to a 
-		user if he requires a new password.
-		It modify the user information in the database with a new password that it has 
-		generated.
 	\end{enumerate}
 	2)ControlTaxi :
 	\begin{enumerate}
 		\item \textbf{taxiManagement}This controller manages the taxi; it can delete, add and update 
-		the information about the taxi that the application uses.
-		If the information insert after a update o add are wrong this controller must show 
-		what is wrong.
+		the information about the taxi in the database.
+		If the insertion or update fails, this controller must show what went wrong.
 		\item \textbf{accountManagement}This controller manages the account of the user, it can add, 
 		delete or update the information.
-		If the information insert after a update o add are wrong this controller must show 
-		what is wrong.
-		\item \textbf{logs}This controller manages all information about login, request, reservation  
+		If the insertion or update fails, this controller must show what went wrong.
+		\item \textbf{logs}This controller manages all information history about login, request, reservation  
 		and the taxi ride.
 		\item \textbf{zone}This controller manages the different zone in the city; it can add, delete 
 		or update a zone.
-		This controller must report if a zone is not corret or already exist.
+		This controller must report if a zone is not correct or already exist.
 		\item \textbf{backup}This controller stores all information about the system;
 		This controller must report if a backup doesn’t come to a successful conclusion.
 		\item \textbf{restore}This controller restores the information stored with a previous backup.
@@ -356,21 +345,19 @@ The description is divided into several sections:
 		\item \textbf{updateUserAccount}This controller manages the account of the user, it can update 
 		the information about the user.
 		\item \textbf{deleteUserAccount}This controller manages the account of the user, it can delete 
-		the information about the user or can delete the user account if the user does this 
-		request.
+		the information about the user or delete the user account if the user does this request.
 		\item \textbf{addUserAccount}This controller manages the account of the user, it can add 
-		the information about the user or can add new user account.
+		the information about the user or add new user account.
 		\item \textbf{resetPasswordUser}This controller manages the send of new password with email 
-		to a user if he requires a new password. It modify the user information in the 
+		to a user if he requires a new password. It modifies the user information in the 
 		database with a new password that it has generated.
 		\item \textbf{viewLogs}This controller manages all information about login, request, 
-		reservation and taxi ride and it shows the information request.
-		\item \textbf{downloadLogs}This controller manages downloads of information about login, 
-		request, reservation and taxi ride.
+		reservation and taxi ride and it shows the requested information.
+		\item \textbf{downloadLogs}This controller manages the download of the logs.
 		\item \textbf{saveData}This controller saves all data for a backup.
-		\item \textbf{restoreData}This controller extract data from a previous backup and restart them.
+		\item \textbf{restoreData}This controller extract data from a previous backup and reload it.
 		\item \textbf{showAccount}This controller manages all information about user and it shows the 
-		information request.
+		 requested information.
 		\item \textbf{addZone}This controller manages the different zones of the city; it allows to add 
 		new zones in the city.
 		\item \textbf{deleteZone}This controller manages the different zones of the city; it allows to 
@@ -398,12 +385,12 @@ The description is divided into several sections:
 		\\
 		\hline
 		\textbf{Definition} & 
-		Passenger interface for register a passenger to the system.\\
+		Passenger interface for registering a passenger to the system.\\
 		\hline
 		\textbf{Responsibilities} &
 		\begin{itemize}
-			\item Display to the Passenger a dialog showing the field to complete for register a new passenger.
-			\item  Capture the data insert by passenger.
+			\item Display the Passenger a dialog showing the field to complete for registering a new passenger.
+			\item Capture the data insert by passenger.
 			\item Send data.
 			\item Confirm the success or not of the operation to the passenger.
 		\end{itemize}
@@ -411,7 +398,7 @@ The description is divided into several sections:
 		\hline
 		\textbf{Constraints} & 
 			\begin{itemize}
-				\item  The data in the fields are valid for sending and store.
+				\item The data in the fields are valid for sending and storing.
 				\item The web page must be loaded completely.
 			\end{itemize}
 		\\
@@ -442,10 +429,10 @@ The description is divided into several sections:
 		\hline
 		\textbf{Responsibilities} &
 		\begin{itemize}
-			\item Display to the Passenger a dialog showing the field to             complete for login(Email,Password)
-			\item  Capture the data insert by passenger.
+			\item Display to the Passenger a dialog showing the field to complete in order to login(Email,Password)
+			\item Capture the data inserted by the passenger.
 			\item Check data.
-			\item Confirm the success (show the HomePage) or not (show             LoginPage)of the operation to the passenger.
+			\item Confirm the success (show the HomePage) or failure (show LoginPage)of the operation to the passenger.
 		\end{itemize}
 		\\
 		\hline
@@ -477,7 +464,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Passenger interface for select the choice.
+	Passenger interface for selecting the choice.
 	\\
 	\hline
 	\textbf{Responsibilities} &
@@ -498,7 +485,7 @@ The description is divided into several sections:
 	\textbf{Constraints} & 
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed in order to continue with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -514,11 +501,11 @@ The description is divided into several sections:
 	\hline
 	\textbf{User/Interactions} & 
 		\begin{itemize}
-			\item When Passenger clicks to ReserveATaxi, the ReservationPage is load.            
-			\item When Passenger clicks to RequestATaxi, the RequestPage is load.        
-			\item When Passenger clicks to PendingReservation, the YourReservationPage is load.        
-			\item When Passenger clicks to YourAccount the PassengerPage is load.    
-			\item When Passenger clicks to Logout, the LoginPage is load.
+			\item When Passenger clicks to ReserveATaxi, the ReservationPage is loaded.            
+			\item When Passenger clicks to RequestATaxi, the RequestPage is loaded.        
+			\item When Passenger clicks to PendingReservation, the YourReservationPage is loaded.        
+			\item When Passenger clicks to YourAccount the PassengerPage is loaded.    
+			\item When Passenger clicks to Logout, the LoginPage is loaded.
 		\end{itemize}	
 	\\
 	\hline	
@@ -535,7 +522,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Passenger interface for see the information that Passenger inserts when he registered to the system.
+	Passenger interface for seeing the information that Passenger inserts when he registered to the system.
 	\\
 	\hline
 	\textbf{Responsibilities} &
@@ -548,7 +535,7 @@ The description is divided into several sections:
 	\hline
 	\textbf{Constraints} & 
 	\begin{itemize}
-		\item  The web page must be loaded completely.
+		\item The web page must be loaded completely.
 		\item Parameters must be valid.
 		\item Button “Confirm” must be pressed.
 	\end{itemize}
@@ -559,7 +546,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{User/Interactions} & 
-     When Passenger clicks to Home, the HomePage is load.    
+     When Passenger clicks on Home, the HomePage is loaded.    
 	\\
 	\hline	
 \end{tabularx}	
@@ -581,8 +568,8 @@ The description is divided into several sections:
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Passenger a dialog showing the field to     complete for request a taxi.
-		\item  Capture the data insert by passenger.
+		\item Display to the Passenger a dialog showing the field to complete for requesting a taxi.
+		\item Capture the data insert by the passenger.
 		\item Send data.
 		\item Insert request in the queue of request.
 		\item Confirm the success or not of the operation to the passenger.
@@ -591,7 +578,7 @@ The description is divided into several sections:
 	\hline
 	\textbf{Constraints} & 
 	\begin{itemize}
-		\item  The data in the fields are valid for sending and store.
+		\item The data in the fields are valid for sending and store.
 		\item The web page must be loaded completely.
 	\end{itemize}
 	\\
@@ -617,7 +604,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Passenger interface for confirm that the request is confirmed.
+	Passenger interface for confirming that the request is confirmed.
 	\\
 	\hline
 	\textbf{Responsibilities} &
@@ -652,12 +639,12 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Passenger interface for insert a taxi reservation into the system.\\
+	Passenger interface for inserting a taxi reservation into the system.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Passenger a dialog showing the field to     complete for reservation a taxi.
-		\item  Capture the data insert by passenger.
+		\item Display to the Passenger a dialog showing the field to complete in order to reserve a taxi.
+		\item Capture the data inserted by passenger.
 		\item Send data.
 		\item Insert reservation in the list of reservation.
 		\item Confirm the success or not of the operation to the passenger.
@@ -666,7 +653,7 @@ The description is divided into several sections:
 	\hline
 	\textbf{Constraints} & 
 	\begin{itemize}
-		\item  The data in the fields are valid for sending and store.
+		\item The data in the fields are valid for sending and storing.
 		\item The web page must be loaded completely.
 	\end{itemize}
 	\\
@@ -692,7 +679,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Passenger interface for confirm that the reservation is store and for show the information insert by Passenger.
+	Passenger interface for confirming that the reservation is store and for show the information inserted by Passenger.
 	\\
 	\hline
 	\textbf{Responsibilities} &
@@ -727,12 +714,11 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Passenger interface for show what Passenger can do in this section.\\
+	Passenger interface for showing what Passenger can do in this section.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
 		\item Display to the Passenger a desciption of the service.
-		\item Display a button for continue with see the request did.
 	\end{itemize}
 	\\
 	\hline
@@ -760,7 +746,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Passenger interface for see the list of request or reservation that he did.
+	Passenger interface for displaying the list of request or reservation that he did.
 	\\
 	\hline
 	\textbf{Responsibilities} &
@@ -864,12 +850,12 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-     Passenger interface for delete a request.
+     Passenger interface for deleting a request.
 	\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Passenger what happen if he deletes a request and if it is possible and a button for delete a request.
+		\item Display to the Passenger what happen if he deletes a request and if it is possible and a button for deleting a request.
 		\item Capture the button clicks by passenger.    
 		\item Send choice.
 		\item Confirm the success or not of the operation to the passenger.
@@ -906,11 +892,11 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Administrator interface for register a  particolar User to the system.\\
+	Administrator interface for registering a particular User to the system.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator a dialog showing the field to             complete for register a new User.
+		\item Display to the Administrator a dialog showing the field to complete for registering a new User.
 		\item  Capture the data insert.
 		\item Send data.
 		\item Confirm the success or not of the operation.
@@ -950,10 +936,10 @@ The description is divided into several sections:
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator a dialog showing the field to     complete for login(Email,Password).
+		\item Display to the Administrator a dialog showing the field to complete for login(Email,Password).
 		\item  Capture the data insert.
 		\item Check data.
-		\item Confirm the success (show the HomePage) or not (show             LoginPage)of the operation.
+		\item Confirm the success (show the HomePage) or not (show LoginPage)of the operation.
 	\end{itemize}
 	\\
 	\hline
@@ -985,7 +971,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Administrator interface for select the choice.
+	Administrator interface for selecting the choice.
 	\\
 	\hline
 	\textbf{Responsibilities} &
@@ -999,7 +985,7 @@ The description is divided into several sections:
 	\textbf{Constraints} & 
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed for continuing with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -1039,12 +1025,12 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Administrator interface for register a Administrator or a particolar User to the system.
+	Administrator interface for registering an Administrator or a particular User to the system.
 	\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator a dialog showing the field to             complete for register a new User.
+		\item Display to the Administrator a dialog showing the field to complete for registering a new User.
 		\item  Capture the data insert.
 		\item Check data.
 		\item Confirm the success (show the HomePage) or not (show             LoginPage)of the operation.
@@ -1054,7 +1040,7 @@ The description is divided into several sections:
 	\textbf{Constraints} & 
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed for continuing with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -1080,13 +1066,12 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Administrator interface for show what Administrator can do in this section.\\
+	Administrator interface for showing what Administrator can do in this section.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator a desciption of the service.
-		\item  Display a button for continue with see the log did.
-		\item Display a button for download all log do.
+		\item Display to the Administrator a description of the service.
+		\item Display a button for downloading the logs.
 	\end{itemize}
 	\\
 	\hline
@@ -1114,7 +1099,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Administrator interface for see the list of log  that Passengers did..\\
+	Administrator interface for see the list of logs\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -1127,7 +1112,7 @@ The description is divided into several sections:
 	\textbf{Constraints} & 
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed for continuing with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -1152,11 +1137,11 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-     Administrator interface for show the information about the log select.\\
+     Administrator interface for showing the information about the log select.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator a desciption of the log : hours,destination,taxi driver, taxi, passenger of the request and if it is a reservation the location, the reply of the taxi that receive the request.
+		\item Display to the Administrator a description of the log : hours,destination,taxi driver, taxi, passenger of the request and if it is a reservation the location, the reply of the taxi that receive the request.
 		\item Display four buttons :
 		 \begin{itemize}
 			\item continue with see another Log;
@@ -1172,7 +1157,7 @@ The description is divided into several sections:
 	\textbf{Constraints} & 
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed to continue with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -1207,7 +1192,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Administrator interface for delete a log.\\
+	Administrator interface to delete a log.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -1245,7 +1230,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Administrator interface for update a log.\\
+	Administrator interface for updating a log.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -1283,7 +1268,7 @@ The description is divided into several sections:
 	\\
 	\hline
 	\textbf{Definition} & 
-	Administrator interface for download all logs.\\
+	Administrator interface for downloading all logs.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -1308,9 +1293,6 @@ The description is divided into several sections:
 	\hline	
 \end{tabularx}
 
-
-PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
-
 \newpage
 \item \textbf{Account Managements Pages}\\
 \image{page_accountmanagement.png}
@@ -1325,12 +1307,11 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for show what Administrator can do in this section.\\
+	Administrator interface for showing what Administrator can do in this section.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
 		\item Display to the Administrator a desciption of the service.
-		\item Display a button for continue with see the account.
 	\end{itemize}
 	\\
 	\hline
@@ -1362,7 +1343,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\textbf{Responsibilities} &
 	\begin{itemize}
 		\item Display to the Administrator a list of account with a button respectively.
-		\item Display two button for research a account or a button for add a new account.
+		\item Display two buttons for searching an account and for adding a new account.
 		\item  Capture the button clicks by Administrator.
 		\item Send choice.
 	\end{itemize}
@@ -1405,11 +1386,11 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for show the information about the account select.\\
+	Administrator interface for showing the information about the account select.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator a desciption of the account : name, surname, email, address.
+		\item Display to the Administrator a description of the account : name, surname, email, address.
 		\item Display four buttons :
 		\begin{itemize}
 			\item continue with see another Account;
@@ -1425,7 +1406,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\textbf{Constraints} &
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed to continue with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -1457,11 +1438,11 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for delete a account.\\
+	Administrator interface for deleting a account.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator what happen if he deletes a account with a button for delete account.
+		\item Display to the Administrator what happen if he deletes a account with a button for deleting an account.
 		\item Confirm the success or not of the operation.
 		\item Capture the button clicks by Administrator.
 		\item Send choice.
@@ -1494,7 +1475,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for update one account.\\
+	Administrator interface for updating one account.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -1531,12 +1512,12 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for search one specific account.\\
+	Administrator interface for searching one specific account.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator fields to complete for search a specific account.
-		\item Show the result of the research and a button for see all information about the account.
+		\item Display to the Administrator fields to complete for searching a specific account.
+		\item Show the result of the research and a button to see all information about the account.
 	\end{itemize}
 	\\
 	\hline
@@ -1578,7 +1559,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator fields to complete for add a specific account.
+		\item Display to the Administrator fields to complete for adding a specific account.
 		\item Capture the button pressed by Administrator .	
 		\item Check the informations insert.
 		\item Send information.
@@ -1589,7 +1570,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\textbf{Constraints} &
 	\begin{itemize}
 		\item The web page must be loaded completely.
-		\item The button must be pressed for save the account.
+		\item The button must be pressed for saving the account.
 	\end{itemize}
 	\\
 	\hline
@@ -1614,12 +1595,12 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for show what Administrator can do in this section.\\
+	Administrator interface for showing what Administrator can do in this section.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
 		\item Display to the Administrator a desciption of the service.
-		\item Display a button for continue with see the taxis.
+		\item Display a button for continuing with see the taxis.
 	\end{itemize}
 	\\
 	\hline
@@ -1646,12 +1627,12 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for see the list of taxi.\\
+	Administrator interface for seeing the list of taxi.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
 		\item Display to the Administrator a list of taxi with a button respectively.
-		\item Display two button for research a taxi or a button for add a new taxi.
+		\item Display two button for researching a taxi or a button for adding a new taxi.
 		\item  Capture the button clicks by Administrator.
 		\item Send choice.
 	\end{itemize}
@@ -1660,7 +1641,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\textbf{Constraints} &
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed for continuing with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -1694,7 +1675,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for show the information about the Taxi select.\\
+	Administrator interface for showing the information about the Taxi select.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -1714,7 +1695,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\textbf{Constraints} &
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed to continue with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -1746,11 +1727,11 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for delete a Taxi.\\
+	Administrator interface for deleting a Taxi.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator what happen if he deletes a Taxi with a button for delete Taxi.
+		\item Display to the Administrator what happen if he deletes a Taxi with a button for deleting Taxi.
 		\item Confirm the success or not of the operation.
 		\item Capture the button clicks by Administrator.
 		\item Send choice.
@@ -1783,7 +1764,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for update a Taxi.\\
+	Administrator interface for updating a Taxi.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -1820,12 +1801,12 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for search one specific Taxi.\\
+	Administrator interface for searching one specific Taxi.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator fields to complete for search a specific Taxi(plateNumber).
-		\item Show the result of the research and a button for see all information about the taxi selected.
+		\item Display to the Administrator fields to complete for searching a specific Taxi(plateNumber).
+		\item Show the result of the research and a button for seeing all information about the taxi selected.
 	\end{itemize}
 	\\
 	\hline
@@ -1863,11 +1844,11 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for add one specific Taxi.\\
+	Administrator interface for adding one specific Taxi.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator fields to complete for add a specific Taxi.
+		\item Display to the Administrator fields to complete for adding a specific Taxi.
 		\item Capture the button pressed by Administrator .	
 		\item Check the informations insert.
 		\item Send information.
@@ -1878,7 +1859,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\textbf{Constraints} &
 	\begin{itemize}
 		\item The web page must be loaded completely.
-		\item The button must be pressed for save the account.
+		\item The button must be pressed for saving the account.
 	\end{itemize}
 	\\
 	\hline
@@ -1903,12 +1884,12 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for show what Administrator can do in this section.\\
+	Administrator interface for showing what Administrator can do in this section.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
 		\item Display to the Administrator a desciption of the service.
-		\item Display a button for continue with see the Zones.
+		\item Display a button for continuing with see the Zones.
 	\end{itemize}
 	\\
 	\hline
@@ -1935,12 +1916,12 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for see the list of taxi.\\
+	Administrator interface for seeing the list of taxi.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
 		\item Display to the Administrator a list of Zone with a button respectively.
-		\item Display two button for research a Zone or a button for add a new Zone.
+		\item Display two button for researching a Zone or a button for adding a new Zone.
 		\item  Capture the button clicks by Administrator.
 		\item Send choice.
 	\end{itemize}
@@ -1949,7 +1930,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\textbf{Constraints} &
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed for continuing with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -1983,7 +1964,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for show the information about the Zone select.\\
+	Administrator interface for showing the information about the Zone select.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -2003,7 +1984,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\textbf{Constraints} &
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed to continue with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -2035,11 +2016,11 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for delete a Zone.\\
+	Administrator interface for deleting a Zone.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator what happen if he deletes a Zone with a button for delete Zone.
+		\item Display to the Administrator what happen if he deletes a Zone with a button for deleting Zone.
 		\item Confirm the success or not of the operation.
 		\item Capture the button clicks by Administrator.
 		\item Send choice.
@@ -2072,7 +2053,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for update a Zone.\\
+	Administrator interface for updating a Zone.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -2109,12 +2090,12 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for search one specific Zone.\\
+	Administrator interface for searching one specific Zone.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator fields to complete for search a specific Zone(name).
-		\item Show the result of the research and a button for see all information about the Zone selected.
+		\item Display to the Administrator fields to complete for searching a specific Zone(name).
+		\item Show the result of the research and a button for seeing all information about the Zone selected.
 	\end{itemize}
 	\\
 	\hline
@@ -2152,11 +2133,11 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for add one specific Zone.\\
+	Administrator interface for adding one specific Zone.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
-		\item Display to the Administrator fields to complete for add a specific Zone.
+		\item Display to the Administrator fields to complete for adding a specific Zone.
 		\item Capture the button pressed by Administrator .	
 		\item Check the informations insert.
 		\item Send information.
@@ -2167,7 +2148,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\textbf{Constraints} &
 	\begin{itemize}
 		\item The web page must be loaded completely.
-		\item The button must be pressed for save the account.
+		\item The button must be pressed for saving the account.
 	\end{itemize}
 	\\
 	\hline
@@ -2192,7 +2173,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for show what Administrator can do in this section.\\
+	Administrator interface for showing what Administrator can do in this section.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -2234,12 +2215,12 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for show as do a backup.\\
+	Administrator interface for showing as do a backup.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
 		\item Display to the Administrator a desciption of the service.
-		\item Display a button for start a backup.
+		\item Display a button for starting a backup.
 		\item Capture the button pressed.
 	\end{itemize}
 	\\
@@ -2273,12 +2254,12 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Administrator interface for show as do a restore.\\
+	Administrator interface for showing as do a restore.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
 		\item Display to the Administrator a desciption of the service.
-		\item Display a button for start a restore
+		\item Display a button for starting a restore
 		\item Capture the button clicks by Administrator.
 		\item Send choice.
 	\end{itemize}
@@ -2287,7 +2268,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\textbf{Constraints} &
 	\begin{itemize}
 		\item  The web page must be loaded completely.
-		\item One button must be pressed for continue with the application.
+		\item One button must be pressed to continue with the application.
 	\end{itemize}
 	\\
 	\hline
@@ -2401,7 +2382,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Taxi Driver interface for see the information that Taxi Driver inserts when he registered to the system.\\
+	Taxi Driver interface for seeing the information that Taxi Driver inserts when he registered to the system.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -2440,7 +2421,7 @@ PARTE DA INSERIRE INSIEME ALLE ALTRE TABELLE
 	\\
 	\hline
 	\textbf{Definition} &
-	Taxi Driver interface for accept or refuse the request that arrived.\\
+	Taxi Driver interface for accepting or refusing the request that arrived.\\
 	\hline
 	\textbf{Responsibilities} &
 	\begin{itemize}
@@ -2552,6 +2533,9 @@ These diagram describe in detail that is show in the BCE diagram.
 \subsubsection{Sequence Diagram Taxi Request Release}
  Release a request can be done by a Taxi Driver that can go to the location of the request that he received.
  \image{sequenceDiagramsTaxiRequestRelease.png}
+ 
+ \subsubsection{Security Data Flow}
+ \image{diagram_security_dataflow.png}
 \subsection{Component Interfaces}
 	\subsubsection{User Experience}
 	For describing the User Experience (UX) we used a Class Diagram with appropriate stereotypes \textless \textless screen\textgreater \textgreater  and \textless \textless input form\textgreater \textgreater 
@@ -2589,9 +2573,6 @@ These diagram describe in detail that is show in the BCE diagram.
 		\item \textbf{LoginPage} It is the first page that the taxi driver see when start the
 		application; in this page the user can do:
 		\begin{enumerate}
-			
-			\item \textbf{forgotPassword} Taxi driver can request a new password because he
-			forgot his;
 			\item \textbf{login} Taxi driver can insert password and taxCode to enter in the
 			application.
 		\end{enumerate}
@@ -2609,7 +2590,6 @@ These diagram describe in detail that is show in the BCE diagram.
 	\begin{enumerate}
 		\item \textbf{LoginPage} It is the first page that the system administrator see when start the application; in this page the user can do:
 		\begin{enumerate}
-			\item \textbf{forgotPassword} System administrator can request a new password because he forgot his;
 			\item \textbf{login} System administrator can insert password and email to enter in the application.
 		\end{enumerate}
 		\item \textbf{HomePage} It is the private page where the system administrator can manage all information about taxi, account, logs, backup, restore and zone; in this page the system administrator can do :
@@ -2650,6 +2630,7 @@ These diagram describe in detail that is show in the BCE diagram.
 	\begin{itemize}
 		\item MVC: Model-View-Controller design pattern. This pattern separates the business data, the user interface (or the interface between systems) and the core modules that runs the business logic. 
 		\item Thin-Client: The application client is used only for the data presentation and input, therefore it will contain the least business logic possible.
+		\item 3-Tier Architecture: The system is divided in client application, Server application (where resides the web server and the back-end) and the data management system, that run on different machines.
 	\end{itemize}
 \subsection{Other Design Decisions}
 \subsection{Implementation Technologies}
@@ -2659,7 +2640,7 @@ These diagram describe in detail that is show in the BCE diagram.
 In our system we have four types of Account:
 \begin{enumerate}
 	\item {PassengerAccount}
-	\item { DriverAccount}
+	\item {DriverAccount}
 	\item {AdministratorAccount}
 	\item {SystemAccount}
 \end{enumerate}	
@@ -2766,6 +2747,19 @@ Request is distinguishable only with the passenger information, the taxi driver 
 		\image{edp_admin.png}
 		\newpage
 \section{User Interface Design}
+	This interface is a mock-up for providing the developers a starting point for the actual system look-like. The real implementation may differ from this but it should offer at least the same functionalities.
+	\subsection{GUI: Login}
+		\image{gui_login.png}
+	\subsection{GUI: PasswordReset}
+		\image{gui_passwordreset.png}
+	\subsection{GUI: Passenger}
+		\image{gui_passenger.png}
+	\subsection{GUI: Requests}
+		\image{gui_requests.png}
+	\subsection{GUI: Taxi}
+		\image{gui_taxi.png}
+	\subsection{GUI: Administration}
+		\image{gui_administration.png}
 \section{Requirements Traceability}
 	This section will highlight the design choices that realizes the specific requirements stated in the RASD document. For each requirement, a small recap is presented and a description of the components involved will follow.
 	\subsection{Product Functions Requirements}
@@ -2916,7 +2910,7 @@ Request is distinguishable only with the passenger information, the taxi driver 
 	\end{description}
 	\subsection{Work Hours}
 	\begin{itemize}
-		\item Edoardo Giacomello:
-		\item Mattia Fontana: 
+		\item Edoardo Giacomello: 65h
+		\item Mattia Fontana: 63h
 	\end{itemize}
 \end{document}

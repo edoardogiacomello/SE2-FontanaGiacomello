@@ -1,0 +1,1234 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2015.11.9)  4 DEC 2015 23:41
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**DD.tex
+(./DD.tex
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 2 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
+)
+Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2012/05/28 v1.2 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+)
+\@linkdim=\dimen103
+\Hy@linkcounter=\count87
+\Hy@pagecounter=\count88
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count89
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing OFF on input line 4463.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4688.
+\c@Hy@tempcnt=\count90
+
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen104
+\Fld@menulength=\count91
+\Field@Width=\dimen105
+\Fld@charsize=\dimen106
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing OFF on input line 6310.
+Package hyperref Info: Link coloring OFF on input line 6315.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
+\Hy@abspage=\count92
+\c@Item=\count93
+\c@Hfootnote=\count94
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
+\Fld@listcount=\count95
+\c@bookmark@seq@number=\count96
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip43
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 94.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+\Gread@gobject=\count97
+))
+\Gin@req@height=\dimen107
+\Gin@req@width=\dimen108
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2014/10/28 v2.10 `tabularx' package (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen109
+\extrarowheight=\dimen110
+\NC@list=\toks15
+\extratabsurround=\skip44
+\backup@length=\skip45
+)
+\TX@col@width=\dimen111
+\TX@old@table=\dimen112
+\TX@old@col=\dimen113
+\TX@target=\dimen114
+\TX@delta=\dimen115
+\TX@cols=\count98
+\TX@ftn=\toks16
+) (./DD.aux)
+\openout1 = `DD.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+\AtBeginShipoutBox=\box26
+Package hyperref Info: Link coloring OFF on input line 19.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count99
+)
+LaTeX Info: Redefining \ref on input line 19.
+LaTeX Info: Redefining \pageref on input line 19.
+LaTeX Info: Redefining \nameref on input line 19.
+
+(./DD.out) (./DD.out)
+\@outlinefile=\write3
+\openout3 = `DD.out'.
+
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count100
+\scratchdimen=\dimen116
+\scratchbox=\box27
+\nofMPsegments=\count101
+\nofMParguments=\count102
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count103
+\MPscratchDim=\dimen117
+\MPnumerator=\count104
+\makeMPintoPDFobject=\count105
+\everyMPtoPDFconversion=\toks18
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 23.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./DD.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 2.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.43 ...l Styles and Patterns}{89}{subsection.2.7}
+                                                   [1])
+\tf@toc=\write4
+\openout4 = `DD.toc'.
+
+ [2]
+Overfull \hbox (17.98494pt too wide) in paragraph at lines 41--42
+[]\OT1/cmr/m/n/10.95 In this doc-
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 47.
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 47.
+ [3] [4] [5]
+<img/diagram_components_hilevel.png, id=384, 957.5775pt x 1084.05pt>
+File: img/diagram_components_hilevel.png Graphic file (type png)
+
+<use img/diagram_components_hilevel.png>
+Package pdftex.def Info: img/diagram_components_hilevel.png used on input line 
+82.
+(pdftex.def)             Requested size: 360.0pt x 407.5433pt.
+ [6 <./img/diagram_components_hilevel.png>] [7] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+
+ []
+
+<img/diagram_class_general.png, id=423, 2870.725pt x 2860.6875pt>
+File: img/diagram_class_general.png Graphic file (type png)
+
+<use img/diagram_class_general.png>
+Package pdftex.def Info: img/diagram_class_general.png used on input line 123.
+(pdftex.def)             Requested size: 360.0pt x 358.71997pt.
+
+<img/diagram_class_client.png, id=424, 1063.975pt x 720.6925pt>
+File: img/diagram_class_client.png Graphic file (type png)
+
+<use img/diagram_class_client.png>
+Package pdftex.def Info: img/diagram_class_client.png used on input line 128.
+(pdftex.def)             Requested size: 360.0pt x 243.84454pt.
+ [9 <./img/diagram_class_general.png>]
+[10 <./img/diagram_class_client.png>]
+<img/diagram_class_webserver.png, id=435, 731.73375pt x 729.72626pt>
+File: img/diagram_class_webserver.png Graphic file (type png)
+
+<use img/diagram_class_webserver.png>
+Package pdftex.def Info: img/diagram_class_webserver.png used on input line 137
+.
+(pdftex.def)             Requested size: 360.0pt x 359.01651pt.
+ [11 <./img/diagram_class_webserver.png>]
+[12] <img/diagram_class_api.png, id=446, 1215.54124pt x 625.33624pt>
+File: img/diagram_class_api.png Graphic file (type png)
+
+<use img/diagram_class_api.png>
+Package pdftex.def Info: img/diagram_class_api.png used on input line 149.
+(pdftex.def)             Requested size: 360.0pt x 185.19777pt.
+ [13 <./img/diagram_class_api.png>]
+<img/diagram_class_authentication.png, id=452, 662.475pt x 432.61626pt>
+File: img/diagram_class_authentication.png Graphic file (type png)
+
+<use img/diagram_class_authentication.png>
+Package pdftex.def Info: img/diagram_class_authentication.png used on input lin
+e 162.
+(pdftex.def)             Requested size: 360.0pt x 235.08797pt.
+ [14 <./img/diagram_class_authentication.png>] <img/diagram_class_request.png, 
+id=458, 998.73125pt x 702.625pt>
+File: img/diagram_class_request.png Graphic file (type png)
+
+<use img/diagram_class_request.png>
+Package pdftex.def Info: img/diagram_class_request.png used on input line 171.
+(pdftex.def)             Requested size: 360.0pt x 253.26643pt.
+ [15 <./img/diagram_class_request.png>]
+<img/diagram_class_zone.png, id=464, 844.15375pt x 645.41125pt>
+File: img/diagram_class_zone.png Graphic file (type png)
+
+<use img/diagram_class_zone.png>
+Package pdftex.def Info: img/diagram_class_zone.png used on input line 181.
+(pdftex.def)             Requested size: 360.0pt x 275.2465pt.
+ [16 <./img/diagram_class_zone.png>]
+<img/diagram_class_taxi.png, id=470, 912.40875pt x 448.67625pt>
+File: img/diagram_class_taxi.png Graphic file (type png)
+
+<use img/diagram_class_taxi.png>
+Package pdftex.def Info: img/diagram_class_taxi.png used on input line 189.
+(pdftex.def)             Requested size: 360.0pt x 177.02321pt.
+ [17 <./img/diagram_class_taxi.png>]
+<img/diagram_class_account.png, id=477, 687.56876pt x 254.9525pt>
+File: img/diagram_class_account.png Graphic file (type png)
+
+<use img/diagram_class_account.png>
+Package pdftex.def Info: img/diagram_class_account.png used on input line 197.
+(pdftex.def)             Requested size: 360.0pt x 133.48637pt.
+ [18 <./img/diagram_class_account.png>]
+<img/diagram_class_administration.png, id=484, 663.47874pt x 493.845pt>
+File: img/diagram_class_administration.png Graphic file (type png)
+
+<use img/diagram_class_administration.png>
+Package pdftex.def Info: img/diagram_class_administration.png used on input lin
+e 204.
+(pdftex.def)             Requested size: 360.0pt x 267.96088pt.
+ [19 <./img/diagram_class_administration.png>]
+<img/diagram_class_notification.png, id=490, 872.25874pt x 514.92375pt>
+File: img/diagram_class_notification.png Graphic file (type png)
+
+<use img/diagram_class_notification.png>
+Package pdftex.def Info: img/diagram_class_notification.png used on input line 
+212.
+(pdftex.def)             Requested size: 360.0pt x 212.51866pt.
+ [20 <./img/diagram_class_notification.png>] <img/diagram_class_datamodel.png, 
+id=496, 1394.20876pt x 580.1675pt>
+File: img/diagram_class_datamodel.png Graphic file (type png)
+
+<use img/diagram_class_datamodel.png>
+Package pdftex.def Info: img/diagram_class_datamodel.png used on input line 222
+.
+(pdftex.def)             Requested size: 360.0pt x 149.80423pt.
+ [21 <./img/diagram_class_datamodel.png>]
+<img/diagram_class_database.png, id=502, 676.5275pt x 726.715pt>
+File: img/diagram_class_database.png Graphic file (type png)
+
+<use img/diagram_class_database.png>
+Package pdftex.def Info: img/diagram_class_database.png used on input line 226.
+
+(pdftex.def)             Requested size: 360.0pt x 386.72063pt.
+
+<img/diagram_deployment.png, id=503, 864.22874pt x 598.235pt>
+File: img/diagram_deployment.png Graphic file (type png)
+
+<use img/diagram_deployment.png>
+Package pdftex.def Info: img/diagram_deployment.png used on input line 231.
+(pdftex.def)             Requested size: 360.0pt x 249.19398pt.
+ [22 <./img/diagram_class_database.png>]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 240.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 240.
+ [23 <./img/diagram_deployment.png>] [24]
+Overfull \hbox (4.9919pt too wide) in paragraph at lines 281--282
+[]\OT1/cmr/bx/n/10.95 calculateWaitingTime \OT1/cmr/m/n/10.95 This con-troller 
+man-ages the wait-ing time
+ []
+
+<img/BCEPassenger.png, id=537, 1355.0625pt x 566.115pt>
+File: img/BCEPassenger.png Graphic file (type png)
+
+<use img/BCEPassenger.png>
+Package pdftex.def Info: img/BCEPassenger.png used on input line 288.
+(pdftex.def)             Requested size: 360.0pt x 150.39984pt.
+ [25 <./img/BCEPassenger.png>]
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ô in font cmr10!
+
+<img/BCETaxiDriver.png, id=548, 1330.9725pt x 514.92375pt>
+File: img/BCETaxiDriver.png Graphic file (type png)
+
+<use img/BCETaxiDriver.png>
+Package pdftex.def Info: img/BCETaxiDriver.png used on input line 314.
+(pdftex.def)             Requested size: 360.0pt x 139.27483pt.
+ [26 <./img/BCETaxiDriver.png>]
+Overfull \hbox (0.2421pt too wide) in paragraph at lines 327--330
+[]\OT1/cmr/bx/n/10.95 taxiManagement\OT1/cmr/m/n/10.95 This con-troller man-age
+s the taxi; it can delete,
+ []
+
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ô in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ô in font cmr10!
+[27]
+Overfull \hbox (0.65945pt too wide) in paragraph at lines 359--361
+[]\OT1/cmr/bx/n/10.95 showAccount\OT1/cmr/m/n/10.95 This con-troller man-ages a
+ll in-for-ma-tion about user
+ []
+
+<img/BCESystemAdministrator.png, id=580, 855.195pt x 725.71124pt>
+File: img/BCESystemAdministrator.png Graphic file (type png)
+
+<use img/BCESystemAdministrator.png>
+Package pdftex.def Info: img/BCESystemAdministrator.png used on input line 369.
+
+(pdftex.def)             Requested size: 360.0pt x 305.49426pt.
+ [28 <./img/BCESystemAdministrator.png>]
+<img/page_component.png, id=596, 1956.30875pt x 1661.20625pt>
+File: img/page_component.png Graphic file (type png)
+
+<use img/page_component.png>
+Package pdftex.def Info: img/page_component.png used on input line 372.
+(pdftex.def)             Requested size: 360.0pt x 305.69608pt.
+ [29 <./img/page_component.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 375--376
+
+ []
+
+<img/page_passenger.png, id=602, 229.60782pt x 219.06844pt>
+File: img/page_passenger.png Graphic file (type png)
+
+<use img/page_passenger.png>
+Package pdftex.def Info: img/page_passenger.png used on input line 376.
+(pdftex.def)             Requested size: 332.62494pt x 317.37366pt.
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 414--415
+[] 
+ []
+
+[30 <./img/page_passenger.png>]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 454--455
+[][] 
+ []
+
+[31]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 512--513
+[][] 
+ []
+
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+[32]
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 552--553
+[][] 
+ []
+
+[33] [34]
+Underfull \hbox (badness 10000) in paragraph at lines 554--555
+
+ []
+
+<img/page_request.png, id=625, 240.14719pt x 219.06844pt>
+File: img/page_request.png Graphic file (type png)
+
+<use img/page_request.png>
+Package pdftex.def Info: img/page_request.png used on input line 555.
+(pdftex.def)             Requested size: 332.62494pt x 303.4546pt.
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 594--595
+[] 
+ []
+
+[35 <./img/page_request.png>]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 626--627
+[][] 
+ []
+
+[36]
+Underfull \hbox (badness 10000) in paragraph at lines 629--630
+
+ []
+
+<img/page_reservation.png, id=636, 240.14719pt x 216.81pt>
+File: img/page_reservation.png Graphic file (type png)
+
+<use img/page_reservation.png>
+Package pdftex.def Info: img/page_reservation.png used on input line 630.
+(pdftex.def)             Requested size: 332.62494pt x 300.32622pt.
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 669--670
+[] 
+ []
+
+[37 <./img/page_reservation.png>]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 701--702
+[][] 
+ []
+
+[38]
+Underfull \hbox (badness 10000) in paragraph at lines 704--705
+
+ []
+
+<img/page_yourreservation.png, id=646, 240.9pt x 201.75375pt>
+File: img/page_yourreservation.png Graphic file (type png)
+
+<use img/page_yourreservation.png>
+Package pdftex.def Info: img/page_yourreservation.png used on input line 705.
+(pdftex.def)             Requested size: 332.62494pt x 278.59901pt.
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 736--737
+[] 
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 775--776
+[][] 
+ []
+
+[39 <./img/page_yourreservation.png>]
+Underfull \hbox (badness 6725) in paragraph at lines 840--840
+[]\OT1/cmr/m/n/10.95 When Pas-sen-ger clicks on Delete the
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 840--841
+[][] 
+ []
+
+[40]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 879--880
+[][] 
+ []
+
+[41] [42]
+Underfull \hbox (badness 10000) in paragraph at lines 882--883
+
+ []
+
+<img/page_administrator.png, id=665, 229.60782pt x 213.04594pt>
+File: img/page_administrator.png Graphic file (type png)
+
+<use img/page_administrator.png>
+Package pdftex.def Info: img/page_administrator.png used on input line 883.
+(pdftex.def)             Requested size: 332.62494pt x 308.64862pt.
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 921--922
+[] 
+ []
+
+[43 <./img/page_administrator.png>]
+Underfull \hbox (badness 4366) in paragraph at lines 961--961
+[]\OT1/cmr/m/n/10.95 Display to the Ad-min-is-tra-tor a di-a-log
+ []
+
+
+Underfull \hbox (badness 4967) in paragraph at lines 961--961
+\OT1/cmr/m/n/10.95 show-ing the field to com-plete for lo-
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 961--962
+[][] 
+ []
+
+
+Underfull \hbox (badness 6412) in paragraph at lines 1015--1015
+\OT1/cmr/m/n/10.95 age-ment, the Ac-count-Man-age-ment-Pageis
+ []
+
+
+Underfull \hbox (badness 1371) in paragraph at lines 1015--1015
+[]\OT1/cmr/m/n/10.95 When Ad-min-is-tra-tor clicks to Logs, the
+ []
+
+
+Underfull \hbox (badness 1199) in paragraph at lines 1015--1015
+[]\OT1/cmr/m/n/10.95 When Ad-min-is-tra-tor clicks to Zone, the
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1015--1016
+[][] 
+ []
+
+[44]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1053--1054
+[][] 
+ []
+
+[45] [46]
+Underfull \hbox (badness 10000) in paragraph at lines 1056--1057
+
+ []
+
+<img/page_log.png, id=683, 240.9pt x 201.75375pt>
+File: img/page_log.png Graphic file (type png)
+ <use img/page_log.png>
+Package pdftex.def Info: img/page_log.png used on input line 1057.
+(pdftex.def)             Requested size: 332.62494pt x 278.59901pt.
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1089--1090
+[] 
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1127--1128
+[][] 
+ []
+
+[47 <./img/page_log.png>]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1182--1183
+[][] 
+ []
+
+[48]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1220--1221
+[][] 
+ []
+
+[49]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1258--1259
+[][] 
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1294--1295
+[][] 
+ []
+
+[50] [51]
+Underfull \hbox (badness 10000) in paragraph at lines 1297--1298
+
+ []
+
+<img/page_accountmanagement.png, id=706, 263.48438pt x 218.31563pt>
+File: img/page_accountmanagement.png Graphic file (type png)
+
+<use img/page_accountmanagement.png>
+Package pdftex.def Info: img/page_accountmanagement.png used on input line 1298
+.
+(pdftex.def)             Requested size: 332.62494pt x 275.61877pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1377--1377
+[]\OT1/cmr/m/n/10.95 When Ad-min-is-tra-tor clicks on but-ton
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1329--1584
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1329--1584
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1329--1584
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1329--1584
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1329--1584
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1329--1584
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1329--1584
+[] 
+ []
+
+[52 <./img/page_accountmanagement.png>] [53] [54] [55] [56] [57]
+Underfull \hbox (badness 10000) in paragraph at lines 1585--1586
+
+ []
+
+<img/page_taximanagement.png, id=733, 263.48438pt x 216.05719pt>
+File: img/page_taximanagement.png Graphic file (type png)
+
+<use img/page_taximanagement.png>
+Package pdftex.def Info: img/page_taximanagement.png used on input line 1586.
+(pdftex.def)             Requested size: 332.62494pt x 272.76755pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1835--1835
+[]\OT1/cmr/m/n/10.95 Display to the Ad-min-is-tra-tor fields
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1835--1835
+\OT1/cmr/m/n/10.95 to com-plete for search-ing a spe-cific
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1618--1873
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1618--1873
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1618--1873
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1618--1873
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1618--1873
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1618--1873
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1618--1873
+[] 
+ []
+
+[58 <./img/page_taximanagement.png>] [59] [60] [61] [62] [63]
+Underfull \hbox (badness 10000) in paragraph at lines 1874--1875
+
+ []
+
+<img/page_zone.png, id=761, 260.47313pt x 257.46187pt>
+File: img/page_zone.png Graphic file (type png)
+ <use img/page_zone.png>
+Package pdftex.def Info: img/page_zone.png used on input line 1875.
+(pdftex.def)             Requested size: 332.62494pt x 328.78398pt.
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1907--2162
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1907--2162
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1907--2162
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1907--2162
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1907--2162
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1907--2162
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 1907--2162
+[] 
+ []
+
+[64 <./img/page_zone.png>] [65] [66] [67] [68] [69]
+Underfull \hbox (badness 10000) in paragraph at lines 2163--2164
+
+ []
+
+<img/page_backup.png, id=788, 225.84375pt x 197.23688pt>
+File: img/page_backup.png Graphic file (type png)
+
+<use img/page_backup.png>
+Package pdftex.def Info: img/page_backup.png used on input line 2164.
+(pdftex.def)             Requested size: 332.62494pt x 290.5306pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2206--2206
+[]\OT1/cmr/m/n/10.95 When Ad-min-is-tra-tor clicks on but-ton
+ []
+
+
+Underfull \hbox (badness 1776) in paragraph at lines 2245--2245
+[]|\OT1/cmr/m/n/10.95 Administrator in-ter-face for show-ing as do a
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2245--2245
+[]\OT1/cmr/m/n/10.95 When Ad-min-is-tra-tor clicks on but-ton
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 2206--2290
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 2206--2290
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 2206--2290
+[] 
+ []
+
+[70 <./img/page_backup.png>] [71] [72] [73]
+Underfull \hbox (badness 10000) in paragraph at lines 2292--2293
+
+ []
+
+<img/page_taxidriver.png, id=807, 231.11343pt x 218.31563pt>
+File: img/page_taxidriver.png Graphic file (type png)
+
+<use img/page_taxidriver.png>
+Package pdftex.def Info: img/page_taxidriver.png used on input line 2293.
+(pdftex.def)             Requested size: 332.62494pt x 314.231pt.
+
+Underfull \hbox (badness 6842) in paragraph at lines 2329--2329
+[]\OT1/cmr/m/n/10.95 Display to the Taxi Driver a di-a-log
+ []
+
+
+Underfull \hbox (badness 4967) in paragraph at lines 2329--2329
+\OT1/cmr/m/n/10.95 show-ing the field to com-plete for lo-
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 2329--2409
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 2329--2409
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 2329--2409
+[] 
+ []
+
+[74 <./img/page_taxidriver.png>] [75] [76] [77]
+Underfull \hbox (badness 10000) in paragraph at lines 2411--2412
+
+ []
+
+<img/page_incomingrequest.png, id=825, 201.00093pt x 175.40532pt>
+File: img/page_incomingrequest.png Graphic file (type png)
+
+<use img/page_incomingrequest.png>
+Package pdftex.def Info: img/page_incomingrequest.png used on input line 2412.
+(pdftex.def)             Requested size: 332.62494pt x 290.26808pt.
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 2458--2504
+[]
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 2458--2504
+[] 
+ []
+
+[78 <./img/page_incomingrequest.png>] [79]
+<img/sequenceDiagramsLogin.png, id=836, 1252.68pt x 1794.705pt>
+File: img/sequenceDiagramsLogin.png Graphic file (type png)
+
+<use img/sequenceDiagramsLogin.png>
+Package pdftex.def Info: img/sequenceDiagramsLogin.png used on input line 2519.
+
+(pdftex.def)             Requested size: 360.0pt x 515.7683pt.
+ [80] [81 <./img/sequenceDiagramsLogin.png>] <img/sequenceDiagramsRequest.png, 
+id=846, 3235.08624pt x 1834.855pt>
+File: img/sequenceDiagramsRequest.png Graphic file (type png)
+
+<use img/sequenceDiagramsRequest.png>
+Package pdftex.def Info: img/sequenceDiagramsRequest.png used on input line 252
+3.
+(pdftex.def)             Requested size: 360.0pt x 204.15848pt.
+
+<img/sequenceDiagramsReservation.png, id=847, 3237.09375pt x 1834.855pt>
+File: img/sequenceDiagramsReservation.png Graphic file (type png)
+
+<use img/sequenceDiagramsReservation.png>
+Package pdftex.def Info: img/sequenceDiagramsReservation.png used on input line
+ 2527.
+(pdftex.def)             Requested size: 360.0pt x 204.04648pt.
+
+<img/sequenceDiagramsReservationDelete.png, id=848, 2960.05875pt x 1830.84pt>
+File: img/sequenceDiagramsReservationDelete.png Graphic file (type png)
+
+<use img/sequenceDiagramsReservationDelete.png>
+Package pdftex.def Info: img/sequenceDiagramsReservationDelete.png used on inpu
+t line 2531.
+(pdftex.def)             Requested size: 360.0pt x 222.65257pt.
+ [82 <./img/sequenceDiagramsRequest.png> <./img/sequenceDiagramsReservation.png
+>]
+<img/sequenceDiagramsTaxiRequestRelease.png, id=855, 3273.22874pt x 1824.8175pt
+>
+File: img/sequenceDiagramsTaxiRequestRelease.png Graphic file (type png)
+ <use img/sequenceDiagramsTaxiRequestRelease.png>
+Package pdftex.def Info: img/sequenceDiagramsTaxiRequestRelease.png used on inp
+ut line 2535.
+(pdftex.def)             Requested size: 360.0pt x 200.67485pt.
+
+<img/diagram_security_dataflow.png, id=856, 1011.78pt x 1405.25pt>
+File: img/diagram_security_dataflow.png Graphic file (type png)
+
+<use img/diagram_security_dataflow.png>
+Package pdftex.def Info: img/diagram_security_dataflow.png used on input line 2
+538.
+(pdftex.def)             Requested size: 360.0pt x 499.99297pt.
+ [83 <./img/sequenceDiagramsReservationDelete.png> <./img/sequenceDiagramsTaxiR
+equestRelease.png>]
+Overfull \hbox (51.84236pt too wide) in paragraph at lines 2541--2543
+\OT1/cmr/m/n/10.95 pro-pri-ate stereo-types \OML/cmm/m/it/10.95 <<\OT1/cmr/m/n/
+10.95 screen\OML/cmm/m/it/10.95 >>\OT1/cmr/m/n/10.95 and \OML/cmm/m/it/10.95 <<
+\OT1/cmr/m/n/10.95 in-put form\OML/cmm/m/it/10.95 >>\OT1/cmr/m/n/10.95 While \O
+ML/cmm/m/it/10.95 <<\OT1/cmr/m/n/10.95 screen\OML/cmm/m/it/10.95 >>\OT1/cmr/m/n
+/10.95 represents
+ []
+
+[84 <./img/diagram_security_dataflow.png>]
+<img/ux_passenger.png, id=869, 1846.9pt x 965.6075pt>
+File: img/ux_passenger.png Graphic file (type png)
+
+<use img/ux_passenger.png>
+Package pdftex.def Info: img/ux_passenger.png used on input line 2568.
+(pdftex.def)             Requested size: 360.0pt x 188.21167pt.
+ [85]
+<img/ux_taxidriver.png, id=885, 1163.0953pt x 685.8122pt>
+File: img/ux_taxidriver.png Graphic file (type png)
+
+<use img/ux_taxidriver.png>
+Package pdftex.def Info: img/ux_taxidriver.png used on input line 2585.
+(pdftex.def)             Requested size: 308.53491pt x 181.92773pt.
+ [86 <./img/ux_passenger.png>]
+Overfull \hbox (3.48642pt too wide) in paragraph at lines 2598--2599
+[]\OT1/cmr/bx/n/10.95 accountManagement \OT1/cmr/m/n/10.95 Sys-tem ad-min-is-tr
+a-tor can vi-su-al-ized, add,
+ []
+
+[87 <./img/ux_taxidriver.png>]
+<img/ux_systemadministrator.png, id=912, 3450.8925pt x 1096.095pt>
+File: img/ux_systemadministrator.png Graphic file (type png)
+
+<use img/ux_systemadministrator.png>
+Package pdftex.def Info: img/ux_systemadministrator.png used on input line 2627
+.
+(pdftex.def)             Requested size: 360.0pt x 114.33238pt.
+ [88] [89 <./img/ux_systemadministrator.png>] <img/schema_er_database.png, id=9
+37, 1444.39626pt x 1019.81pt>
+File: img/schema_er_database.png Graphic file (type png)
+
+<use img/schema_er_database.png>
+Package pdftex.def Info: img/schema_er_database.png used on input line 2668.
+(pdftex.def)             Requested size: 360.0pt x 254.17381pt.
+ [90] [91 <./img/schema_er_database.png>]
+Overfull \hbox (7.40344pt too wide) in paragraph at lines 2695--2697
+\OT1/cmr/m/n/10.95 only one Au-th-To-ken stored in a Au-tho-rizedSys-tem and a 
+Au-tho-rizedSys-
+ []
+
+
+Overfull \hbox (19.60042pt too wide) in paragraph at lines 2703--2704
+\OT1/cmr/m/n/10.95 sert-ing two for-eign keys into ta-ble Re-quest called Accou
+nt-NameTaxiDriver
+ []
+
+
+Overfull \hbox (6.5517pt too wide) in paragraph at lines 2704--2705
+\OT1/cmr/m/n/10.95 sert-ing a ta-ble called Re-ply that con-tain two for-eign k
+eys called Account-
+ []
+
+
+Overfull \hbox (5.57831pt too wide) in paragraph at lines 2705--2706
+\OT1/cmr/m/n/10.95 count and two for-eign keys called Taxi-TaxiCode and Taxi-Pl
+ateNumber
+ []
+
+[92]
+Overfull \hbox (7.55547pt too wide) in paragraph at lines 2707--2708
+[]\OT1/cmr/m/n/10.95 Relation Man-age-Zone be-tween Zone and Ad-min-is-tra-torA
+c-count is trans-
+ []
+
+
+Overfull \hbox (5.54796pt too wide) in paragraph at lines 2708--2709
+[]\OT1/cmr/m/n/10.95 Relation Man-ageL-ogs be-tween Logs and Ad-min-is-tra-torA
+c-count is trans-
+ []
+
+
+Overfull \hbox (3.90544pt too wide) in paragraph at lines 2709--2710
+[]\OT1/cmr/m/n/10.95 Relation Man-age-Taxi be-tween Taxi and Ad-min-is-tra-torA
+c-count is trans-
+ []
+
+
+Overfull \hbox (44.54222pt too wide) in paragraph at lines 2710--2711
+\OT1/cmr/m/n/10.95 trans-lated in-sert-ing one for-eign key into ta-ble Ac-coun
+t called AuthorizedSystem-
+ []
+
+<img/schema_database.png, id=971, 1211.52625pt x 1385.175pt>
+File: img/schema_database.png Graphic file (type png)
+
+<use img/schema_database.png>
+Package pdftex.def Info: img/schema_database.png used on input line 2714.
+(pdftex.def)             Requested size: 360.0pt x 411.60327pt.
+ [93]
+Overfull \hbox (2.04367pt too wide) in paragraph at lines 2720--2721
+[]\OT1/cmr/bx/n/10.95 Request\OT1/cmr/m/n/10.95 (idRequest, Meet-ingLo-ca-tion,
+RequestReservation, Ar-rival-Lo-
+ []
+
+
+Overfull \hbox (12.17876pt too wide) in paragraph at lines 2720--2721
+\OT1/cmr/m/n/10.95 ca-tion, Meet-ing-Time, NamePas-sen-ger,EmailPassenger, Name
+TaxiDriver,
+ []
+
+[94 <./img/schema_database.png>]
+Overfull \hbox (105.29913pt too wide) in paragraph at lines 2724--2725
+[]\OT1/cmr/bx/n/10.95 Account \OT1/cmr/m/n/10.95 (Name, Email, Sur-name, Phone,
+ Pass-word, Tax-Code,IsTaxiDriver,Licence,EmailS,
+ []
+
+[95] <img/edp_general.png, id=1004, 2801.46625pt x 3878.49pt>
+File: img/edp_general.png Graphic file (type png)
+
+<use img/edp_general.png>
+Package pdftex.def Info: img/edp_general.png used on input line 2738.
+(pdftex.def)             Requested size: 360.0pt x 498.3625pt.
+ [96 <./img/edp_general.png>]
+<img/edp_request.png, id=1011, 1719.42375pt x 1373.13pt>
+File: img/edp_request.png Graphic file (type png)
+
+<use img/edp_request.png>
+Package pdftex.def Info: img/edp_request.png used on input line 2741.
+(pdftex.def)             Requested size: 360.0pt x 287.48581pt.
+ [97 <./img/edp_request.png>]
+<img/edp_taxi.png, id=1017, 797.98125pt x 1228.59pt>
+File: img/edp_taxi.png Graphic file (type png)
+ <use img/edp_taxi.png>
+Package pdftex.def Info: img/edp_taxi.png used on input line 2744.
+(pdftex.def)             Requested size: 360.0pt x 554.2664pt.
+
+[98 <./img/edp_taxi.png>]
+<img/edp_admin.png, id=1023, 1009.7725pt x 1733.47626pt>
+File: img/edp_admin.png Graphic file (type png)
+
+<use img/edp_admin.png>
+Package pdftex.def Info: img/edp_admin.png used on input line 2747.
+(pdftex.def)             Requested size: 360.0pt x 618.02023pt.
+ [99]
+Overfull \vbox (43.62514pt too high) has occurred while \output is active []
+
+
+[100 <./img/edp_admin.png>]
+<img/gui_login.png, id=1033, 966.61125pt x 579.16376pt>
+File: img/gui_login.png Graphic file (type png)
+
+<use img/gui_login.png>
+Package pdftex.def Info: img/gui_login.png used on input line 2752.
+(pdftex.def)             Requested size: 360.0pt x 215.7012pt.
+
+<img/gui_passwordreset.png, id=1034, 966.61125pt x 579.16376pt>
+File: img/gui_passwordreset.png Graphic file (type png)
+
+<use img/gui_passwordreset.png>
+Package pdftex.def Info: img/gui_passwordreset.png used on input line 2754.
+(pdftex.def)             Requested size: 360.0pt x 215.7012pt.
+
+<img/gui_passenger.png, id=1035, 1276.77pt x 934.49126pt>
+File: img/gui_passenger.png Graphic file (type png)
+
+<use img/gui_passenger.png>
+Package pdftex.def Info: img/gui_passenger.png used on input line 2756.
+(pdftex.def)             Requested size: 360.0pt x 263.48094pt.
+ [101 <./img/gui_login.png> <./img/gui_passwordreset.png>] <img/gui_requests.pn
+g, id=1042, 1078.0275pt x 808.01875pt>
+File: img/gui_requests.png Graphic file (type png)
+
+<use img/gui_requests.png>
+Package pdftex.def Info: img/gui_requests.png used on input line 2758.
+(pdftex.def)             Requested size: 360.0pt x 269.82799pt.
+
+<img/gui_taxi.png, id=1043, 1389.19pt x 591.20876pt>
+File: img/gui_taxi.png Graphic file (type png)
+ <use img/gui_taxi.png>
+Package pdftex.def Info: img/gui_taxi.png used on input line 2760.
+(pdftex.def)             Requested size: 360.0pt x 153.20546pt.
+
+[102 <./img/gui_passenger.png> <./img/gui_requests.png>]
+<img/gui_administration.png, id=1051, 676.5275pt x 950.55125pt>
+File: img/gui_administration.png Graphic file (type png)
+
+<use img/gui_administration.png>
+Package pdftex.def Info: img/gui_administration.png used on input line 2762.
+(pdftex.def)             Requested size: 360.0pt x 505.83487pt.
+ [103 <./img/gui_taxi.png>] [104 <./img/gui_administration.png>] [105]
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ô in font cmr10!
+ [106]
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ô in font cmr10!
+
+
+LaTeX Warning: Reference `itm:Assumption_LengthTime' on page 107 undefined on i
+nput line 2864.
+
+
+Overfull \hbox (0.43799pt too wide) in paragraph at lines 2869--2870
+[]\OT1/cmr/m/n/10.95 Along with the taxi queue, there will be a Re-quest Queue,
+
+ []
+
+[107] [108]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2916.
+ [109]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2916.
+ (./DD.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2916.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2916.
+
+Package rerunfilecheck Info: File `DD.out' has not changed.
+(rerunfilecheck)             Checksum: 82D60AE9C1C4A8BDB85D6FC4D653D9FC;4922.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2916.
+ ) 
+Here is how much of TeX's memory you used:
+ 5911 strings out of 495000
+ 89416 string characters out of 6181169
+ 177272 words of memory out of 5000000
+ 8696 multiletter control sequences out of 15000+600000
+ 9516 words of font info for 33 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 29i,10n,28p,640b,548s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmti10.pfb>
+Output written on DD.pdf (110 pages, 5117573 bytes).
+PDF statistics:
+ 1222 PDF objects out of 1440 (max. 8388607)
+ 1000 compressed objects within 10 object streams
+ 372 named destinations out of 1000 (max. 500000)
+ 813 words of extra memory for PDF output out of 10000 (max. 10000000)
+

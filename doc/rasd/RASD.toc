@@ -1,0 +1,68 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Purpose}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Scope}{3}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Goals}{3}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Actors and Stakeholders}{3}{subsubsection.1.2.2}
+\contentsline {subsection}{\numberline {1.3}Definitions, Acronyms, Abbreviations}{4}{subsection.1.3}
+\contentsline {subsubsection}{\numberline {1.3.1}Definitions}{4}{subsubsection.1.3.1}
+\contentsline {subsubsection}{\numberline {1.3.2}Acronyms}{4}{subsubsection.1.3.2}
+\contentsline {subsubsection}{\numberline {1.3.3}Abbreviations}{4}{subsubsection.1.3.3}
+\contentsline {subsection}{\numberline {1.4}Reference Documents}{4}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}Document Overview}{5}{subsection.1.5}
+\contentsline {section}{\numberline {2}Overall description}{6}{section.2}
+\contentsline {subsection}{\numberline {2.1}Product Perspective}{6}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}System Interfaces}{7}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}User Interfaces}{7}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Hardware Interfaces}{11}{subsubsection.2.1.3}
+\contentsline {subsubsection}{\numberline {2.1.4}Software Interfaces}{11}{subsubsection.2.1.4}
+\contentsline {subsubsection}{\numberline {2.1.5}Communications Interfaces}{12}{subsubsection.2.1.5}
+\contentsline {subsubsection}{\numberline {2.1.6}Memory Constraints}{13}{subsubsection.2.1.6}
+\contentsline {subsubsection}{\numberline {2.1.7}Operations}{14}{subsubsection.2.1.7}
+\contentsline {subsection}{\numberline {2.2}Product Functions}{15}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}User charateristics}{16}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Constraints}{17}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Regulatory Policies}{17}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Reliability Requirements}{17}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}Criticality of the application}{17}{subsubsection.2.4.3}
+\contentsline {subsubsection}{\numberline {2.4.4}Safety and Security Consideration}{18}{subsubsection.2.4.4}
+\contentsline {subsection}{\numberline {2.5}Assumptions and Dependancies}{19}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}Assumptions}{19}{subsubsection.2.5.1}
+\contentsline {section}{\numberline {3}Specific Requirements}{20}{section.3}
+\contentsline {subsection}{\numberline {3.1}External Interfaces}{20}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Functions}{27}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Exceptions Management}{29}{subsubsection.3.2.1}
+\contentsline {subsection}{\numberline {3.3}Logical Database Requirements}{29}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Design Constraints}{30}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}Standard Compliance}{30}{subsubsection.3.4.1}
+\contentsline {subsection}{\numberline {3.5}Software System Attributes}{30}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}Performance Requirements}{30}{subsubsection.3.5.1}
+\contentsline {subsubsection}{\numberline {3.5.2}Availability}{30}{subsubsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.3}Security}{31}{subsubsection.3.5.3}
+\contentsline {subsubsection}{\numberline {3.5.4}Portability}{32}{subsubsection.3.5.4}
+\contentsline {subsection}{\numberline {3.6}Scenarios}{32}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.7}State Machines}{34}{subsection.3.7}
+\contentsline {subsection}{\numberline {3.8}Class Diagram}{36}{subsection.3.8}
+\contentsline {subsection}{\numberline {3.9}Use Cases}{37}{subsection.3.9}
+\contentsline {subsubsection}{\numberline {3.9.1}Use Case: General}{37}{subsubsection.3.9.1}
+\contentsline {subsubsection}{\numberline {3.9.2}Use Case: Login}{38}{subsubsection.3.9.2}
+\contentsline {subsubsection}{\numberline {3.9.3}Use Case: Registration}{40}{subsubsection.3.9.3}
+\contentsline {subsubsection}{\numberline {3.9.4}Use Case: Profile}{42}{subsubsection.3.9.4}
+\contentsline {subsubsection}{\numberline {3.9.5}Use Case: Reservation}{44}{subsubsection.3.9.5}
+\contentsline {subsubsection}{\numberline {3.9.6}Use Case: Request}{46}{subsubsection.3.9.6}
+\contentsline {subsubsection}{\numberline {3.9.7}Use Case: Pending Reservation}{48}{subsubsection.3.9.7}
+\contentsline {subsubsection}{\numberline {3.9.8}Use Case: Active Ride}{49}{subsubsection.3.9.8}
+\contentsline {subsubsection}{\numberline {3.9.9}Use Case: Logs}{51}{subsubsection.3.9.9}
+\contentsline {subsubsection}{\numberline {3.9.10}Use Case: User Management}{53}{subsubsection.3.9.10}
+\contentsline {subsubsection}{\numberline {3.9.11}Use Case: Taxi Management}{55}{subsubsection.3.9.11}
+\contentsline {subsubsection}{\numberline {3.9.12}Use Case: Request Incoming}{57}{subsubsection.3.9.12}
+\contentsline {subsubsection}{\numberline {3.9.13}Use Case: Backup}{59}{subsubsection.3.9.13}
+\contentsline {subsubsection}{\numberline {3.9.14}Use Case: Restore}{61}{subsubsection.3.9.14}
+\contentsline {subsubsection}{\numberline {3.9.15}Use Case: Information}{63}{subsubsection.3.9.15}
+\contentsline {subsection}{\numberline {3.10}Alloy}{64}{subsection.3.10}
+\contentsline {subsubsection}{\numberline {3.10.1}definitions}{64}{subsubsection.3.10.1}
+\contentsline {subsubsection}{\numberline {3.10.2}Facts}{65}{subsubsection.3.10.2}
+\contentsline {subsubsection}{\numberline {3.10.3}Assertions}{67}{subsubsection.3.10.3}
+\contentsline {subsubsection}{\numberline {3.10.4}Predicates}{68}{subsubsection.3.10.4}
+\contentsline {subsubsection}{\numberline {3.10.5}Output}{68}{subsubsection.3.10.5}
+\contentsline {subsubsection}{\numberline {3.10.6}Results}{70}{subsubsection.3.10.6}
+\contentsline {section}{\numberline {4}Tools}{71}{section.4}
