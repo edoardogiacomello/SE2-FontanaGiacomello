@@ -1,0 +1,107 @@
+\documentclass[11pt, a4paper,titlepage]{article}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\graphicspath{{img/}}
+\author{Edoardo Giacomello \and Mattia Fontana}
+\title{SE2 Inspection Document} 
+%Definisce il titolo
+\newcommand{\productname}{Glassfish 4.4.1}
+\newcommand{\image}[1]{
+	\begin{center}
+		\noindent \includegraphics[width=\linewidth]{#1}
+	\end{center}
+	}
+\newcommand{\link}[2]{\underline{\textbf{\hyperref[#1]{#2}}}}
+\newcommand{\linkitm}[1]{\underline{\textbf{\ref{#1}}}}
+
+
+\begin{document}
+%Genera il titolo
+\maketitle
+%Inserisce tabella dei contenuti
+\tableofcontents
+\newpage
+\section{Assigned Classes and Methods}
+%<state the namespace pattern and name of the classes that were assigned to you>
+\textbf{Assigned Class}: BaseContainer.java
+\textbf{Location}:\newline appserver/ejb/ejb-container/src/main/java/com/sun/ejb/containers/BaseContainer.java
+\textbf{Package}: com.sun.ejb.containers
+Methods to Inspect:
+	\begin{enumerate}
+		\item	\textbf{Name}:mapLocal3xException( Throwable t )
+		\begin{itemize}
+		\item		\textbf{Start Line}:2337
+		\end{itemize}
+		\item	\textbf{Name}: authorize( EjbInvocation inv )
+		\begin{itemize}
+		\item		\textbf{Start Line}:2362
+		\end{itemize}
+		\item	\textbf{Name}:initializeEjbInterfaceMethods( )
+		\begin{itemize}
+		\item		\textbf{Start Line}:2408
+		\end{itemize}
+		\item	\textbf{Name}:getJaccEjb( EjbInvocation inv )
+		\begin{itemize}
+		\item		\textbf{Start Line}:2676
+		\end{itemize}
+		\item	\textbf{Name}:assertValidLocalObject( Object o )
+		\begin{itemize}
+		\item		\textbf{Start Line}:2725
+		\end{itemize}
+		\end{enumerate}
+
+\section{Functional Roles}
+% <elaborate on the functional role
+% you have identified for the class cluster that was assigned to you, also, elaborate
+% on how you managed to understand this role and provide the necessary
+% evidence, e.g., javadoc, diagrams, etc.>
+	This section will explain what is the functional role of the class and methods we analysed and will describe the process that have been used in order to discover these functional roles.
+	\newline
+	\newline
+	\subsection{Package overview}
+	%TODO: Provide a short description about the other component within the package and a short scope description
+	\subsection{BaseContainer Class}
+	In this section will be described the main scope of the class that contains the method analysed. Unless otherwise specified, the following information are collected from the javadoc provided with the assignment and those provided from java/sun itself (see reference documents section).
+	 
+	The \textbf{BaseContainer} class implements the Container interfaces as stated in the \textit{\textbf{EJB 2.0 specifications}}. It hosts the code that is shared between the \textit{Session Beans}, \textit{Entity Beans} and \textit{Message Driven Beans}. \newline
+	\subsubsection{Interfaces}
+	This class implements directly the following interfaces:
+	 \begin{description}
+	 	\item[\textbf{Container}]: This interface is the main contract for a EJB Container implementation. In this case the container is a specific implementation of this interface (see BaseContainer subclasses).
+	 	 The methods that have been analysed are specified in this interface.
+	 	 \item[\textbf{JavaEEContainer}]: The javadoc does not specifies a description for this interface, but the method names suggest that it provides some utility methods for all the JEE containers, such the retrieval of the component Id and the container descriptor.
+	 	 \item[\textbf{EjbContainerFacade}]: This interface provides ejb-specific methods for iiop middleware integration
+	 \end{description}
+	 \subsubsection{Subclasses}
+	  %TODO: Specify the subclasses and provide a short functional description
+	 \subsection{Class Body}
+	 %TODO: Specify the other components within this class
+\section{Checklist and Issues}
+% <report the classes/code
+% fragments that do not fulfill some points in the check list. Explain which point is
+% not fulfilled and why>.
+\section{Other problems}
+% <list here all the parts of code that
+% you think create or may create a bug and explain why>.
+%TODO: Maybe check the EJB specification document and see if it has been implemented
+\section{References}
+	\begin{itemize}
+		\item Assignment document part 3: Document structure and checklist
+		\item "Brutish Programming", Dr. John Dalbey: Code quality inspection
+		\item http://glassfish.pompel.me/ Javadoc for Glassfish
+		\item http://www.javadocumentation.com/ Javadoc for the specific package we analysed
+		\item Enterprise JavaBeansTM Specification Version 2.0 - Sun Microsystems 
+	\end{itemize}
+\section{Tools}
+	\begin{itemize}
+		\item \textbf{SVN}: For the checkout of the source code
+		\item \textbf{Gedit}: Text editor for code inspection
+		\item \textbf{GrepCode}: Preliminary functional analysis
+	\end{itemize}
+\section{Work Hours}
+	\begin{itemize}
+		\item Mattia Fontana:
+		\item Edoardo Giacomello: 
+	\end{itemize}
+\end{document}
