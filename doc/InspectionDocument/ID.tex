@@ -59,24 +59,68 @@ Methods to Inspect:
 	This section will explain what is the functional role of the class and methods we analysed and will describe the process that have been used in order to discover these functional roles.
 	\newline
 	\newline
+	\subsection{Functional Inspection Process}
+	For getting a better understanding of the analysed component functional roles and the general context, the following steps have been followed:
+	\begin{enumerate}
+		\item Javadoc inspection of the assigned classes and methods, with respect to implemented interfaces, subclasses and implementers.
+		\item Reading of the document "Enterprise JavaBeansTM Specification Version 2.0", in particular of the section regarding the container contract and functionalities overview 
+	\end{enumerate}
 	\subsection{Package overview}
 	%TODO: Provide a short description about the other component within the package and a short scope description
+	The package com.sun.ejb.containers provides all the classes needed for implementing an EJB container, which can be either \textbf{Stateful} or \textbf{Stateless}, an Entity Bean container, or Message Bean Container. \newline
+	It also provides classes that implement the container Home interface, which defines the methods for the client to create, remove, and find EJB objects of the same type (EJBHomeImpl class).
+	
 	\subsection{BaseContainer Class}
-	In this section will be described the main scope of the class that contains the method analysed. Unless otherwise specified, the following information are collected from the javadoc provided with the assignment and those provided from java/sun itself (see reference documents section).
+	In this section will be described the main scope of the class that contains the method analysed. 
 	 
 	The \textbf{BaseContainer} class implements the Container interfaces as stated in the \textit{\textbf{EJB 2.0 specifications}}. It hosts the code that is shared between the \textit{Session Beans}, \textit{Entity Beans} and \textit{Message Driven Beans}. \newline
+	
+	The scope of this class is therefore to provide a common interface between the different types of Java Bean Containers. The context of operation can be inferred by the following diagram, included in the Java Bean Specification document:
+	 \image{ejb_contract.png}
 	\subsubsection{Interfaces}
 	This class implements directly the following interfaces:
 	 \begin{description}
-	 	\item[\textbf{Container}]: This interface is the main contract for a EJB Container implementation. In this case the container is a specific implementation of this interface (see BaseContainer subclasses).
+	 	\item[\textbf{Container}]: This interface is the main contract for a EJB Container implementation. In this case the container is a specific implementation of this interface (see BaseContainer subclasses) and it is responsible for managing the lifecycle, state management, concurrency, transactions etc, by interposing actions before and after invocations on EJBs.
 	 	 The methods that have been analysed are specified in this interface.
 	 	 \item[\textbf{JavaEEContainer}]: The javadoc does not specifies a description for this interface, but the method names suggest that it provides some utility methods for all the JEE containers, such the retrieval of the component Id and the container descriptor.
-	 	 \item[\textbf{EjbContainerFacade}]: This interface provides ejb-specific methods for iiop middleware integration
+	 	 \item[\textbf{EjbContainerFacade}]: This interface provides ejb-specific methods for iiop middleware integration.
 	 \end{description}
 	 \subsubsection{Subclasses}
-	  %TODO: Specify the subclasses and provide a short functional description
+	  The \textbf{BaseContainer} class is derived by the following classes, each of them implementing a different type of EJB container.
+	  \begin{description}
+		  \item[EntityContainer]: This class represents a container for an Entity Bean and It is responsible for their instances and lifecycle management. In particular, this type of container (\textit{EJB Spec 2.0, section 10.5.9}) does not ensure that the instance has exclusive access to the state of the object in persistence storage, and the container must therefore synchronize the instance's state at the beginning of a transaction. 
+		  \item[MessageBeanContainer]
+		  This class provides container functionality specific to message-driven EJBs. At deployment time, one instance of the MessageDrivenBeanContainer is created for each message-driven bean in an application. (\textit{Class Javadoc})
+		  \item[StatefulSessionContainer]
+		  This class provides container functionality specific to stateful SessionBeans. At deployment time, one instance of the StatefulSessionContainer is created for each stateful SessionBean type (i.e. deployment descriptor) in a JAR. (\textit{Class Javadoc})
+		  \item[StatelessSessionContainer]
+		  This class provides container functionality specific to stateless SessionBeans. At deployment time, one instance of the StatelessSessionContainer is created for each stateless SessionBean type (i.e. deployment descriptor) in a JAR. \newline
+		  This container services invocations using a pool of EJB instances. An instance is returned to the pool immediately after the invocation completes, so the number of instances needed = number of concurrent invocations.
+		  
+		  A Stateless Bean can hold open DB connections across invocations. Its assumed that the Resource Manager can handle multiple incomplete transactions on the same connection.
+		  
+		  \item[AbstractSingletonContainer] Called from the JarManager at deployment time.
+	  \end{description}
 	 \subsection{Class Body}
-	 %TODO: Specify the other components within this class
+	 The \textbf{BaseContainer} class includes the following nested Classes:
+			\begin{description}
+				\item[ContainerInfo] This class contains strings for monitoring the container information.
+				\item[ContainerType] This enum specifies the type of the container, that can be Entity, MessageDriven, ReadOnly, Singleton, Stateful or Stateless
+				\item[PreInvokeException] This is a wrapper for the exceptions thrown from BaseContainer.preInvoke, so it indicates that the bean's method will not be called. \textit{(from Javadoc)}
+				The preInvokeMethod is a method which is called from the EJB home or object before the invocation of the bean method.
+			\end{description}
+	 \subsection{Methods}
+	 All considered methods are implemented in the \textbf{BaseContainer} class. 
+	 \subsubsection{mapLocal3xException}
+	 Private Method.
+	 \subsubsection{authorize}
+	 Public method defined in the \textbf{Container} interface.
+	 \subsubsection{initializeEjbInterfaceMethods}
+	 Private Method.
+	 \subsubsection{getJaccEjb}
+	 Public method defined in the \textbf{Container} interface.
+	 \subsubsection{assertValidLocalObject}
+	 Public method defined in the \textbf{Container} interface.
 \section{Checklist and Issues}
 % <report the classes/code
 % fragments that do not fulfill some points in the check list. Explain which point is
