@@ -59,24 +59,33 @@ Methods to Inspect:
 	This section will explain what is the functional role of the class and methods we analysed and will describe the process that have been used in order to discover these functional roles.
 	\newline
 	\newline
-	\subsection{Functional Inspection Process}
+	\subsection{WorkFlow}
 	For getting a better understanding of the analysed component functional roles and the general context, the following steps have been followed:
 	\begin{enumerate}
-		\item Javadoc inspection of the assigned classes and methods, with respect to implemented interfaces, subclasses and implementers.
+		\item Javadoc inspection of the assigned class, with respect to implemented interfaces, subclasses and implementers.
 		\item Reading of the document "Enterprise JavaBeansTM Specification Version 2.0", in particular of the section regarding the container contract and functionalities overview 
+		\item Finding the usage of the methods to analyse by using the grep tool
+		\item Documentation inspection and usage analysis of caller methods and their classes
+		\item Documentation inspection of the methods that have been assigned for code review
+		\item Functional Inspection for the code of the methods that have been assigned
+		\item Definition of the Scope for the methods that have been assigned
+		\item Code inspection
 	\end{enumerate}
+	
 	\subsection{Package overview}
 	%TODO: Provide a short description about the other component within the package and a short scope description
 	The package com.sun.ejb.containers provides all the classes needed for implementing an EJB container, which can be either \textbf{Stateful} or \textbf{Stateless}, an Entity Bean container, or Message Bean Container. \newline
 	It also provides classes that implement the container Home interface, which defines the methods for the client to create, remove, and find EJB objects of the same type (EJBHomeImpl class).
 	
 	\subsection{BaseContainer Class}
-	In this section will be described the main scope of the class that contains the method analysed. 
+	In this section will be described the main scope of the class that contains the analysed methods. 
 	 
 	The \textbf{BaseContainer} class implements the Container interfaces as stated in the \textit{\textbf{EJB 2.0 specifications}}. It hosts the code that is shared between the \textit{Session Beans}, \textit{Entity Beans} and \textit{Message Driven Beans}. \newline
 	
 	The scope of this class is therefore to provide a common interface between the different types of Java Bean Containers. The context of operation can be inferred by the following diagram, included in the Java Bean Specification document:
 	 \image{ejb_contract.png}
+	 
+	An analysis of the code revealed that this class in particular manages the object that contains an EJB Method invocation in several context such as Authorization, Initialization, Pre-Invoking, Post-Invoking etc.
 	\subsubsection{Interfaces}
 	This class implements directly the following interfaces:
 	 \begin{description}
@@ -101,7 +110,7 @@ Methods to Inspect:
 		  
 		  \item[AbstractSingletonContainer] Called from the JarManager at deployment time.
 	  \end{description}
-	 \subsection{Class Body}
+	 \subsubsection{Class Body}
 	 The \textbf{BaseContainer} class includes the following nested Classes:
 			\begin{description}
 				\item[ContainerInfo] This class contains strings for monitoring the container information.
@@ -109,6 +118,47 @@ Methods to Inspect:
 				\item[PreInvokeException] This is a wrapper for the exceptions thrown from BaseContainer.preInvoke, so it indicates that the bean's method will not be called. \textit{(from Javadoc)}
 				The preInvokeMethod is a method which is called from the EJB home or object before the invocation of the bean method.
 			\end{description}
+	\newpage
+	\subsection{Terminology and other Components}
+	This section contains all the specific terminology and components that have been referred to during the functional description of the analysed code.
+	
+	\subsubsection{Local and Remote Clients}
+	From Oracle Documentation: \newline
+	A \textbf{local client} has these characteristics.
+	\begin{itemize}
+			\item It must run in the same application as the enterprise bean it accesses.
+			\item It can be a web component or another enterprise bean.
+			\item To the local client, the location of the enterprise bean it accesses is not transparent.
+	\end{itemize}
+	A \textbf{remote client} of an enterprise bean has the following traits.
+	\begin{itemize}
+		\item It can run on a different machine and a different JVM from the enterprise bean it accesses. (It is not required to run on a different JVM.)
+		\item It can be a web component, an application client, or another enterprise bean.
+		\item To a remote client, the location of the enterprise bean is transparent.
+		\item The enterprise bean must implement a business interface. That is, remote clients may not access an enterprise bean through a no-interface view.
+	\end{itemize}
+	\subsubsection{EJB Container}
+	Containers are the interface between a component and the low-level platform-specific functionality that supports the component. Before it can be executed, a web, enterprise bean, or application client component must be assembled into a Java EE module and deployed into its container. \newline
+	A more explicative description is given in the picture below:
+	\image{ejb_containers.png}
+	\subsubsection{EJB Home}
+	From EJBHome javadoc: \newline
+	The EJB Home is an interface that defines the methods that allow a remote client to create, find, and remove EJB objects. \newline
+	The remote home interface is defined by the enterprise bean provider and implemented by the enterprise bean container.\newline
+	Enterprise beans written to the EJB 3.0 and later APIs do not require a home interface.
+	\subsubsection{EJB Local Object}
+	From Oracle JavaDoc: \newline
+	An enterprise bean's local interface provides the local client view of an EJB object. An enterprise bean's local interface defines the business methods callable by local clients.
+	The enterprise bean's local interface is defined by the enterprise bean provider and implemented by the enterprise bean container.
+	Enterprise beans written to the EJB 3.0 and later APIs do not require a local interface that extends the EJBLocalObject interface. A local business interface can be used instead.
+
+	\subsubsection{EJB Invocation}
+	The EjbInvocation object contains the state associated with an invocation on an EJB or EJBHome (local/remote). It is usually created by generated code in *ObjectImpl and *HomeImpl classes. It is passed as a parameter to Container.preInvoke() and postInvoke(), which are called by the EJB(Local)Object/EJB(Local)Home before and after an invocation.
+	\subsubsection{JACC: Java Authorization Contract for Containers}
+	From Oracle Documentation:
+	The Java Authorization Contract for Containers (JACC) specification defines a contract between a Java EE application server and an authorization policy provider. All Java EE containers support this contract.
+	\newline \newline 
+	The JACC specification defines java.security.Permission classes that satisfy the Java EE authorization model. The specification defines the binding of container access decisions to operations on instances of these permission classes. It defines the semantics of policy providers that use the new permission classes to address the authorization requirements of the Java EE platform, including the definition and use of roles.
 	\newpage
 	 \subsection{Methods}
 	 All considered methods are implemented in the \textbf{BaseContainer} class. 
@@ -152,8 +202,11 @@ Methods to Inspect:
 		 		It calls the authorize method for checking if the client is authorized to call a certain method through that proxy
 		 		\item The \textbf{EjbInvocation} is the object that contains the state of an EJB Method invocation. No javadoc is available, but the name and the code suggest that the authorize method is used to authorize a web service method call by accessing the container that own the invocation itself. 
 		 	\end{itemize} 
-		 	\item[Functional Description]:
-		 	\item[Scope]: 
+		 	\item[Functional Description]: The method first try to fetch the method invocation associated information and attaches it to the invocation object, because it would improve performance. \newline
+		 	Then it checks if the called method has been called from the business home interface, in that case it will return true; if not the method will call the authorize method of the security manager. If the security manager doesn't authorize the invocation, its context is released.
+		 	\item[Scope]: The JavaDoc states that this method contains the common code for managing the security manager authorization call. \newline
+		 	In practice, this method is useful to assert if the client who calls an EJB method is authorized to make that invocation. \newline
+		 	By code inspection it is possible to understand that this method will make a check on the source of the called EJB method and authorize it automatically or invoke the security manager instead. 
 		 \end{description}
 		 
 	 \subsubsection{initializeEjbInterfaceMethods}
@@ -162,14 +215,14 @@ Methods to Inspect:
 	 	\item[Definition Class]: \textbf{BaseContainer} class
 	 	\item[Called from]: 
 	 	\begin{itemize}
-	 		\item method \textbf{} in class \textbf{}, row \textbf{}
+	 		\item \textbf{Constructor} of \textbf{BaseContainer} class, row \textbf{840}.
 	 	\end{itemize}
 	 	\item[Usage Analysis]: 
 	 	\begin{itemize}
-	 		\item 
+	 		\item This method is called by the class Constructor during the initialization process of a Container.
 	 	\end{itemize} 
-	 	\item[Functional Description]:
-	 	\item[Scope]: 
+	 	\item[Functional Description]: This method creates an array of Methods that will contains all methods of the EJB interface, according to its type (Local or Remote, Stateless or Stateful).
+	 	\item[Scope]: This method adds by reflection the interface methods that the BaseContainer class has implemented and assign the produced array of methods to the local ejb home or local object.
 	 \end{description}
 	 
 	 \subsubsection{getJaccEjb}
@@ -178,14 +231,18 @@ Methods to Inspect:
 	 	\item[Definition Class]: \textbf{Container} interface.
 	 	\item[Called from]: 
 	 	\begin{itemize}
-	 		\item method \textbf{} in class \textbf{}, row \textbf{}
+	 		\item method \textbf{getJaccEjb} in class \textbf{EjbInvocation}, row \textbf{368}
+	 		\item Indirectly by method \textbf{getEnterpriseBean} in class \textbf{EJBPolicyContextDelegate}, row \textbf{60} (see Usage Analysis)
 	 	\end{itemize}
 	 	\item[Usage Analysis]: 
 	 	\begin{itemize}
-	 		\item 
+	 		\item The BaseContainer getJaccEjb method is only called in the method with the same name which below to the invocation itself. The javadoc of the invocation version of the method states that the user shall call the getJaccEjb method on the invocation object rather than directly on the EJB field, but it just call the Container method and return its value. \newline
+	 		\item The EJBPolicyContextDelegate is a delegate for the Policy Context and it calls getJaccEjb for returning the bean that is owned by the invocation object.
 	 	\end{itemize} 
-	 	\item[Functional Description]:
-	 	\item[Scope]: 
+	 	\item[Functional Description]: The operation flow of this method is based on several assumptions that are specified in the comments. \newline
+	 	First of all the method make a check on the invocation passed as parameter, it has to be a business method invocation done through a remote, local or serviceEndpoint interface.
+	 	Then if the context for the invocation has not been set, it is done and the ejb for that context is returned. There an important consideration about the accessed variable is made in the comments, but it doesn't affect the way the method works.
+	 	\item[Scope]: This method retrieves the Java Bean from the invocation context. This is necessary for the JACC policy provider (see Terminology section). 
 	 \end{description}
 	 \subsubsection{assertValidLocalObject}
 	 \begin{description}
@@ -193,14 +250,18 @@ Methods to Inspect:
 	 	\item[Definition Class]: \textbf{Container} interface
 	 	\item[Called from]: 
 	 	\begin{itemize}
-	 		\item method \textbf{} in class \textbf{}, row \textbf{}
+	 		\item method \textbf{assertValidLocalObject} in class \textbf{SunContainerHelper}, row \textbf{240}
+	 		\item Indirectly, method \textbf{assertValidLocalObject} in class \textbf{CMPHelper}, row \textbf{234}
+	 		
+	 		\item Indirectly, method \textbf{assertValidLocalObjectImpl} in class \textbf{JDOEJB20HelperImpl}, row \textbf{243}
 	 	\end{itemize}
 	 	\item[Usage Analysis]: 
 	 	\begin{itemize}
-	 		\item 
+	 		\item This method is used in helper class that manages the Container-Managed persistance for java beans. \newline In particular, the JDOEJB20HelperImpl is an helper class that is useful to convert persistance-capable beans from and to single object and collection of these.
+	 		
 	 	\end{itemize} 
-	 	\item[Functional Description]:
-	 	\item[Scope]: 
+	 	\item[Functional Description]: This method receives as input an object, and it will raise an exception in the case the object is not a local valid one, or just return otherwise. It starts checking if the object is null and if it's an instance of a EJBLocalObject. In that case, it checks if the container of that object is the same of the object in which the assertValidLocalObject method is called. If the check don't passes, an error message is built and an exception is thrown.
+	 	\item[Scope]: The scope of this method is to check if the object passed as parameter is a Local object and belong to this container. It is used prevalently for the bean persistence management.  
 	 \end{description}
 \section{Checklist and Issues}
 % <report the classes/code
@@ -209,7 +270,7 @@ Methods to Inspect:
 \section{Other problems}
 % <list here all the parts of code that
 % you think create or may create a bug and explain why>.
-%TODO: Maybe check the EJB specification document and see if it has been implemented
+%TODO: Insert here the parts of checklist in which our methods passed but the other failed
 \section{References}
 	\begin{itemize}
 		\item Assignment document part 3: Document structure and checklist
@@ -217,6 +278,8 @@ Methods to Inspect:
 		\item http://glassfish.pompel.me/ Javadoc for Glassfish
 		\item http://www.javadocumentation.com/ Javadoc for the specific package we analysed
 		\item Enterprise JavaBeansTM Specification Version 2.0 - Sun Microsystems 
+		\item Oracle Documentation: Component descriptions and some JavaDocs
+		
 	\end{itemize}
 \section{Tools}
 	\begin{itemize}
