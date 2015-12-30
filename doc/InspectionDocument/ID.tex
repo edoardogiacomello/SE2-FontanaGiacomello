@@ -83,7 +83,7 @@ Methods to Inspect:
 	 	\item[\textbf{Container}]: This interface is the main contract for a EJB Container implementation. In this case the container is a specific implementation of this interface (see BaseContainer subclasses) and it is responsible for managing the lifecycle, state management, concurrency, transactions etc, by interposing actions before and after invocations on EJBs.
 	 	 The methods that have been analysed are specified in this interface.
 	 	 \item[\textbf{JavaEEContainer}]: The javadoc does not specifies a description for this interface, but the method names suggest that it provides some utility methods for all the JEE containers, such the retrieval of the component Id and the container descriptor.
-	 	 \item[\textbf{EjbContainerFacade}]: This interface provides ejb-specific methods for iiop middleware integration.
+	 	 \item[\textbf{EjbContainerFacade}]: This interface provides ejb-specific methods for iiop middleware integration, which is a protocol for distributed systems that supports the mapping between TCP/IP and Inter-Object Request Broker messages.
 	 \end{description}
 	 \subsubsection{Subclasses}
 	  The \textbf{BaseContainer} class is derived by the following classes, each of them implementing a different type of EJB container.
@@ -109,18 +109,99 @@ Methods to Inspect:
 				\item[PreInvokeException] This is a wrapper for the exceptions thrown from BaseContainer.preInvoke, so it indicates that the bean's method will not be called. \textit{(from Javadoc)}
 				The preInvokeMethod is a method which is called from the EJB home or object before the invocation of the bean method.
 			\end{description}
+	\newpage
 	 \subsection{Methods}
 	 All considered methods are implemented in the \textbf{BaseContainer} class. 
 	 \subsubsection{mapLocal3xException}
-	 Private Method.
+	 \begin{description}
+	 	\item[Visibility]: Private Method.
+	 	\item[Definition Class]: \textbf{BaseContainer} class
+	 	\item[Called from]: 
+		 	\begin{itemize}
+		 		\item method \textbf{postInvoke} in class \textbf{BaseContainer}, row \textbf{2124}
+		 		\item method \textbf{mapRemoteException} in class \textbf{BaseContainer}, row \textbf{2292}
+		 	\end{itemize}
+	 	\item[Usage Analysis]: 
+	 	\begin{itemize}
+			\item The first usage occurrence is into the \textbf{postInvoke} method of this same class. The postInvoke method is a method which is called from the EJB Home or Container after the invocation of the bean method. In the case an exception is raised and the invocation is not remote, the exception dynamic type is mapped by the \textbf{mapLocal3xException} method and stored into the \textbf{EJBInvocation} object.
+			\item The second usage occurrence is into the \textbf{mapRemoteException} method of this same class. The mapRemoteException method checks if a remote exception invocation is asynchronous: in that case, as stated in comment lines, we are sure that the exception is raised by a remote business interface and not from a 2.x client, so it has to be mapped as a local exception by the \textbf{mapLocal3xException} method.
+	 	\end{itemize} 
+	 	\item[Functional Description]: This method consists in a check over the dynamic type of a \textbf{Throwable} taken as input. If the instance matches one of the exception type defined, it is re-instantiated as a corresponding non-local exception and returned.
+	 	
+	 	\item[Scope]: Although no javadoc is available for this method, through the usage and code analysis, with respect to the Oracle Javadoc of the package javax.ejb it has been possible to deduce that this is an helper method, which maps a Local EJB exception of the 3.x version into another corresponding exception that could be sent to the client.
+	 \end{description}
+	
 	 \subsubsection{authorize}
-	 Public method defined in the \textbf{Container} interface.
+		 \begin{description}
+		 	\item[Visibility]: Public Method
+		 	\item[Definition Class]: \textbf{Container} interface
+		 	\item[Called from]: 
+		 	\begin{itemize}
+		 		\item method \textbf{preInvoke} in class \textbf{BaseContainer}, row \textbf{1959}
+		 		\item method \textbf{authorizeLocalMethod} in class \textbf{BaseContainer}, row \textbf{2162}
+		 		\item method \textbf{authorizeRemoteMethod} in class \textbf{BaseContainer}, row \textbf{2185}
+		 		\item method \textbf{invoke} in class \textbf{WebServiceInvocationHandler}, row \textbf{2185} 
+		 		\item method \textbf{authorizeWebService} in class \textbf{EjbInvocation}, row \textbf{675}
+		 	\end{itemize}
+		 	\item[Usage Analysis]: 
+		 	\begin{itemize}
+		 		\item \textbf{preInvoke} is the method which is called from the EJB container before the invocation of the actual EJB method. It checks if the state of the method invocation is legitimate or it would lead to exceptions. \newline
+		 		The call of the authorize method is done in the context of security checking: if the authorize method returns false, an exception is raised which states that the client is not authorized to make that method invocation. 
+		 		\item the \textbf{authorizeLocalMethod} and \textbf{authorizeRemoteMethod} are called from the local/remote container home or object respectively in order to authorize the execution of a EJB method; the usage of the authorize method is similar to that in the previous point.
+		 		\item \textbf{WebServiceInvocationHandler} is a proxy invocation handler for web service ejb invocations.\newline
+		 		It calls the authorize method for checking if the client is authorized to call a certain method through that proxy
+		 		\item The \textbf{EjbInvocation} is the object that contains the state of an EJB Method invocation. No javadoc is available, but the name and the code suggest that the authorize method is used to authorize a web service method call by accessing the container that own the invocation itself. 
+		 	\end{itemize} 
+		 	\item[Functional Description]:
+		 	\item[Scope]: 
+		 \end{description}
+		 
 	 \subsubsection{initializeEjbInterfaceMethods}
-	 Private Method.
+	 \begin{description}
+	 	\item[Visibility]: Private Method
+	 	\item[Definition Class]: \textbf{BaseContainer} class
+	 	\item[Called from]: 
+	 	\begin{itemize}
+	 		\item method \textbf{} in class \textbf{}, row \textbf{}
+	 	\end{itemize}
+	 	\item[Usage Analysis]: 
+	 	\begin{itemize}
+	 		\item 
+	 	\end{itemize} 
+	 	\item[Functional Description]:
+	 	\item[Scope]: 
+	 \end{description}
+	 
 	 \subsubsection{getJaccEjb}
-	 Public method defined in the \textbf{Container} interface.
+	 \begin{description}
+	 	\item[Visibility]: Public method
+	 	\item[Definition Class]: \textbf{Container} interface.
+	 	\item[Called from]: 
+	 	\begin{itemize}
+	 		\item method \textbf{} in class \textbf{}, row \textbf{}
+	 	\end{itemize}
+	 	\item[Usage Analysis]: 
+	 	\begin{itemize}
+	 		\item 
+	 	\end{itemize} 
+	 	\item[Functional Description]:
+	 	\item[Scope]: 
+	 \end{description}
 	 \subsubsection{assertValidLocalObject}
-	 Public method defined in the \textbf{Container} interface.
+	 \begin{description}
+	 	\item[Visibility]: Public method
+	 	\item[Definition Class]: \textbf{Container} interface
+	 	\item[Called from]: 
+	 	\begin{itemize}
+	 		\item method \textbf{} in class \textbf{}, row \textbf{}
+	 	\end{itemize}
+	 	\item[Usage Analysis]: 
+	 	\begin{itemize}
+	 		\item 
+	 	\end{itemize} 
+	 	\item[Functional Description]:
+	 	\item[Scope]: 
+	 \end{description}
 \section{Checklist and Issues}
 % <report the classes/code
 % fragments that do not fulfill some points in the check list. Explain which point is
@@ -141,7 +222,8 @@ Methods to Inspect:
 	\begin{itemize}
 		\item \textbf{SVN}: For the checkout of the source code
 		\item \textbf{Gedit}: Text editor for code inspection
-		\item \textbf{GrepCode}: Preliminary functional analysis
+		\item \textbf{GrepCode}: Preliminary package analysis
+		\item \textbf{grep}: For usage inspection
 	\end{itemize}
 \section{Work Hours}
 	\begin{itemize}
