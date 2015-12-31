@@ -2,6 +2,10 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
 \usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
 \graphicspath{{img/}}
 \author{Edoardo Giacomello \and Mattia Fontana}
 \title{SE2 Inspection Document} 
@@ -263,10 +267,427 @@ Methods to Inspect:
 	 	\item[Functional Description]: This method receives as input an object, and it will raise an exception in the case the object is not a local valid one, or just return otherwise. It starts checking if the object is null and if it's an instance of a EJBLocalObject. In that case, it checks if the container of that object is the same of the object in which the assertValidLocalObject method is called. If the check don't passes, an error message is built and an exception is thrown.
 	 	\item[Scope]: The scope of this method is to check if the object passed as parameter is a Local object and belong to this container. It is used prevalently for the bean persistence management.  
 	 \end{description}
+\newpage
 \section{Checklist and Issues}
 % <report the classes/code
 % fragments that do not fulfill some points in the check list. Explain which point is
 % not fulfilled and why>.
+
+% table 1 for mapLocal3xException
+\newpage
+\subsection{Method : mapLocal3xException }
+\subsubsection{Code}
+\image{code_1.png}
+\newpage
+\subsubsection{Checklist}
+\begin{tabularx}{\textwidth}{| c |c |X |}
+	\hline \textbf{Name} & & mapLocal3xException \\
+	\hline \textbf{Naming Conventions} & 1  & Passed  \\
+	\hline  & 2 & \#2337 t is used in a "if",it isn't used for temporary “throwaway” variables\\
+	\hline  & 3 & Passed \\
+	\hline  & 4 & Passed \\
+	\hline  & 5 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+	\hline  & 6 & Passed \\
+	\hline  & 7 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+	\hline \textbf{Indention} & 8 & Passed \\
+	\hline  & 9 & Passed \\
+	\hline \textbf{Braces} & 10 & Passed, Kernighan and Ritchie style \\
+	\hline  & 11 & Passed \\
+	\hline \textbf{File Organization} & 12 & no, because there are blank lines that don't separates sections \\
+	\hline  & 13 & Passed (max = 71) \\
+	\hline  & 14 & Passed \\
+	\hline \textbf{Wrapping Lines} & 15 & Passed \\
+	\hline  & 16 & Passed \\
+	
+	\hline
+\end{tabularx}
+\newpage
+\begin{tabularx}{\textwidth}{| c |c |X |}
+	\hline  & 17 & Passed \\
+	\hline \textbf{Comments} & 18 & Passed, no comments \\
+	\hline  & 19 & Passed, no comments \\
+	\hline \textbf{Java Source Files} & 20 & Passed \\
+	\hline  & 21 & Passed \\
+	\hline  & 22 & Passed \\
+	\hline  & 23 & no, because the javadoc isn't complete. \\
+	\hline \textbf{Package and Import Statements} & 24 & Passed \\
+	\hline \textbf{Class and Interface Declarations} & 25 & \#189-582 Variables are not declared in the right order \\
+	\hline  & 26 & Passed \\
+	\hline  & 27 & Passed \\
+	\hline \textbf{Initialization and Declarations} & 28 & Passed \\
+	\hline  & 29 & Passed \\
+	\hline  & 30 & Passed \\
+	\hline  & 31 & Passed \\
+	\hline  & 32 & Passed \\
+	\hline  & 33 & Passed \\
+	\hline \textbf{Method Calls} & 34 & Passed \\
+	\hline  & 35 & Passed \\
+	\hline  & 36 & Passed \\
+	\hline \textbf{Arrays} & 37 & Passed, no arrays \\
+	\hline  & 38 & Passed, no arrays \\
+	\hline  & 39 & Passed, no arrays \\
+	\hline \textbf{Object Comparison} & 40 & Passed \\
+	\hline \textbf{Output Format} & 41 & Passed \\
+	\hline  & 42 & Passed \\
+	\hline  & 43 & Passed \\
+	\hline \textbf{Computation, Comparisons and Assignments} & 44 & Passed \\
+	\hline  & 45 & Passed \\
+	\hline  & 46 & Passed \\
+	\hline
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c |c |X |}
+	\hline  & 47 & Passed \\
+	\hline  & 48 & Passed \\
+	\hline  & 49 & Passed \\
+	\hline  & 50 & Passed \\
+	\hline  & 51 & Passed \\
+	\hline \textbf{Exceptions} & 52 & Passed \\
+	\hline  & 53 & Passed \\
+	\hline \textbf{Flow of Control} & 54 & Passed, no switches \\
+	\hline  & 55 & Passed,no switches \\
+	\hline  & 56 & Passed,no loops \\
+	\hline \textbf{Files} & 57 & Passed \\
+	\hline  & 58 & Passed \\
+	\hline  & 59 & Passed \\
+	\hline  & 60 & Passed \\
+	\hline
+\end{tabularx}
+
+
+% table 2 for authorize
+\newpage
+\subsection{Method : authorize }
+\subsubsection{Code}
+\image{code_2.png}
+\newpage
+\subsubsection{Checklist}
+ \begin{tabularx}{\textwidth}{| c |c |X |}
+ 	\hline \textbf{Name} & & authorize \\
+ 	\hline \textbf{Naming Conventions} & 1  & Passed  \\
+ 	\hline  & 2 & Passed\\
+ 	\hline  & 3 & Passed \\
+ 	\hline  & 4 & Passed \\
+ 	\hline  & 5 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+ 	\hline  & 6 & Passed \\
+ 	\hline  & 7 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+ 	\hline \textbf{Indention} & 8 & \#2374-2376 inconsistent spacing, \#2382 exceeding space
+ 	\\
+ 	\hline  & 9 & Passed \\
+ 	\hline \textbf{Braces} & 10 & Passed, Kernighan and Ritchie style
+ 	\\
+ 	\hline  & 11 & Passed \\
+ 	\hline \textbf{File Organization} & 12 & no, because there are blank lines that don't separe sections
+ 	\\
+ 	\hline  & 13 & Passed (max = 75) \\
+ 	\hline  & 14 & Passed \\
+ 	\hline \textbf{Wrapping Lines} & 15 & \#2382 exceeding newline before !!
+ 	\\
+ 	\hline  & 16 & Passed \\
+ 	\hline  & 17 & Passed \\
+ 	\hline \textbf{Comments} & 18 & Passed \\
+ 	\hline  & 19 & Passed \\
+ 	\hline \textbf{Java Source Files} & 20 & Passed \\
+ 	\hline  & 21 & Passed \\
+ 	\hline
+ \end{tabularx}
+ \newpage
+ \begin{tabularx}{\textwidth}{| c |c |X |}
+ 	\hline  & 22 & Passed, implementation of the "Container" interface method
+ 	\\
+ 	\hline  & 23 & Passed,present both in BaseContainer and Container Javadoc
+ 	\\
+ 	\hline \textbf{Package and Import Statements} & 24 & Passed \\
+ 	\hline \textbf{Class and Interface Declarations} & 25 & \#189-582 Variables are not declared in the right order \\
+ 	\hline  & 26 & Passed \\
+ 	\hline  & 27 & Passed \\
+ 	\hline \textbf{Initialization and Declarations} & 28 & Passed \\
+ 	\hline  & 29 & Passed \\
+ 	\hline  & 30 & Passed \\
+ 	\hline  & 31 & Passed \\
+ 	\hline  & 32 & Passed \\
+ 	\hline  & 33 & no, because there is a declaration at row \#2387 \\
+ 	\hline \textbf{Method Calls} & 34 & Passed \\
+ 	\hline  & 35 & Passed \\
+ 	\hline  & 36 & Passed \\
+ 	\hline \textbf{Arrays} & 37 & Passed,no array \\
+ 	\hline  & 38 & Passed,no array \\
+ 	\hline  & 39 & Passed,no array \\ 
+ 	\hline \textbf{Object Comparison} & 40 & \#2373 "==" is used instead of "equals",\#2381, \#2383 "==" is used instead of  "equals"
+ 	\\
+ 	\hline \textbf{Output Format} & 41 & Passed \\
+ 	\hline  & 42 & Passed \\
+ 	\hline  & 43 & Passed \\
+ 	\hline
+ \end{tabularx}
+ \newpage
+ \begin{tabularx}{\textwidth}{| c |c |X |}
+ 	\hline \textbf{Computation, Comparisons and Assignments} & 44 & Passed \\
+ 	\hline  & 45 & Passed \\
+ 	\hline  & 46 & Passed \\
+ 	\hline  & 47 & Passed \\
+ 	\hline  & 48 & Passed \\
+ 	\hline  & 49 & Passed \\
+ 	\hline  & 50 & Passed \\
+ 	\hline  & 51 & Passed \\
+ 	\hline \textbf{Exceptions} & 52 & Passed \\
+ 	\hline  & 53 & Passed \\
+ 	\hline \textbf{Flow of Control} & 54 & Passed,no switch \\
+ 	\hline  & 55 & Passed,no switch \\
+ 	\hline  & 56 & Passed,no loop \\
+ 	\hline \textbf{Files} & 57 & Passed \\
+ 	\hline  & 58 & Passed \\
+ 	\hline  & 59 & Passed \\
+ 	\hline  & 60 & Passed \\
+ 	\hline
+ \end{tabularx}
+% table 3 for initializeEjbInterfaceMethods
+\newpage
+\subsection{Method : initializeEjbInterfaceMethods }
+\subsubsection{Code}
+\image{code_31.png}
+\image{code_32.png}
+\newpage
+\subsubsection{Checklist}
+  \begin{tabularx}{\textwidth}{| c |c |X |}
+  	\hline \textbf{Name} & & initializeEjbInterfaceMethods \\
+  	\hline \textbf{Naming Conventions} & 1  & Passed  \\
+  	\hline  & 2 & \#2462 m is defined in a if.
+  	\\
+  	\hline  & 3 & Passed \\
+  	\hline  & 4 & Passed \\
+  	\hline  & 5 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+  	\hline  & 6 & Passed \\
+  	\hline  & 7 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+  	\hline \textbf{Indention} & 8 & \#2416 exceeding space, \#2419 exceeding space, \#2424 inconsistent space,
+  	\#2435 indentation incorrect, \#2449 incosistent space, \#2458 indentation incorrect. \\
+  	\hline  & 9 & Passed \\
+  	\hline \textbf{Braces} & 10 & Kernighan and Ritchie style, \#2408 Allman style. \\
+  	\hline  & 11 & Passed \\
+  	\hline \textbf{File Organization} & 12 & no, because there are blank lines that don't separe sections: \#2424, \#2449 \\
+  	\hline  & 13 & Passed (max = 78) \\
+  	\hline  & 14 & Passed \\
+  	\hline \textbf{Wrapping Lines} & 15 & Passed \\
+  	\hline  & 16 & \#2416, \#2448, \#2458, \#2435 are incorrects \\
+  	\hline  & 17 & Passed \\
+  	\hline \textbf{Comments} & 18 & Passed \\
+  	\hline  & 19 & Passed \\
+  	\hline \textbf{Java Source Files} & 20 & Passed \\ 
+  	\hline
+  \end{tabularx}
+  \newpage
+  \begin{tabularx}{\textwidth}{| c |c |X |}
+  	\hline  & 21 & Passed \\
+  	\hline  & 22 & Passed \\
+  	\hline  & 23 & no, because the javadoc isn't complete; it doesn't cover this method. \\
+  	\hline \textbf{Package and Import Statements} & 24 & Passed \\
+  	\hline \textbf{Class and Interface Declarations} & 25 & \#189-582 Variables are not declared in the right order \\
+  	\hline  & 26 & Passed \\
+  	\hline  & 27 & Passed \\
+  	\hline \textbf{Initialization and Declarations} & 28 & Passed \\
+  	\hline  & 29 & Passed \\
+  	\hline  & 30 & Passed \\
+  	\hline  & 31 & \#2437,\#2460 isStatelessSession can do error.
+  	\\
+  	\hline  & 32 & Passed \\
+  	\hline  & 33 & no,because there is a declaration at row \#2462 \\
+  	\hline \textbf{Method Calls} & 34 & Passed \\
+  	\hline  & 35 & Passed \\
+  	\hline  & 36 & Passed \\
+  	\hline \textbf{Arrays} & 37 & Passed \\
+  	\hline  & 38 & Passed \\
+  	\hline  & 39 & Passed \\
+  	\hline \textbf{Object Comparison} & 40 & Passed \\
+  	\hline \textbf{Output Format} & 41 & Passed \\
+  	\hline  & 42 & Passed,no error message\\
+  	\hline  & 43 & Passed \\
+  	\hline \textbf{Computation, Comparisons and Assignments} & 44 & Passed \\
+  	\hline  & 45 & Passed \\
+  	\hline  & 46 & Passed \\
+  	\hline  & 47 & Passed \\
+  	\hline
+  \end{tabularx}
+  \newpage
+  \begin{tabularx}{\textwidth}{| c |c |X |}
+  	\hline  & 48 & Passed \\
+  	\hline  & 49 & Passed \\
+  	\hline  & 50 & Passed \\
+  	\hline  & 51 & Passed \\
+  	\hline \textbf{Exceptions} & 52 & Passed \\
+  	\hline  & 53 & Passed \\
+  	\hline \textbf{Flow of Control} & 54 & Passed, no switch \\
+  	\hline  & 55 & Passed, no switch \\
+  	\hline  & 56 & Passed, no loop \\
+  	\hline \textbf{Files} & 57 & Passed, no file \\
+  	\hline  & 58 & Passed, no file \\
+  	\hline  & 59 & Passed, no file \\
+  	\hline  & 60 & Passed, no file \\
+  	\hline
+  \end{tabularx}
+
+
+% table 4 for getJaccEjb
+\newpage
+\subsection{Method : getJaccEjb }
+\subsubsection{Code}
+\image{code_4.png}
+\newpage
+\subsubsection{Checklist}
+\begin{tabularx}{\textwidth}{| c |c |X |}
+	\hline \textbf{Name} & & getJaccEjb \\
+	\hline \textbf{Naming Conventions} & 1  & Passed  \\
+	\hline  & 2 & Passed \\
+	\hline  & 3 & Passed \\
+	\hline  & 4 & Passed \\
+	\hline  & 5 & Passed \\
+	\hline  & 6 & Passed \\
+	\hline  & 7 & Passed \\
+	\hline \textbf{Indention} & 8 & \#2683 exceeding space
+	\\
+	\hline  & 9 & Passed for this method, but found 170 occurrences in other functions
+	\\
+	\hline \textbf{Braces} & 10 & Passed for the methods (Kernighan and Ritchie style), but not consistent for all the file \\
+	\hline  & 11 & Passed \\
+	\hline \textbf{File Organization} & 12 & \#564-562 are not consistent with the file style
+	\\
+	\hline  & 13 & \#207-243 exceeds 80 characters several time. Log messages could be written in several lines.
+	\#268, \#273, inline comments exceeding optimal row length
+	\\
+	\hline  & 14 & \#2101 Line too long, \#2249 string too long, \#1628 line too long, \#4824, \#4880, line too long \\
+	\hline \textbf{Wrapping Lines} & 15 & \#2684 exceeding newline before "! !".
+	\\
+	\hline  & 16 & Passed \\
+	\hline  & 17 & Passed \\
+	\hline \textbf{Comments} & 18 & Passed \\
+	\hline  & 19 & Passed \\
+	\hline \textbf{Java Source Files} & 20 & Passed \\
+	\hline  & 21 & Passed \\
+	\hline  & 22 & Passed, implementation of the "Container" interface method
+	\\
+	\hline  & 23 & Passed, present both in BaseContainer and Container javadoc
+	\\
+	\hline
+\end{tabularx}
+\newpage
+\begin{tabularx}{\textwidth}{| c |c |X |}
+	\hline \textbf{Package and Import Statements} & 24 & Passed \\
+	\hline \textbf{Class and Interface Declarations} & 25 & \#189-582 Variables are not declared in the right order \\
+	\hline  & 26 & Passed \\
+	\hline  & 27 & Passed \\
+	\hline \textbf{Initialization and Declarations} & 28 & Passed \\
+	\hline  & 29 & Passed \\
+	\hline  & 30 & Passed \\
+	\hline  & 31 & Passed \\
+	\hline  & 32 & Passed \\
+	\hline  & 33 & Passed \\
+	\hline \textbf{Method Calls} & 34 & Passed \\
+	\hline  & 35 & Passed \\
+	\hline  & 36 & Passed \\
+	\hline \textbf{Arrays} & 37 & Passed, no arrays \\
+	\hline  & 38 & Passed, no arrays \\
+	\hline  & 39 & Passed, no arrays \\
+	\hline \textbf{Object Comparison} & 40 & Passed \\
+	\hline \textbf{Output Format} & 41 & Passed \\
+	\hline  & 42 & Passed \\
+	\hline  & 43 & Passed \\
+	\hline \textbf{Computation, Comparisons and Assignments} & 44 & Passed \\
+	\hline  & 45 & Passed \\
+	\hline  & 46 & Passed \\
+	\hline  & 47 & Passed \\
+	\hline  & 48 & Passed \\
+	\hline  & 49 & Passed \\
+	\hline  & 50 & Passed \\
+	\hline  & 51 & Passed \\
+	\hline \textbf{Exceptions} & 52 & Passed \\
+	\hline  & 53 & Passed \\
+	\hline \textbf{Flow of Control} & 54 & Passed \\
+	\hline  & 55 & Passed \\
+	\hline  & 56 & Passed \\
+	\hline \textbf{Files} & 57 & Passed \\
+	\hline  & 58 & Passed \\
+	\hline  & 59 & Passed \\
+	\hline  & 60 & Passed \\
+	\hline
+\end{tabularx}
+
+
+% table 5 for assertValidLocalObject
+\newpage
+\subsection{Method : assertValidLocalObject }
+\subsubsection{Code}
+\image{code_5.png}
+\newpage
+\subsubsection{Checklist}
+  \begin{tabularx}{\textwidth}{| c |c |X |}
+  	\hline \textbf{Name} & & assertValidLocalObject \\
+  	\hline \textbf{Naming Conventions} & 1  & Passed  \\
+  	\hline  & 2 & \#2725: The parameter "o" should be called "object" since it's not a throwaway variable \\
+  	\hline  & 3 & Passed \\
+  	\hline  & 4 & Passed \\
+  	\hline  & 5 & Passed \\
+  	\hline  & 6 & Passed \\
+  	\hline  & 7 & Passed \\
+  	\hline \textbf{Indention} & 8 & \#2743 exceeding space, \#2749-2752 inconsistent spacing \\
+  	\hline  & 9 & Passed for this method, but found 170 occurrences in other functions \\
+  	\hline \textbf{Braces} & 10 & Passed for the methods (Kernighan and Ritchie style), but not consistent for all the file \\
+  	\hline  & 11 & Passed \\
+  	\hline \textbf{File Organization} & 12 & \#564-562 are not consistent with the file style \\
+  	\hline  & 13 & \#207-243 exceeds 80 characters several time. Log messages could be written in several lines.
+  	\#268, \#273, inline comments exceeding optimal row length
+  	\\
+  	\hline  & 14 & \#2101 Line too long, \#2249 string too long, \#1628 line too long, \#4824, \#4880, line too long \\
+  	\hline \textbf{Wrapping Lines} & 15 & Passed \\
+  	\hline  & 16 & Passed \\
+  	\hline  & 17 & Passed \\
+  	\hline \textbf{Comments} & 18 & Passed \\
+  	\hline  & 19 & Passed \\
+  	\hline \textbf{Java Source Files} & 20 & Passed \\
+  	\hline  & 21 & Passed \\
+  	\hline  & 22 & Passed, implementation of the "Container" interface method \\ 
+  	\hline  & 23 & Passed, present both in BaseContainer and Container javadoc \\
+  	\hline \textbf{Package and Import Statements} & 24 & Passed \\
+  	\hline
+  \end{tabularx}
+  \newpage
+  \begin{tabularx}{\textwidth}{| c |c |X |}
+  	\hline \textbf{Class and Interface Declarations} & 25 & \#189-582 Variables are not declared in the right order \\
+  	\hline  & 26 & Passed \\
+  	\hline  & 27 & Passed \\
+  	\hline \textbf{Initialization and Declarations} & 28 & Passed \\
+  	\hline  & 29 & Passed \\
+  	\hline  & 30 & Passed \\
+  	\hline  & 31 & Passed \\
+  	\hline  & 32 & Passed \\
+  	\hline  & 33 & Passed \\
+  	\hline \textbf{Method Calls} & 34 & Passed \\
+  	\hline  & 35 & Passed \\
+  	\hline  & 36 & Passed \\
+  	\hline \textbf{Arrays} & 37 & Passed, no Arrays \\
+  	\hline  & 38 & Passed, no Arrays \\
+  	\hline  & 39 & Passed, no Arrays \\
+  	\hline \textbf{Object Comparison} & 40 & \#2738 "==" used instead of .equals for comparing two non-null objects \\
+  	\hline \textbf{Output Format} & 41 & Passed \\
+  	\hline  & 42 & Passed \\
+  	\hline  & 43 & Passed \\   
+  	\hline \textbf{Computation, Comparisons and Assignments} & 44 & Passed \\
+  	\hline  & 45 & Passed \\
+  	\hline  & 46 & Passed \\
+  	\hline  & 47 & Passed \\
+  	\hline  & 48 & Passed \\
+  	\hline  & 49 & Passed \\
+  	\hline  & 50 & Passed \\
+  	\hline  & 51 & Passed \\
+  	\hline \textbf{Exceptions} & 52 & Passed \\
+  	\hline  & 53 & Passed \\
+  	\hline \textbf{Flow of Control} & 54 & Passed \\
+  	\hline  & 55 & Passed \\
+  	\hline  & 56 & Passed \\
+  	\hline \textbf{Files} & 57 & Passed \\
+  	\hline  & 58 & Passed \\
+  	\hline  & 59 & Passed \\
+  	\hline  & 60 & Passed \\
+  	\hline
+  \end{tabularx} 
+
 \section{Other problems}
 % <list here all the parts of code that
 % you think create or may create a bug and explain why>.
