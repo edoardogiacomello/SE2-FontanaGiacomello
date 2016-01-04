@@ -4,6 +4,7 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage[table]{xcolor}
 \usepackage[normalem]{ulem}
 \useunder{\uline}{\ul}{}
 \graphicspath{{img/}}
@@ -272,6 +273,9 @@ Methods to Inspect:
 % <report the classes/code
 % fragments that do not fulfill some points in the check list. Explain which point is
 % not fulfilled and why>.
+In this section the checklist analysis will be presented.\newline
+The first section will present the checklist which have been used, then for each method it will be presented the result of the inspection. At last, the checklist point that are relative to the whole class or file will be presented.
+\newline The reader will therefore find the missing checklist points in the "Class Inspection" section, unless an error occurs in the method that is been analysed.
 \subsection{Assigment Checklist}
 \begin{tabularx}{\textwidth}{| X | l | X |}
 	\hline \textbf{Category} & \textbf{Number} & \textbf{Description} \\
@@ -300,6 +304,7 @@ Methods to Inspect:
 										Constants are declared using all uppercase with words separated by an
 										underscore. Examples: MIN\textunderscore WIDTH; MAX\textunderscore HEIGHT;	\\ \hline
 						\end{tabularx}
+						
 						\begin{tabularx}{\textwidth}{| X | l | X |}
 							\hline
 	\multirow{2}{*}{Indention} 			& \label{itm:8} 8 & 
@@ -340,6 +345,7 @@ Methods to Inspect:
 										date it can be removed from the source file if determined it is no longer
 										needed.\\   \hline
 									\end{tabularx}
+									
 									\begin{tabularx}{\textwidth}{| X | l | X |}
 										\hline
 	\multirow{4}{*}{Java Source Files} 	& \label{itm:20} 20 &  
@@ -395,6 +401,7 @@ Methods to Inspect:
 										\\   \hline
 										
 									\end{tabularx}
+									
 									\begin{tabularx}{\textwidth}{| X | l | X |}
 										\hline
 										
@@ -435,6 +442,7 @@ Methods to Inspect:
 										spacing
 										\\   \hline	
 									\end{tabularx}
+									
 									\begin{tabularx}{\textwidth}{| X | l | X |}
 										\hline
 	\multirow{6}{*}{Computation, Comparisons and Assignments}& \label{itm:44} 44 &  
@@ -507,19 +515,16 @@ Methods to Inspect:
 \begin{tabularx}{\textwidth}{| l | c |X |}
 	\hline \textbf{Name} & & mapLocal3xException \\
 	\hline \multirow{7}{*}{\textbf{Naming Conventions}} & \link{itm:1}{1}  & Passed  \\
-	\cline{2-3}  & \link{itm:2}{2} & \#2337 t is used in a "if",it isn't used for temporary “throwaway” variables\\
+	\cline{2-3}  &  \cellcolor{red!25} \link{itm:2}{2} & \#2337 t is used in a "if", it isn't used for temporary “throwaway” variables\\
 	\cline{2-3}  & \link{itm:3}{3} & Passed \\
 	\cline{2-3}  & \link{itm:4}{4} & Passed \\
-	\cline{2-3}  & \link{itm:5}{5} & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
-	\cline{2-3}  & \link{itm:6}{6} & Passed \\
-	\cline{2-3}  &\link{itm:7}{7}& This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+ 	\cline{2-3}  & \cellcolor{red!25}\link{itm:5}{5} & See Class Inspection Section \\
+ 	\cline{2-3}  & \link{itm:6}{6} & Passed \\
+ 	\cline{2-3}  & \cellcolor{red!25}\link{itm:7}{7} & See Class Inspection Section  \\
 	\hline \multirow{2}{*}{\textbf{Indention}} & \link{itm:8}{8} & Passed \\
 	\cline{2-3}  & \link{itm:9}{9} & Passed \\
 	\hline \textbf{Braces} & \link{itm:10}{10} & Passed, Kernighan and Ritchie style \\
 	\cline{2-3}  & \link{itm:11}{11} & Passed \\
-	\hline \textbf{File Organization} & \link{itm:12}{12} & no, because there are blank lines that don't separates sections \\
-	\cline{2-3}  & \link{itm:13}{13} & Passed (max = 71) \\
-	\cline{2-3}  & \link{itm:14}{14} & Passed \\
 	\hline \textbf{Wrapping Lines} & \link{itm:15}{15} & Passed \\
 	\cline{2-3}  & \link{itm:16}{16} & Passed \\
 	
@@ -533,18 +538,8 @@ Methods to Inspect:
 	\hline \textbf{Java Source Files} & \link{itm:20}{20} & Passed \\
 	\cline{2-3}  & \link{itm:21}{21} & Passed \\
 	\cline{2-3}  & \link{itm:22}{22} & Passed \\
-	\cline{2-3}  & \link{itm:23}{23} & no, because the javadoc isn't complete. \\
-	\hline \textbf{Package and Import Statements} & \link{itm:24}{24} & Passed \\
-	\hline \textbf{Class and Interface Declarations} & \link{itm:25}{25} & \#189-582 Variables are not declared in the right order \\
-	\cline{2-3}  & \link{itm:26}{26} & Passed \\
-	\cline{2-3}  & \link{itm:27}{27} & Passed \\
-	\hline \textbf{Initialization and Declarations} & \link{itm:28}{28} & Passed \\
-	\cline{2-3}  & \link{itm:29}{29} & Passed \\
-	\cline{2-3}  & \link{itm:30}{30} & Passed \\
-	\cline{2-3}  & \link{itm:31}{31} & Passed \\
-	\cline{2-3}  & \link{itm:32}{32} & Passed \\
-	\cline{2-3}  & \link{itm:33}{33} & Passed \\
-	\hline \textbf{Method Calls} & \link{itm:34}{34} & Passed \\
+	\cline{2-3}  &  \cellcolor{red!25} \link{itm:23}{23} & Incomplete Javadoc . \\
+\hline \textbf{Method Calls} & \link{itm:34}{34} & Passed \\
 	\cline{2-3}  & \link{itm:35}{35} & Passed \\
 	\cline{2-3}  & \link{itm:36}{36} & Passed \\
 	\hline \textbf{Arrays} & \link{itm:37}{37} & Passed, no arrays \\
@@ -558,8 +553,6 @@ Methods to Inspect:
 	\cline{2-3}  & \link{itm:45}{45} & Passed \\
 	\cline{2-3}  & \link{itm:46}{46} & Passed \\
 	\hline
-\end{tabularx}
-\begin{tabularx}{\textwidth}{| X | c |X |}
 	\cline{2-3}  & \link{itm:47}{47} & Passed \\
 	\cline{2-3}  & \link{itm:48}{48} & Passed \\
 	\cline{2-3}  & \link{itm:49}{49} & Passed \\
@@ -588,23 +581,19 @@ Methods to Inspect:
  \begin{tabularx}{\textwidth}{| X | c |X |}
  	\hline \textbf{Name} & & authorize \\
  	\hline \textbf{Naming Conventions} & \link{itm:1}{1}  & Passed  \\
- 	\cline{2-3}  & \link{itm:2}{2} & Passed\\
+ 	\cline{2-3}  & \link{itm:2}{2} & Passed \\
  	\cline{2-3}  & \link{itm:3}{3} & Passed \\
  	\cline{2-3}  & \link{itm:4}{4} & Passed \\
- 	\cline{2-3}  & \link{itm:5}{5} & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+ 	\cline{2-3}  & \cellcolor{red!25}\link{itm:5}{5} & See Class Inspection Section \\
  	\cline{2-3}  & \link{itm:6}{6} & Passed \\
- 	\cline{2-3}  & \link{itm:7}{7} & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
- 	\hline \textbf{Indention} & \link{itm:8}{8} & \#2374-2376 inconsistent spacing, \#2382 exceeding space
+ 	\cline{2-3}  & \cellcolor{red!25}\link{itm:7}{7} & See Class Inspection Section  \\
+ 	\hline \textbf{Indention} & \cellcolor{red!25}\link{itm:8}{8} & \#2374-2376 inconsistent spacing, \#2382 exceeding space
  	\\
  	\cline{2-3}  & \link{itm:9}{9} & Passed \\
  	\hline \textbf{Braces} & \link{itm:10}{10} & Passed, Kernighan and Ritchie style
  	\\
  	\cline{2-3}  & \link{itm:11}{11} & Passed \\
- 	\hline \textbf{File Organization} & \link{itm:12}{12} & no, because there are blank lines that don't separe sections
- 	\\
- 	\cline{2-3}  & \link{itm:13}{13} & Passed (max = 75) \\
- 	\cline{2-3}  & \link{itm:14}{14} & Passed \\
- 	\hline \textbf{Wrapping Lines} & \link{itm:15}{15} & \#2382 exceeding newline before !!
+ 	\hline \textbf{Wrapping Lines} & \cellcolor{red!25}\link{itm:15}{15} & \#2382 exceeding newline before !!
  	\\
  	\cline{2-3}  & \link{itm:16}{16} & Passed \\
  	\cline{2-3}  & \link{itm:17}{17} & Passed \\
@@ -615,28 +604,20 @@ Methods to Inspect:
  	\hline
  \end{tabularx}
  \newpage
- \begin{tabularx}{\textwidth}{| X | c |X |}
+ \begin{tabularx}{\textwidth}{| X | c | X |}
  	\cline{2-3}  & \link{itm:22}{22} & Passed, implementation of the "Container" interface method
  	\\
- 	\cline{2-3}  & \link{itm:23}{23} & Passed,present both in BaseContainer and Container Javadoc
+ 	\cline{2-3}  & \link{itm:23}{23} & Passed, present both in BaseContainer and Container Javadoc
  	\\
- 	\hline \textbf{Package and Import Statements} & \link{itm:24}{24} & Passed \\
- 	\hline \textbf{Class and Interface Declarations} & \link{itm:25}{25} & \#189-582 Variables are not declared in the right order \\
- 	\cline{2-3}  & \link{itm:26}{26} & Passed \\
- 	\cline{2-3}  & \link{itm:27}{27} & Passed \\
  	\hline \textbf{Initialization and Declarations} & \link{itm:28}{28} & Passed \\
- 	\cline{2-3}  & \link{itm:29}{29} & Passed \\
- 	\cline{2-3}  & \link{itm:30}{30} & Passed \\
- 	\cline{2-3}  & \link{itm:31}{31} & Passed \\
- 	\cline{2-3}  & \link{itm:32}{32} & Passed \\
- 	\cline{2-3}  & \link{itm:33}{33} & no, because there is a declaration at row \#2387 \\
+ 	  \cline{2-3} & \cellcolor{red!25}\link{itm:33}{33} & Misplaced declaration at row \#2387 \\
  	\hline \textbf{Method Calls} & \link{itm:34}{34} & Passed \\
  	\cline{2-3}  & \link{itm:35}{35} & Passed \\
  	\cline{2-3}  & \link{itm:36}{36} & Passed \\
  	\hline \textbf{Arrays} & \link{itm:37}{37} & Passed,no array \\
  	\cline{2-3}  & \link{itm:38}{38} & Passed,no array \\
  	\cline{2-3}  & \link{itm:39}{39} & Passed,no array \\ 
- 	\hline \textbf{Object Comparison} & \link{itm:40}{40} & \#2373 "==" is used instead of "equals",\#2381, \#2383 "==" is used instead of  "equals"
+ 	\hline \textbf{Object Comparison} & \cellcolor{red!25}\link{itm:40}{40} & \#2373 "==" is used instead of "equals",\#2381, \#2383 "==" is used instead of  "equals"
  	\\
  	\hline \textbf{Output Format} & \link{itm:41}{41} & Passed \\
  	\cline{2-3}  & \link{itm:42}{42} & Passed \\
@@ -679,19 +660,18 @@ Methods to Inspect:
   	\\
   	\cline{2-3}& \link{itm:3}{3} & Passed \\
   	\cline{2-3}& \link{itm:4}{4} & Passed \\
-  	\cline{2-3}& \link{itm:5}{5} & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
-  	\cline{2-3}& \link{itm:6}{6} & Passed \\
-  	\cline{2-3}& \link{itm:7}{7} & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
-  	\hline \textbf{Indention} & \link{itm:8}{8} & \#2416 exceeding space, \#2419 exceeding space, \#2424 inconsistent space,
+ 	\cline{2-3}  & \cellcolor{red!25}\link{itm:5}{5} & See Class Inspection Section \\
+ 	\cline{2-3}  & \link{itm:6}{6} & Passed \\
+ 	\cline{2-3}  & \cellcolor{red!25}\link{itm:7}{7} & See Class Inspection Section  \\  	\hline \textbf{Indention} & \cellcolor{red!25}\link{itm:8}{8} & \#2416 exceeding space, \#2419 exceeding space, \#2424 inconsistent space,
   	\#2435 indentation incorrect, \#2449 incosistent space, \#2458 indentation incorrect. \\
   	\cline{2-3}& \link{itm:9}{9} & Passed \\
-  	\hline \textbf{Braces} & \link{itm:10}{10} & Kernighan and Ritchie style, \#2408 Allman style. \\
+  	\hline \textbf{Braces} & \cellcolor{red!25}\link{itm:10}{10} & Kernighan and Ritchie style, \#2408 Allman style. \\
   	\cline{2-3}& \link{itm:11}{11} & Passed \\
-  	\hline \textbf{File Organization} & \link{itm:12}{12} & no, because there are blank lines that don't separe sections: \#2424, \#2449 \\
+  	\hline \textbf{File Organization} & \cellcolor{red!25}\link{itm:12}{12} & Exceeding Blank line: \#2424, \#2449 \\
   	\cline{2-3}& \link{itm:13}{13} & Passed (max = 78) \\
   	\cline{2-3}& \link{itm:14}{14} & Passed \\
   	\hline \textbf{Wrapping Lines} & \link{itm:15}{15} & Passed \\
-  	\cline{2-3}& \link{itm:16}{16} & \#2416, \#2448, \#2458, \#2435 are incorrects \\
+  	\cline{2-3}& \cellcolor{red!25}\link{itm:16}{16} & \#2416, \#2448, \#2458, \#2435 are incorrect \\
   	\cline{2-3}& \link{itm:17}{17} & Passed \\
   	\hline \textbf{Comments} & \link{itm:18}{18} & Passed \\
   	\cline{2-3}& \link{itm:19}{19} & Passed \\
@@ -702,18 +682,11 @@ Methods to Inspect:
   \begin{tabularx}{\textwidth}{| X | c |X |}
   	\cline{2-3}& \link{itm:21}{21} & Passed \\
   	\cline{2-3}& \link{itm:22}{22} & Passed \\
-  	\cline{2-3}& \link{itm:23}{23} & no, because the javadoc isn't complete; it doesn't cover this method. \\
-  	\hline \textbf{Package and Import Statements} & \link{itm:24}{24} & Passed \\
-  	\hline \textbf{Class and Interface Declarations} & \link{itm:25}{25} & \#189-582 Variables are not declared in the right order \\
-  	\cline{2-3}& \link{itm:26}{26} & Passed \\
-  	\cline{2-3}& \link{itm:27}{27} & Passed \\
-  	\hline \textbf{Initialization and Declarations} & \link{itm:28}{28} & Passed \\
-  	\cline{2-3}& \link{itm:29}{29} & Passed \\
-  	\cline{2-3}& \link{itm:30}{30} & Passed \\
-  	\cline{2-3}& \link{itm:31}{31} & \#2437,\#2460 isStatelessSession can do error.
+  	\cline{2-3}& \cellcolor{red!25}\link{itm:23}{23} & Not passed: the javadoc doesn't cover this method. \\
+  	\hline \textbf{Initialization and Declarations} & \cellcolor{red!25}\link{itm:31}{31} & \#2437,\#2460 isStatelessSession can lead to an error.
   	\\
   	\cline{2-3}& \link{itm:32}{32} & Passed \\
-  	\cline{2-3}& \link{itm:33}{33} & no,because there is a declaration at row \#2462 \\
+  	\cline{2-3}& \cellcolor{red!25}\link{itm:33}{33} & Misplaced declaration at row \#2462 \\
   	\hline \textbf{Method Calls} & \link{itm:34}{34} & Passed \\
   	\cline{2-3}& \link{itm:35}{35} & Passed \\
   	\cline{2-3}& \link{itm:36}{36} & Passed \\
@@ -762,22 +735,15 @@ Methods to Inspect:
 	\cline{2-3}& \link{itm:2}{2} & Passed \\
 	\cline{2-3}& \link{itm:3}{3} & Passed \\
 	\cline{2-3}& \link{itm:4}{4} & Passed \\
-	\cline{2-3}& \link{itm:5}{5} & Passed \\
-	\cline{2-3}& \link{itm:6}{6} & Passed \\
-	\cline{2-3}& \link{itm:7}{7} & Passed \\
-	\hline \textbf{Indention} & \link{itm:8}{8} & \#2683 exceeding space
+ 	\cline{2-3}  & \cellcolor{red!25}\link{itm:5}{5} & See Class Inspection Section \\
+ 	\cline{2-3}  & \link{itm:6}{6} & Passed \\
+ 	\cline{2-3}  & \cellcolor{red!25}\link{itm:7}{7} & See Class Inspection Section  \\	\hline \textbf{Indention} & \link{itm:8}{8} & \#2683 exceeding space
 	\\
 	\cline{2-3}& \link{itm:9}{9} & Passed for this method, but found 170 occurrences in other functions
 	\\
 	\hline \textbf{Braces} & \link{itm:10}{10} & Passed for the methods (Kernighan and Ritchie style), but not consistent for all the file \\
 	\cline{2-3}& \link{itm:11}{11} & Passed \\
-	\hline \textbf{File Organization} & \link{itm:12}{12} & \#564-562 are not consistent with the file style
-	\\
-	\cline{2-3}& \link{itm:13}{13} & \#207-243 exceeds 80 characters several time. Log messages could be written in several lines.
-	\#268, \#273, inline comments exceeding optimal row length
-	\\
-	\cline{2-3}& \link{itm:14}{14} & \#2101 Line too long, \#2249 string too long, \#1628 line too long, \#4824, \#4880, line too long \\
-	\hline \textbf{Wrapping Lines} & \link{itm:15}{15} & \#2684 exceeding newline before "! !".
+	\hline \textbf{Wrapping Lines} & \cellcolor{red!25}\link{itm:15}{15} & \#2684 exceeding newline before "! !".
 	\\
 	\cline{2-3}& \link{itm:16}{16} & Passed \\
 	\cline{2-3}& \link{itm:17}{17} & Passed \\
@@ -793,16 +759,6 @@ Methods to Inspect:
 \end{tabularx}
 \newpage
 \begin{tabularx}{\textwidth}{| X | c |X |}
-	\hline \textbf{Package and Import Statements} & \link{itm:24}{24} & Passed \\
-	\hline \textbf{Class and Interface Declarations} & \link{itm:25}{25} & \#189-582 Variables are not declared in the right order \\
-	\cline{2-3}& \link{itm:26}{26} & Passed \\
-	\cline{2-3}& \link{itm:27}{27} & Passed \\
-	\hline \textbf{Initialization and Declarations} & \link{itm:28}{28} & Passed \\
-	\cline{2-3}& \link{itm:29}{29} & Passed \\
-	\cline{2-3}& \link{itm:30}{30} & Passed \\
-	\cline{2-3}& \link{itm:31}{31} & Passed \\
-	\cline{2-3}& \link{itm:32}{32} & Passed \\
-	\cline{2-3}& \link{itm:33}{33} & Passed \\
 	\hline \textbf{Method Calls} & \link{itm:34}{34} & Passed \\
 	\cline{2-3}& \link{itm:35}{35} & Passed \\
 	\cline{2-3}& \link{itm:36}{36} & Passed \\
@@ -840,25 +796,19 @@ Methods to Inspect:
 \subsubsection{Code}
 \image{code_5.png}
 \subsubsection{Checklist}
-  \begin{tabularx}{\textwidth}{| X |c |X |}
+  \begin{tabularx}{\textwidth}{| X |c | X |}
   	\hline \textbf{Name} & & assertValidLocalObject \\
   	\hline \textbf{Naming Conventions} & \link{itm:1}{1}  & Passed  \\
-  	\cline{2-3}& \link{itm:2}{2} & \#2725: The parameter "o" should be called "object" since it's not a throwaway variable \\
+  	\cline{2-3}& \cellcolor{red!25}\link{itm:2}{2} & \#2725: The parameter "o" should be called "object" since it's not a throwaway variable \\
   	\cline{2-3}& \link{itm:3}{3} & Passed \\
   	\cline{2-3}& \link{itm:4}{4} & Passed \\
-  	\cline{2-3}& \link{itm:5}{5} & Passed \\
-  	\cline{2-3}& \link{itm:6}{6} & Passed \\
-  	\cline{2-3}& \link{itm:7}{7} & Passed \\
-  	\hline \textbf{Indention} & \link{itm:8}{8} & \#2743 exceeding space, \#2749-2752 inconsistent spacing \\
-  	\cline{2-3}& \link{itm:9}{9} & Passed for this method, but found \link{itm:170}{170} occurrences in other functions \\
+ 	\cline{2-3}  & \cellcolor{red!25}\link{itm:5}{5} & See Class Inspection Section \\
+ 	\cline{2-3}  & \link{itm:6}{6} & Passed \\
+ 	\cline{2-3}  & \cellcolor{red!25}\link{itm:7}{7} & See Class Inspection Section  \\  	\hline \textbf{Indention} & \cellcolor{red!25}\link{itm:8}{8} & \#2743 exceeding space, \#2749-2752 inconsistent spacing \\
+  	\cline{2-3}& \link{itm:9}{9} & Passed \\
   	\hline \textbf{Braces} & \link{itm:10}{10} & Passed for the methods (Kernighan and Ritchie style), but not consistent for all the file \\
   	\cline{2-3}& \link{itm:11}{11} & Passed \\
-  	\hline \textbf{File Organization} & \link{itm:12}{12} & \#564-562 are not consistent with the file style \\
-  	\cline{2-3}& \link{itm:13}{13} & \#207-243 exceeds 80 characters several time. Log messages could be written in several lines.
-  	\#268, \#273, inline comments exceeding optimal row length
-  	\\
-  	\cline{2-3}& \link{itm:14}{14} & \#2101 Line too long, \#2249 string too long, \#1628 line too long, \#4824, \#4880, line too long \\
-  	\hline \textbf{Wrapping Lines} & \link{itm:15}{15} & Passed \\
+	\hline \textbf{Wrapping Lines} & \link{itm:15}{15} & Passed \\
   	\cline{2-3}& \link{itm:16}{16} & Passed \\
   	\cline{2-3}& \link{itm:17}{17} & Passed \\
   	\hline \textbf{Comments} & \link{itm:18}{18} & Passed \\
@@ -867,26 +817,15 @@ Methods to Inspect:
   	\cline{2-3}& \link{itm:21}{21} & Passed \\
   	\cline{2-3}& \link{itm:22}{22} & Passed, implementation of the "Container" interface method \\ 
   	\cline{2-3}& \link{itm:23}{23} & Passed, present both in BaseContainer and Container javadoc \\
-  	\hline \textbf{Package and Import Statements} & \link{itm:24}{24} & Passed \\
-  	\hline
   \end{tabularx}
-  \begin{tabularx}{\textwidth}{| X | c |X |}
-  	\hline \textbf{Class and Interface Declarations} & \link{itm:25}{25} & \#189-582 Variables are not declared in the right order \\
-  	\cline{2-3}& \link{itm:26}{26} & Passed \\
-  	\cline{2-3}& \link{itm:27}{27} & Passed \\
-  	\hline \textbf{Initialization and Declarations} & \link{itm:28}{28} & Passed \\
-  	\cline{2-3}& \link{itm:29}{29} & Passed \\
-  	\cline{2-3}& \link{itm:30}{30} & Passed \\
-  	\cline{2-3}& \link{itm:31}{31} & Passed \\
-  	\cline{2-3}& \link{itm:32}{32} & Passed \\
-  	\cline{2-3}& \link{itm:33}{33} & Passed \\
+  \begin{tabularx}{\textwidth}{| X | c | X |}
   	\hline \textbf{Method Calls} & \link{itm:34}{34} & Passed \\
   	\cline{2-3}& \link{itm:35}{35} & Passed \\
   	\cline{2-3}& \link{itm:36}{36} & Passed \\
   	\hline \textbf{Arrays} & \link{itm:37}{37} & Passed, no Arrays \\
   	\cline{2-3}& \link{itm:38}{38} & Passed, no Arrays \\
   	\cline{2-3}& \link{itm:39}{39} & Passed, no Arrays \\
-  	\hline \textbf{Object Comparison} & \link{itm:40}{40} & \#2738 "==" used instead of .equals for comparing two non-null objects \\
+  	\hline \textbf{Object Comparison} & \cellcolor{red!25}\link{itm:40}{40} & \#2738 "==" used instead of .equals for comparing two non-null objects \\
   	\hline \textbf{Output Format} & \link{itm:41}{41} & Passed \\
   	\cline{2-3}& \link{itm:42}{42} & Passed \\
   	\cline{2-3}& \link{itm:43}{43} & Passed \\   
@@ -909,12 +848,58 @@ Methods to Inspect:
   	\cline{2-3}& \link{itm:60}{60} & Passed \\
   	\hline
   \end{tabularx} 
-
+	
 \section{Other problems}
 % <list here all the parts of code that
 % you think create or may create a bug and explain why>.
 %TODO: Insert here the parts of checklist in which our methods passed but the other failed
-Although no particular problems have been identified during the methods inspection, some problems within the assigned class have been found, as highlighted in the check list section.
+Although no particular problems have been identified during the methods inspection, some problems within the assigned class have been found, as highlighted in the previous section.
+
+\subsection{Class Inspection}
+This section contains the checklist that are general for the class or the file and not only to the methods that were assigned to us. It also contains method-specific problems that have been found in other methods belonging to the \textbf{BaseContainer} class. \newline
+Note that, unless a specific error is noted, the "passed" statement is referred to the declaration part of the class and not to the other methods' body, since the whole class have been checked only when an automated process has been used. 
+\subsubsection{Checklist}
+\begin{tabularx}{\textwidth}{| X |c |X |}
+	\hline \multirow{1}{*}{\textbf{Indention}}& \link{itm:9}{9} & Found \link{itm:170}{170} occurrences in the analysed file \\
+	\cline{2-3}  &  \cellcolor{red!25} \link{itm:5}{5} & These methods: \\
+	&  \cellcolor{red!25}				   & \#1836 externalPreInvoke(), \\
+	&  \cellcolor{red!25}				   & \#1866 externalPostInvoke(),\\
+	&  \cellcolor{red!25}				   & \#1922 preInvoke(),\\
+	&  \cellcolor{red!25}				   & \#2034 webServicePostInvoke(), \\
+	&  \cellcolor{red!25}				   & \#1731 \textunderscore constructEJBContextImpl(), \\
+	&  \cellcolor{red!25}				   &\#1736 \textunderscore constructEJBInstance(), \\
+	&  \cellcolor{red!25}				   & don't respect the convention. \\
+	\cline{2-3}  			& \cellcolor{red!25} \link{itm:7}{7} & Methods \\
+	& \cellcolor{red!25}    & \#1836 externalPreInvoke(),\\
+	& \cellcolor{red!25}    & \#1866 externalPostInvoke(),\\			
+	& \cellcolor{red!25}    & \#1922 preInvoke(), \\
+	& \cellcolor{red!25}	& \#2034 webServicePostInvoke(),\\
+	& \cellcolor{red!25}	& \#1731 \textunderscore constructEJBContextImpl(),\\
+	& \cellcolor{red!25}	& \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+	\hline \textbf{Braces} & \cellcolor{red!25}\link{itm:10}{10} & Kernighan and Ritchie style is prevalent but not consistent for all the file \\
+	\hline \textbf{File Organization} & \cellcolor{red!25}\link{itm:12}{12} & \#564-562 are not consistent with the file style \\
+	\cline{2-3}& \cellcolor{red!25}\link{itm:13}{13} & \#207-243 exceeds 80 characters several time. Log messages could be written in several lines.
+	\#268, \#273, inline comments exceeding optimal row length
+	\\
+	\cline{2-3}& \cellcolor{red!25}\link{itm:14}{14} & \#2101 Line too long, \#2249 string too long, \#1628 line too long, \#4824, \#4880, line too long \\
+	\hline
+\end{tabularx}
+\newpage
+\begin{tabularx}{\textwidth}{| X |c |X |}
+	\hline \textbf{Package and Import Statements} & \link{itm:24}{24} & Passed \\
+	\hline \textbf{Class and Interface Declarations} & \cellcolor{red!25}\link{itm:25}{25} & \#189-582 Variables are not declared in the right order \\
+	\cline{2-3}  & \link{itm:26}{26} & Passed \\
+	\cline{2-3}  & \link{itm:27}{27} & Passed \\
+	\hline \textbf{Initialization and Declarations} & \link{itm:28}{28} & Passed \\
+	\cline{2-3}  & \link{itm:29}{29} & Passed \\
+	\cline{2-3}  & \link{itm:30}{30} & Passed \\
+	\cline{2-3}  & \link{itm:31}{31} & Passed \\
+	\cline{2-3}  & \link{itm:32}{32} & Passed \\
+	\cline{2-3}  & \link{itm:33}{33} & Passed \\
+	\hline
+	
+\end{tabularx}
+
 \section{References}
 	\begin{itemize}
 		\item Assignment document part 3: Document structure and checklist
@@ -936,7 +921,7 @@ Although no particular problems have been identified during the methods inspecti
 	\end{itemize}
 \section{Work Hours}
 	\begin{itemize}
-		\item Mattia Fontana:
-		\item Edoardo Giacomello: 
+		\item Mattia Fontana: 34 hours
+		\item Edoardo Giacomello: 36,5 hours
 	\end{itemize}
 \end{document}
