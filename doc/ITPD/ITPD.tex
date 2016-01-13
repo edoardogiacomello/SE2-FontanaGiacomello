@@ -1,0 +1,69 @@
+\documentclass[11pt, a4paper,titlepage]{article}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\graphicspath{{img/}}
+\author{Edoardo Giacomello \and Mattia Fontana}
+\title{SE2 Integration Test Plan Document} 
+%Definisce il titolo
+\newcommand{\productname}{MyTaxiService}
+\newcommand{\image}[1]{
+	\begin{center}
+		\noindent \includegraphics[width=\linewidth]{#1}
+	\end{center}
+	}
+\newcommand{\link}[2]{\underline{\textbf{\hyperref[#1]{#2}}}}
+\newcommand{\linkitm}[1]{\underline{\textbf{\ref{#1}}}}
+
+
+\begin{document}
+%Genera il titolo
+\maketitle
+%Inserisce tabella dei contenuti
+\tableofcontents
+\newpage
+\section{Introduction}
+\subsection{Revision History}
+
+\subsection{Purpose and Scope}
+
+\subsubsection{Purpose}
+The purpose of this document is to provide a plan for integration testing for the \productname System. \newline
+This document is intended to all the persons which are in charge to write and execute the tests, and it's intended to be a reference for the tests that are to be scheduled.
+\subsubsection{Scope}
+The \productname application is a system for managing taxi for a municipal environment. The product is composed of several parts and components that will be described in this document and must cooperate as expected in order to not run into malfunctions and unforeseen behaviours.
+\subsection{List of Definitions and Abbreviations}
+%TODO: Fill this
+\subsection{List of Reference Documents}
+	\begin{itemize}
+		\item Assigment 1: Project Description
+		\item \productname Requirement and Specification Analysis Document
+		\item \productname Design Document
+	\end{itemize}
+  
+\section{Integration Strategy}
+	%we can refer to this http://sce.uhcl.edu/helm/RUP_course_example/courseregistrationproject/artifacts/test/plans/test_plan_arch.htm
+	
+	\subsection{Entry Criteria}
+	%Describe what have to be true in order to begin integration testing (i.e. Unit Testing must be done)
+	\subsection{Elements to be Integrated}
+	%List of every element that have to be tested (Remember Data access)
+	
+	\subsection{Integration Testing Strategy}
+	%Describe the approach and the rationale
+	\subsection{Sequence of Component/Function Integration}
+	%Describe the order in which the component are analized
+	\subsubsection{Software Integration Sequence}
+	\subsubsection{Subsystem Integration Sequence}
+\section{Individual Steps and Test Description}
+%Describe each relation between the components and how it is expected to work in order to pass the test
+\section{Tools and Test Equipment Required}
+\section{Program Stubs and Test Data Required}
+\section{Work Hours}
+
+\end{document}
