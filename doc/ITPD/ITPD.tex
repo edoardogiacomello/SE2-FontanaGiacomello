@@ -236,11 +236,14 @@
 		Logs.
 		&\\
 		\hline Authentication Manager & Account Manager & 
+		GetAccount\newline
 		EditAccount\newline
 		AddAccount\newline
 		RemoveAccount\newline
-		RequestList.
 		&\\
+			\hline API & Account Manager & 
+			RequestList
+			&\\
 		\hline
 	\end{tabularx}
 	\begin{tabularx}{\textwidth}{| X |X |X |c|}
@@ -249,7 +252,6 @@
 		EditAccount\newline
 		AddAccount\newline
 		RemoveAccount\newline
-		RequestList.
 		&\\
 		\hline MyTaxiService APIs & RequestManager &  
 		TaxiRequest\newline
@@ -258,17 +260,18 @@
 		TaxiProbe.
 		&\\
 		\hline RequestManager & ZoneManager &  
-		getTaxi\newline
+		getTaxiInZone\newline
+		getZones\newline
 		getAdjacents\newline
-		getZone		
+			
 		&\\
 		\hline MyTaxiService APIs & TaxiManager &  
-		RequestAccepted\newline
-		RequestRefused\newline
+		OnRequestAccepted\newline
+		OnRequestRefused\newline
 		TaxiAvailable\newline
 		UpdateLocation\newline
-		TaxiInZone\newline
-		TaxiOutZone.
+		OnZoneEnter\newline
+		OnZoneExit
 		&\\
 		\hline
 	\end{tabularx}
@@ -571,18 +574,6 @@
 		\hline
 	\end{tabularx}
 	\subsection{Business Layer Integration}
-	%TODO: Remove this stub table
-	
-	\begin{tabularx}{\textwidth}{| c|X|}
-		\hline \textbf{Test Case Identifier} &  \\
-		\hline \textbf{Integrated Components} &  \\
-		\hline \textbf{Test Items} &  \\
-		\hline \textbf{Input Specification} &  \\
-		\hline \textbf{Output Specification} & \\
-		\hline \textbf{Environmental Needs} &  \\
-		\hline
-	\end{tabularx}
-	\newline
 	 \subsubsection{AuthenticationManager Integration}
 	 \begin{tabularx}{\textwidth}{| c|X|}
 	 	\hline \textbf{Test Case Identifier} & PLog2, SLog2, TLog2 \\
@@ -656,24 +647,153 @@
 		  \end{tabularx}
 		  \newline
 		  
+		  
 		  \begin{tabularx}{\textwidth}{| c|X|}
-		  	\hline \textbf{Test Case Identifier} & SBac2, SRes2 \\
+		  	\hline \textbf{Test Case Identifier} & SLog2 \\
 		  	\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
-		  	\hline \textbf{Test Items} &  Administrator Requests  $\rightarrow $ Administration Controller (DB Backup/Restore)\\
+		  	\hline \textbf{Test Items} &  Administrator Requests  $\rightarrow $ Administration Controller (showLogs)\\
 		  	\hline \textbf{Input Specification} &  Well-Formed Administrator Account\\
-		  	\hline \textbf{Output Specification} & The DatabaseManager Should be requested to backup/Restore the account list if the administrator is logged and the database parameters are compliant with the system or throw an exception instead\\
+		  	\hline \textbf{Output Specification} & The DatabaseManager Should be requested to show system logs if the administrator is logged and the log files available or throw an exception instead\\
 		  	\hline \textbf{Environmental Needs} &  Phase 1, SLog2 passed \newline 
-		  	Client Driver, AccountManager Stub\\
+		  	Client Driver, DatabaseManager Stub\\
 		  	\hline
 		  \end{tabularx}
 		  \newline
-		  
-		  
+		 
+		\subsubsection{AccountManager integration}
+		 \begin{tabularx}{\textwidth}{| c|X|}
+		 	\hline \textbf{Test Case Identifier} & SAcc2.3 \\
+		 	\hline \textbf{Integrated Components} &  Authentication Manager $\rightarrow $ Account Manager \\
+		 	\hline \textbf{Test Items} &  Authentication Controller  $\rightarrow $ Account Controller (getAccount, addAccount, editAccount, removeAccount)\\
+		 	\hline \textbf{Input Specification} &  Well-Formed Account object\\
+		 	\hline \textbf{Output Specification} & The Account Manager should add, edit or remove the specified account if the data are well-formed. \newline The Account Manager should raise an exception on add if the account is alredy present, or on remove and edit if it is not present in the database.\\
+		 	\hline \textbf{Environmental Needs} &  Phase 1, SLog2 passed, \newline 
+		 	Client Driver, DatabaseManager Stub\\
+		 	\hline
+		 \end{tabularx}
+		 \newline
+		 
+		 \begin{tabularx}{\textwidth}{| c|X|}
+		 	\hline \textbf{Test Case Identifier} & PReqList2 \\
+		 	\hline \textbf{Integrated Components} & API $\rightarrow $ Account Manager \\
+		 	\hline \textbf{Test Items} &  Passenger Requests  $\rightarrow $ Account Controller (requestList)\\
+		 	\hline \textbf{Input Specification} &  Well-Formed Account object\\
+		 	\hline \textbf{Output Specification} & The Account Manager should retrieve the list of reservations for the specified account if it is present on database and the requester is authorized to access that account data or raise an exception otherwise.\\
+		 	\hline \textbf{Environmental Needs} &  Phase 1, SLog2, passed, \newline Authentication Manager integrated \newline 
+		 	Client Driver, DatabaseManager Stub\\
+		 	\hline
+		 \end{tabularx}
+		 \newline
+		
+		 
+ 		 \begin{tabularx}{\textwidth}{| c|X|}
+	 		 	\hline \textbf{Test Case Identifier} & SAcc2.4 \\
+	 		 	\hline \textbf{Integrated Components} &  Administration Manager $\rightarrow $ Account Manager \\
+	 		 	\hline \textbf{Test Items} &  Administrator Controller  $\rightarrow $ Account Controller (Edit, Add, Remove Account)\\
+	 		 	\hline \textbf{Input Specification} &  Well-Formed Account object\\
+	 		 	\hline \textbf{Output Specification} & The Account Manager edit, add or remove the specified account, or raise an exception if the account does not exists (for editing or removal) and if already exists in the case of adding.\\
+	 		 	\hline \textbf{Environmental Needs} & Phase 1, SLog2, passed, \newline Authentication Manager and Administration Manager integrated \newline 
+	 		 	Client Driver, DatabaseManager Stub\\
+	 		 	\hline
+ 		 \end{tabularx}
+ 		 \newline
+		 
+	 \subsubsection{RequestManager Integration}
+	 	\begin{tabularx}{\textwidth}{| c|X|}
+	 		\hline \textbf{Test Case Identifier} & PReq2, PRes2 \\
+	 		\hline \textbf{Integrated Components} & API  $\rightarrow $ RequestManager (IncomingRequest, IncomingReservation) \\
+	 		\hline \textbf{Test Items} & PassengerRequest $\rightarrow $ RequestInterface \\
+	 		\hline \textbf{Input Specification} & Reservation and Request Data \\
+	 		\hline \textbf{Output Specification} & An exception is raised if data are not well-formed \newline
+												   An exception is raised if the user is not logged and authorized \newline
+												   The request is stored in the database\\
+	 		\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+	 		Client Driver, Database Stub, ZoneManager Stub,\\
+	 		\hline
+	 	\end{tabularx}
+	 	\newline
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & PRemReq2 \\
+	 	\hline \textbf{Integrated Components} & API  $\rightarrow $ RequestManager (IncomingRequest, IncomingReservation) \\
+	 	\hline \textbf{Test Items} & PassengerRequest $\rightarrow $ RequestInterface \\
+	 	\hline \textbf{Input Specification} & Reservation and Request Data \\
+	 	\hline \textbf{Output Specification} & An exception is raised if data are not well-formed \newline
+	 	An exception is raised if the user is not logged and authorized \newline
+	 	An exception is raised if the request does not exist \newline
+	 	The request is removed from the database and the queues if meets the requirements (see RASD)\\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+	 	Client Driver, Database Stub, ZoneManager Stub,\\
+	 	\hline
+	 \end{tabularx}
+	 \newline
 	 
-	 \subsubsection{AccountManager Integration}
-	 \subsubsection{AdministrationManager Integration}
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & PPro2 \\
+	 	\hline \textbf{Integrated Components} & API  $\rightarrow $ RequestManager (IncomingRequest, IncomingReservation) \\
+	 	\hline \textbf{Test Items} & PassengerRequest $\rightarrow $ RequestInterface (TaxiProbe) \\
+	 	\hline \textbf{Input Specification} & Location Data \\
+	 	\hline \textbf{Output Specification} & If the Location Data are malformed or not covered by the service, the result for the default location is returned. The ZoneManager result is returned otherwise \newline
+	 	An exception is raised if the user is not logged and authorized \\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+	 	Client Driver, Database Stub, ZoneManager Stub,\\
+	 	\hline
+	 \end{tabularx}
+	 \newline
 	 
+	 \subsubsection{ZoneManager/TaxiManager Integration}
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & ZTaxi2, ZZone2, ZAdj2 \\
+	 	\hline \textbf{Integrated Components} & RequestManager  $\rightarrow $  ZoneManager/TaxiManager \\
+	 	\hline \textbf{Test Items} & RequestResolver $\rightarrow $ ZoneController (GetTaxiInZone, GetZones, GetAdjacents) \\
+	 	\hline \textbf{Input Specification} & Zone Data \\
+	 	\hline \textbf{Output Specification} & If the Zone Data are malformed an exception is raised \newline
+											The requested data is returned \\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+	 	Client Driver, Database Stub\\
+	 	\hline
+	 	\end{tabularx}
+	 	\newline
+	 	
+	 	This component belongs to the TaxiManager component and it's implemented by the RequestResolver. This two functionalities are requested from the taxi application when the driver accepts or refuses a request.
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & TReqEvents2.7\\
+	 	\hline \textbf{Integrated Components} & API  $\rightarrow $  ZoneManager/TaxiManager \\
+	 	\hline \textbf{Test Items} & TaxiRequests(driverResponse) $\rightarrow $ RequestManager(OnRequestAccepted, OnRequestRefused) \\
+	 	\hline \textbf{Input Specification} & Taxi Data and Request Data \\
+	 	\hline \textbf{Output Specification} & The corresponding code implemented in the RequestManager component is executed on a taxi event. \newline An exception is raised if the taxi is not logged, if the Request is malformed or not assigned to that driver \\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated, RequestResolver integrated \newline 
+	 	Client Driver, Database Stub\\
+	 	\hline
+	 \end{tabularx}
+	 \newline	
+	 	
+	 \begin{tabularx}{\textwidth}{| c|X|}
+			 	\hline \textbf{Test Case Identifier} & TNotif2.7\\
+			 	\hline \textbf{Integrated Components} & API  $\rightarrow $  ZoneManager/TaxiManager \\
+			 	\hline \textbf{Test Items} & TaxiRequests(driverNotifications) $\rightarrow $ RequestManager(OnAvailable, OnLogin, OnLogout) \\
+			 	\hline \textbf{Input Specification} & Taxi Data and Request Data \\
+			 	\hline \textbf{Output Specification} & The corresponding code implemented in the ZoneManager component is executed on a taxi event. \newline An exception is raised if the taxi is not logged, if the Request is malformed or not assigned to that driver. \newline
+			 	The OnAvailable, OnLogin and OnLogout events should be triggered according to the input data. \\
+			 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+			 	Client Driver, Database Stub\\
+			 	\hline
+	 \end{tabularx}
+	 \newline
 	 
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & TLoc2.7\\
+	 	\hline \textbf{Integrated Components} & API  $\rightarrow $  ZoneManager/TaxiManager \\
+	 	\hline \textbf{Test Items} & TaxiRequests(locationUpdate) $\rightarrow $ RequestManager(OnLocationUpdate, OnZoneEnter, OnZoneExit) \\
+	 	\hline \textbf{Input Specification} & Taxi Data and Location Data \\
+	 	\hline \textbf{Output Specification} & The corresponding code implemented in the ZoneManager component is executed on a taxi event. 
+	 	\newline An exception is raised if the taxi is not logged, or the Location is not valid. \newline
+	 	The OnLocationUpdate, OnZoneEnter and OnZoneExit events should be triggered according to the input data. \\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+	 	Client Driver, Database Stub\\
+	 	\hline
+	 \end{tabularx}
+	 \newline
+	 	
 	\subsection{Persistence Layer Integration}
 	\subsection{Presentation Layer Integration}
 	
