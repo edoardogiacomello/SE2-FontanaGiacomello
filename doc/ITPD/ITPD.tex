@@ -795,8 +795,139 @@
 	 \newline
 	 	
 	\subsection{Persistence Layer Integration}
-	\subsection{Presentation Layer Integration}
 	
+		\begin{tabularx}{\textwidth}{| c|X|}
+			\hline \textbf{Test Case Identifier} & Aut3.1 \\
+			\hline \textbf{Integrated Components} & Authentication Manager $\rightarrow $ Database \\
+			\hline \textbf{Test Items} & ApiToken, SystemAuthenticator $\rightarrow $ Account Model \\
+			\hline \textbf{Input Specification} & Account Data \\
+			\hline \textbf{Output Specification} & The component should raise an exception if the data is malformed or if the database connectivity is absent \newline
+			All data that is inserted, removed or updated should be consistent with the specifications\\
+			\hline \textbf{Environmental Needs} & Phase2 Passed, Entity Beans running, Database Running \\
+			\hline
+		\end{tabularx}
+		\newline
+	
+		\begin{tabularx}{\textwidth}{| c|X|}
+			\hline \textbf{Test Case Identifier} & Acc3.1 \\
+			\hline \textbf{Integrated Components} & Account Manager $\rightarrow $ Database \\
+			\hline \textbf{Test Items} & Account Controller $\rightarrow $ Account Model \\
+			\hline \textbf{Input Specification} & Account Data \\
+			\hline \textbf{Output Specification} & The component should raise an exception if the data is malformed or if the database connectivity is absent \newline
+			All data that is inserted, removed or updated should be consistent with the specifications\\
+			\hline \textbf{Environmental Needs} & Phase2 Passed, Entity Beans running, Database Running \\
+			\hline
+		\end{tabularx}
+		\newline
+		
+		\begin{tabularx}{\textwidth}{| c|X|}
+			\hline \textbf{Test Case Identifier} & Adm3.1 \\
+			\hline \textbf{Integrated Components} & Administration Manager $\rightarrow $ Database \\
+			\hline \textbf{Test Items} & Administration Controller (showLogs, taxi account management) $\rightarrow $ Log Data Model, Taxi Data \\
+			\hline \textbf{Input Specification} & Log Data, Taxi Data \\
+			\hline \textbf{Output Specification} & The component should raise an exception if the data is malformed or if the database connectivity is absent \newline
+			All data that is inserted, removed or updated should be consistent with the specifications\\
+			\hline \textbf{Environmental Needs} & Phase2 Passed, Entity Beans running, Database Running \\
+			\hline
+		\end{tabularx}
+		\newline
+		
+		\begin{tabularx}{\textwidth}{| c|X|}
+			\hline \textbf{Test Case Identifier} & Req3.1 \\
+			\hline \textbf{Integrated Components} & Request Manager $\rightarrow $ Database \\
+			\hline \textbf{Test Items} & RequestResolver $\rightarrow $ Request and Reservation Model \\
+			\hline \textbf{Input Specification} & Request and Reservation Data \\
+			\hline \textbf{Output Specification} & The component should raise an exception if the data is malformed or if the database connectivity is absent \newline
+			All data that is inserted, removed or updated should be consistent with the specifications\\
+			\hline \textbf{Environmental Needs} & Phase2 Passed, Entity Beans running, Database Running \\
+			\hline
+		\end{tabularx}
+		\newline
+		
+		\begin{tabularx}{\textwidth}{| c|X|}
+			\hline \textbf{Test Case Identifier} & Zon3.1 \\
+			\hline \textbf{Integrated Components} & Zone Manager $\rightarrow $ Database \\
+			\hline \textbf{Test Items} &  Zone Manager $\rightarrow $ Zone and Taxi Model \\
+			\hline \textbf{Input Specification} & Zone and Taxi Data \\
+			\hline \textbf{Output Specification} & The component should raise an exception if the data is malformed or if the database connectivity is absent \newline
+			All data that is inserted, removed or updated should be consistent with the specifications\\
+			\hline \textbf{Environmental Needs} & Phase2 Passed, Entity Beans running, Database Running \\
+			\hline
+		\end{tabularx}
+		\newline
+	\subsection{Presentation Layer Integration}
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & RConf4.1, RNotf4.1 \\
+				\hline \textbf{Integrated Components} & Request Manager $\rightarrow $ Notification Manager \\
+				\hline \textbf{Test Items} & RequestResolver $\rightarrow $ Passenger Notification (request confirmation, request notification) \\
+				\hline \textbf{Input Specification} & Request Data, Passenger Account \\
+				\hline \textbf{Output Specification} & The Confirmation should be triggered upon an accepted request, containing data as stated in the specification document. \newline
+				The notification should occur at the time specified in the Specification and Design documents \newline
+				Only the passenger associated with the request are suitable to receive this messages 
+				\\
+				\hline \textbf{Environmental Needs} & Phase 2 and 3 passed. Client Driver for Passenger and Taxi, Client Interface or Email Recipient \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & TReq4.1 \\
+				\hline \textbf{Integrated Components} &  Request Manager $\rightarrow $ Notification Manager \\
+				\hline \textbf{Test Items} & Request Resolver (driver Request) $\rightarrow $ Driver Notification Interface \\
+				\hline \textbf{Input Specification} & Valid Request Data, Active Taxi Data \\
+				\hline \textbf{Output Specification} & This taxi request is triggered upon a request that is being served by the RequestManager. It should be issued to the specified taxi. \newline
+				The taxi driver should be online and available in order to this request being issued \\
+				\hline \textbf{Environmental Needs} & Phase 2 and 3 passed. Client Driver for Passenger, Connected Taxi Driver Interface \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & TPro4.1 \\
+				\hline \textbf{Integrated Components} &  Request Manager $\rightarrow $ Notification Manager \\
+				\hline \textbf{Test Items} & Request Resolver (TaxiProbeResponse) $\rightarrow $ Passenger Notification Interface \\
+				\hline \textbf{Input Specification} & Valid Location Data \\
+				\hline \textbf{Output Specification} & This response is triggered upon a successful TaxiProbeRequest issued by an user. \newline
+				The data provided should be compliant with the specifications \\
+				\hline \textbf{Environmental Needs} & Phase 2 and 3 passed. Client Driver for Passenger, Connected Passenger Interface \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & TReg4 \\
+				\hline \textbf{Integrated Components} & Account Manager $\rightarrow $ Notification Manager \\
+				\hline \textbf{Test Items} & Account Controller $\rightarrow $ Email Server \\
+				\hline \textbf{Input Specification} & Pre Defined Registration confirmation messages, Account data \\
+				\hline \textbf{Output Specification} & The message should be issued to the email recipient of the specified user \\
+				\hline \textbf{Environmental Needs} & Phase 2 and 3 passed. Client Email Recipient \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & SOut4 \\
+				\hline \textbf{Integrated Components} & Notification Manager $\rightarrow $ API \\
+				\hline \textbf{Test Items} & NotificationController $\rightarrow $ API Components (Multiple) \\
+				\hline \textbf{Input Specification} & Data output from previous tests \\
+				\hline \textbf{Output Specification} & The API component should generate Message-Driven Beans or JSON messages according to the specified function and targeting the specified client passed as parameter \\
+				\hline \textbf{Environmental Needs} & Phase 2 and 3 passed. Client Driver, Clients Connected \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & SDev4 \\
+				\hline \textbf{Integrated Components} & Zone Manager $\rightarrow $ API \\
+				\hline \textbf{Test Items} & ZoneController $\rightarrow $ API Requests \\
+				\hline \textbf{Input Specification} & Database Model \\
+				\hline \textbf{Output Specification} & The API component should provide business data to authorized system developers
+				\newline The component must throw an exception if the associated APIToken is not valid \\
+				\hline \textbf{Environmental Needs} & Database Stub, Developer interface stub \\
+				\hline
+			\end{tabularx}
+			\newline
+			
 	\newpage
 	\section{Tools and Test Equipment Required}
 	\section{Program Stubs and Test Data Required}
