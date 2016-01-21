@@ -45,7 +45,7 @@
 		\item \productname Requirement and Specification Analysis Document
 		\item \productname Design Document
 	\end{itemize}
-	
+	\newpage
 	\section{Integration Strategy}
 	%we can refer to this http://sce.uhcl.edu/helm/RUP_course_example/courseregistrationproject/artifacts/test/plans/test_plan_arch.htm
 	
@@ -99,8 +99,12 @@
 			\item Logout
 		\end{itemize}
 	\end{itemize}
-	\subsubsection{Service Access Layer: MyTaxiService API}
-	Business Layer
+	\newpage
+	\subsubsection{Service Access Layer}
+	\begin{itemize}
+		\item MyTaxiService API
+	\end{itemize}
+	\subsubsection{Business Layer}
 	\begin{itemize}
 		\item AuthenticationManager (Unit tested as a single component)
 		\item AdministrationManager
@@ -175,7 +179,7 @@
 		\hline
 	\end{tabularx}
 	\newpage
-	For this set of Tests, please refer to the corresponding inverse test \newline
+	For the reference of this set of Tests, please refer to the corresponding inverse test in the previous table \newline
 	
 	\begin{tabularx}{\textwidth}{| X |c |X |X|}
 		\hline \textbf{Source Component} &\textbf{ Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
@@ -300,7 +304,7 @@
 	\newline
 	\newpage
 	\subsubsection{Phase 4: Presentation Layer Integration}
-	This layer checks if the component that generates the system output use a format that is compliant with specifications.
+	This layer checks if the component that generates the system output use a format that is compliant with specifications. The test data is sent to a Client Interface Stub since the actual system output visualization should have been already tested in Phase 1.
 	\newline
 	\image{test_phase4.png}
 	\begin{tabularx}{\textwidth}{| X |X |X |c|}
@@ -580,8 +584,11 @@
 		\hline \textbf{Environmental Needs} & AdministratorManager stub. \\
 		\hline
 	\end{tabularx}
+	\newpage
 	\subsection{Business Layer Integration}
 	 \subsubsection{AuthenticationManager Integration}
+	 This component receives requests from the API interface on behalf of the client. Its scope is to manage the registration, login and logout processes for all kind of users. 
+	 \newline
 	 \begin{tabularx}{\textwidth}{| c|X|}
 	 	\hline \textbf{Test Case Identifier} & \label{PLog2.1}PLog2.1, \label{SLog2.1}SLog2.1, \label{TLog2.1}TLog2.1 \\
 	 	\hline \textbf{Integrated Components} &  API $\rightarrow $ Authentication Manager\\
@@ -604,9 +611,10 @@
 	 	\hline
 	 \end{tabularx}
 	 \newline
+	 \newpage
 	 \subsubsection{AdministrationManager integration}
 	%subsubitem{AdministrationManager integration}
-	% \newline
+	This component manages the System Administrator requests and fulfils all the maintenance and administrative operations. All these operations can be done only as logged as system administrator; for this reason the AuthenticationManager should be tested first.
 	\begin{tabularx}{\textwidth}{| c|X|}
 	 		\hline \textbf{Test Case Identifier} & \label{TAdd2.2}TAdd2.2, \label{TRem2.2}TRem2.2, \label{TEdi2.2}TEdi2.2 \\
 	 		\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
@@ -666,8 +674,10 @@
 		  	\hline
 		  \end{tabularx}
 		  \newline
-		 
+		 \newpage
 		\subsubsection{AccountManager integration}
+		This component manages all the user Accounts that are stored in the database and it's accessed from the AuthenticationManager and the AdministratorManager. For this reason, it requires a DatabaseManager stub component.
+		
 		 \begin{tabularx}{\textwidth}{| c|X|}
 		 	\hline \textbf{Test Case Identifier} & \label{SAcc2.3}SAcc2.3 \\
 		 	\hline \textbf{Integrated Components} &  Authentication Manager $\rightarrow $ Account Manager \\
@@ -704,8 +714,10 @@
 	 		 	\hline
  		 \end{tabularx}
  		 \newline
-		 
+	\newpage	 
 	 \subsubsection{RequestManager Integration}
+	 The RequestManager is the host for the core business algorithm. It receives and manages user inputs for every taxi request or reservation. It is accessed from the API and requires a valid system state to operate, for this reason it requires the DatabaseManager Stub and a Client Driver. 
+	  
 	 	\begin{tabularx}{\textwidth}{| c|X|}
 	 		\hline \textbf{Test Case Identifier} & \label{PReq2.5}PReq2.5, \label{PRes2.5}PRes2.5 \\
 	 		\hline \textbf{Integrated Components} & API  $\rightarrow $ RequestManager (IncomingRequest, IncomingReservation) \\
@@ -747,8 +759,10 @@
 	 	\hline
 	 \end{tabularx}
 	 \newline
-	 
+	 \newpage
 	 \subsubsection{ZoneManager/TaxiManager Integration}
+	 This component manages the state for all the zones and the taxis that are associated with them. On runtime it relies on data stored in the database, for that reason it requires that stub.
+	 \newline
 	 \begin{tabularx}{\textwidth}{| c|X|}
 	 	\hline \textbf{Test Case Identifier} & \label{ZTaxi2.6}ZTaxi2.6, \label{ZZone2.6}ZZone2.6, \label{ZAdj2.6}ZAdj2.6 \\
 	 	\hline \textbf{Integrated Components} & RequestManager  $\rightarrow $  ZoneManager/TaxiManager \\
@@ -801,9 +815,10 @@
 	 	\hline
 	 \end{tabularx}
 	 \newline
-	 	
+	 	\newpage
 	\subsection{Persistence Layer Integration}
-	
+		In this section all the components that access database data will be tested. In particular it is important that the data model is consistent to each component contract.
+		\newline
 		\begin{tabularx}{\textwidth}{| c|X|}
 			\hline \textbf{Test Case Identifier} & \label{Aut3.1}Aut3.1 \\
 			\hline \textbf{Integrated Components} & Authentication Manager $\rightarrow $ Database \\
@@ -863,7 +878,9 @@
 			\hline
 		\end{tabularx}
 		\newline
+		\newpage
 	\subsection{Presentation Layer Integration}
+		This section will integrate the system output presentation. In particular every kind of output toward the users should comply with the specifications and the expected formats. \newline
 			\begin{tabularx}{\textwidth}{| c|X|}
 				\hline \textbf{Test Case Identifier} & \label{RConf4.2}RConf4.2, \label{RNotf4.2}RNotf4.2 \\
 				\hline \textbf{Integrated Components} & Request Manager $\rightarrow $ Notification Manager \\
@@ -938,7 +955,40 @@
 			
 	\newpage
 	\section{Tools and Test Equipment Required}
+	\begin{itemize}
+		\item \textbf{Arquilian} for the phase 2, 3, 4. It is particular useful for testing containers and it provides a module for glassfish.
+	\end{itemize}
 	\section{Program Stubs and Test Data Required}
+	This testing strategy both needs of Stubs and Drivers. A short description is provided for each element that has to be implemented in order to start the integration testing phase.
+		\subsection{Drivers}
+		\subsubsection{Client Driver}
+		This driver is needed in phases 2, 3 and 4. This component directly calls the API methods and should emulate the user interface by injecting typical user input for each functionality as well any exceptional input for testing all the cases for each integration step. \newline 
+		It has to be composed of 4 subcomponents: 
+		\begin{itemize}
+			\item \textbf{Passenger Client}: This component should emulate the behaviour of a passenger client.
+			\item \textbf{System Administrator Client}: This component should emulate the behaviour of a system administrator.
+			\item \textbf{Taxi Driver Client}: This component should emulate the behaviour of a Taxi Driver client
+			\item\textbf{ System Developer/External API Client}: This component should emulate an external API client or system developer that request access to system resources by means of API calls.
+		\end{itemize}
+		
+		\subsection{Stubs}
+		All integration phases uses the stubs to emulate the behaviour of one or more system components. The stubs should emulate the response of particular user inputs or system states.
+		The developer of these components should consider, for each functionality, both a positive, negative or exceptional response for the driver inputs.
+			\subsubsection{AuthenticationManager Stub}
+			This component should emulate the behaviour of the AuthenticationManager when testing the Client Interface or the API integration. \newline
+			The typical response should comprehend both successful and unsuccessful logins and registrations and every eventual exception.
+			\subsubsection{RequestIntefrace Stub}
+			This component emulates the RequestInterface component, which manages all requests relative to the service. 
+			\subsubsection{ZoneManager/TaxiManager Stub}
+			This component emulates the ZoneManager and must implement the TaxiManager interface. At runtime, this component should emulate a possible state of the taxi zones and provide requested data. 
+			\subsubsection{AdministratorManager Stub}
+			This component emulates the AdministrationManager component. It will receive calls from the API when testing the Client Interface for the System Administrator Interface. 
+			\subsubsection{AccountManager Stub}
+			This component should emulate the behaviour of the Account data part, that consists in editing, adding or removing client accounts and in fetching Accounts in the login phase. The testing data should consider every possible exceptional situation in emulating the accounting capabilities.
+			\subsubsection{DatabaseManager Stub}
+			This component should emulate the business data model. In particular it should be a stub of the database pre-configured with test data that is used during the integration tests at phases 2 and 4.
+			\subsection{Client Interface Stub}
+			This component is used in the phase 4 of the integration tests. Since the system output should be already tested in phase 1, this component is useful to emulate the presence of a client interface for receiving the test data in the context of system outputs.
 	\section{Work Hours}
 	
 \end{document}
