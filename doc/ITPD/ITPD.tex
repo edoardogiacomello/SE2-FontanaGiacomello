@@ -177,7 +177,7 @@
 	\newpage
 	For this set of Tests, please refer to the corresponding inverse test \newline
 	
-	\begin{tabularx}{\textwidth}{| X |c |X |c|}
+	\begin{tabularx}{\textwidth}{| X |c |X |X|}
 		\hline \textbf{Source Component} &\textbf{ Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
 		\hline Administrator Interface & MyTaxiService APIs & Log Management & \ref{SLog1} \\
 		\hline MyTaxiService APIs & Passenger Interface & 
@@ -189,19 +189,19 @@
 		Notification\newline
 		RequestList\newline
 		Account Information.
-		&\\
+		&\ref{PLog1}\newline \ref{PLog1.2}\newline \ref{PReg1} \newline \ref{TReq1} \newline \ref{TReq1} \newline \ref{PPen1} \newline \ref{PInf1} \newline \ref{PReqList2.3}\\
 		\hline MyTaxiService APIs & Taxi Interface & 
 		Login\newline
 		Logout\newline
 		DriverRequest.		
-		&\\
+		& \ref{TLog1} \newline \ref{TLog1.2} \newline \ref{TReq1} \newline \ref{TReqEvents2.7}\\
 		\hline MyTaxiService APIs & Administrator Interface & 
 		Login\newline
 		Logout\newline
 		TaxiList\newline
 		AccountList\newline
 		LogList.
-		&\\
+		& \ref{STax1} \newline \ref{SAcc1} \newline \ref{SLog1}\\
 		\hline
 	\end{tabularx}
 	\newline
@@ -248,31 +248,30 @@
 		EditAccount\newline
 		AddAccount\newline
 		RemoveAccount\newline
-		&\\
+		&  \ref{SAcc1} SAcc1 \newline \ref{SAcc2.3} SAcc2.3 \newline \ref{SAcc2.4} SAcc2.4\\
 			\hline API & Account Manager & 
 			RequestList
-			&\\
+			&\ref{PReqList2.3} PReqList2.3 \newline \ref{Req3.3} Req3.3\\
 		\hline
 	\end{tabularx}
-	\begin{tabularx}{\textwidth}{| X |X |X |c|}
+	\begin{tabularx}{\textwidth}{| X |X |X |X|}
 		\hline \textbf{Source Component} &\textbf{ Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
 		\hline Administration Manager & Account Manager &  
 		EditAccount\newline
 		AddAccount\newline
 		RemoveAccount\newline
-		&\\
+		&\ref{PReqList2.3} PReqList2.3 \newline \ref{Req3.3} Req3.3\\
 		\hline MyTaxiService APIs & RequestManager &  
 		TaxiRequest\newline
 		TaxiReservation\newline
 		RemoveRequest\newline
 		TaxiProbe.
-		&\\
+		&\ref{TReqEvents2.7} TReqEvents2.7\\
 		\hline RequestManager & ZoneManager &  
 		getTaxiInZone\newline
 		getZones\newline
 		getAdjacents\newline
-			
-		&\\
+		& \ref{ZTaxi2.6} ZTaxi2.6  \newline\ref{ZZone2.6} ZZone2.6  \newline\ref{ZAdj2.6} ZAdj2.6  \\
 		\hline MyTaxiService APIs & TaxiManager &  
 		OnRequestAccepted\newline
 		OnRequestRefused\newline
@@ -280,7 +279,7 @@
 		UpdateLocation\newline
 		OnZoneEnter\newline
 		OnZoneExit
-		&\\
+		&\ref{TReq4.2} TReq4.2  \newline\ref{RConf4.2} RConf4.2  \newline\ref{RNotf4.2} RNotf4.2  \newline\ref{TLoc2.7} TLoc2.7  \newline\ref{TNotif2.7} TNotif2.7\\
 		\hline
 	\end{tabularx}
 	\newline
@@ -289,13 +288,13 @@
 	\image{test_phase3.png}
 	Now every component that accesses the business data have to be tested against the database.
 	\newline
-	\begin{tabularx}{\textwidth}{| X |X |X |c|}
+	\begin{tabularx}{\textwidth}{| X |X |X |l|}
 		\hline \textbf{Source Component} &\textbf{ Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
-		\hline Autenthication Manager & Database & Account Retrieval for Login &\\
-		\hline Account Manager & Database & Account Data Editing &\\
-		\hline Administration Manager & Database & Log Access\newline Taxi Data Access &\\
-		\hline Request Manager & Database & Request and Reservation data access &\\
-		\hline Zone Manager & Database & Zone Data Access\newline Taxi Data Access &\\
+		\hline Autenthication Manager & Database & Account Retrieval for Login & \ref{Aut3.1} Aut3.1\\
+		\hline Account Manager & Database & Account Data Editing & \ref{Acc3.5} Acc3.5\\
+		\hline Administration Manager & Database & Log Access\newline Taxi Data Access & \ref{Adm3.2} Adm3.2\\
+		\hline Request Manager & Database & Request and Reservation data access & \ref{Req3.3} Req3.3\\
+		\hline Zone Manager & Database & Zone Data Access\newline Taxi Data Access & \ref{Zon3.4} Zon3.4\\
 		\hline
 	\end{tabularx}
 	\newline
@@ -306,10 +305,10 @@
 	\image{test_phase4.png}
 	\begin{tabularx}{\textwidth}{| X |X |X |c|}
 		\hline \textbf{Source Component} &\textbf{ Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
-		\hline Request Manager & Notification Manager & RequestConfirmation,\newline RequestNotification, DriverRequest,  TaxiProbeResponse & \\
-		\hline Account Manager & NotificationManager & RegistrationConfirmation, Password Reset &\\
-		\hline Notification Manager & MyTaxiService APIs & OutputMessageGeneration &\\
-		\hline Zone Manager & MyTaxiService APIs & GetZone for 3rd-party applications &\\
+		\hline Request Manager & Notification Manager & Request Confirmation,\newline Request Notification, Driver Request,  TaxiProbeResponse & \ref{RConf4.2} Rconf4.2 \newline \ref{RNotf4.2}\\
+		\hline Account Manager & Notification Manager & Registration Confirmation, Password Reset & \ref{TReg4.1} TReg4.1\\
+		\hline Notification Manager & APIs & Output Message Generation & \ref{SOut4.4 } SOut4.4\\
+		\hline Zone Manager & APIs & GetZone for 3rd-party applications & \ref{SDev4.3} SDev4.3\\
 		\hline
 	\end{tabularx}	
 	\newpage
@@ -451,6 +450,21 @@
 	\end{tabularx}
 	\newline
 	\newline
+	\subsubsection{Taxi Driver Login}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{TLog1}TLog1 \\
+		\hline \textbf{Integrated Components} & Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Login $\rightarrow $ AutenticationRequests \\
+		\hline \textbf{Input Specification} & Login email and password \\
+		\hline \textbf{Output Specification} & 
+		The data passed to the AuthenticationRequests are consistant and fulfills specifications.\newline
+		The HomePage is shown after successful login.\newline
+		An error is shown if the login fails.  \\
+		\hline \textbf{Environmental Needs} & AuthenticationManager Stub\\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
 	\subsubsection{Taxi Driver Active Ride }
 	\begin{tabularx}{\textwidth}{| c|X|}
 		\hline \textbf{Test Case Identifier} & \label{TAct1}TAct1 \\
@@ -473,21 +487,6 @@
 		The page of Login is shown after successful logout.\newline
 		An error is shown if the logout fails .\\
 		\hline \textbf{Environmental Needs} & AuthenticationManager Stub \newline	TLog1 Test has to be successful \\
-		\hline
-	\end{tabularx}
-	\newline
-	\newline
-	\subsubsection{Taxi Driver Login}
-	\begin{tabularx}{\textwidth}{| c|X|}
-		\hline \textbf{Test Case Identifier} & \label{TLog1}TLog1 \\
-		\hline \textbf{Integrated Components} & Application Interface $\rightarrow $ MyTaxiService API \\
-		\hline \textbf{Test Items} & Login $\rightarrow $ AutenticationRequests \\
-		\hline \textbf{Input Specification} & Login email and password \\
-		\hline \textbf{Output Specification} & 
-		The data passed to the AuthenticationRequests are consistant and fulfills specifications.\newline
-		The HomePage is shown after successful login.\newline
-		An error is shown if the login fails.  \\
-		\hline \textbf{Environmental Needs} & AuthenticationManager Stub\\
 		\hline
 	\end{tabularx}
 	\newline
@@ -594,7 +593,7 @@
 	 	\hline
 	 \end{tabularx}
 	 \newline
-	 
+	 \subsubsection{}
 	 \begin{tabularx}{\textwidth}{| c|X|}
 	 	\hline \textbf{Test Case Identifier} &  \label{PReg2.1}PReg2.1, \label{AReg2.1}AReg2.1 \\
 	 	\hline \textbf{Integrated Components} & API $\rightarrow $ Authentication Manager \\
@@ -605,10 +604,10 @@
 	 	\hline
 	 \end{tabularx}
 	 \newline
-	 
-	 \subsubitem{AdministrationManager integration}
-	 
-	 	\begin{tabularx}{\textwidth}{| c|X|}
+	 \subsubsection{AdministrationManager integration}
+	%subsubitem{AdministrationManager integration}
+	% \newline
+	\begin{tabularx}{\textwidth}{| c|X|}
 	 		\hline \textbf{Test Case Identifier} & \label{TAdd2.2}TAdd2.2, \label{TRem2.2}TRem2.2, \label{TEdi2.2}TEdi2.2 \\
 	 		\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
 	 		\hline \textbf{Test Items} &  Administrator Requests  $\rightarrow $ Administration Controller\\
@@ -617,9 +616,10 @@
 	 		\hline \textbf{Environmental Needs} &  Phase 1, SLog2.1, TLog2.1 passed \newline 
 	 		Client Driver, TaxiManager Stub\\
 	 		\hline
-	 	\end{tabularx}
-	 	\newline
-		 \begin{tabularx}{\textwidth}{| c|X|}
+	 \end{tabularx}
+	 \newline
+	 \subsubsection{}
+	\begin{tabularx}{\textwidth}{| c|X|}
 		 	\hline \textbf{Test Case Identifier} & \label{AAdd2.2}AAdd2.2, \label{AEdi2.2}AEdi2.2 \\
 		 	\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
 		 	\hline \textbf{Test Items} &  Administrator Requests  $\rightarrow $ Administration Controller\\
@@ -630,7 +630,7 @@
 		 	\hline
 		 \end{tabularx}
 		 \newline
-		 
+		 \subsubsection{}
  		 \begin{tabularx}{\textwidth}{| c|X|}
 	 		 	\hline \textbf{Test Case Identifier} & \label{ALis2.2}ALis2.2 \\
 	 		 	\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
@@ -642,7 +642,7 @@
 	 		 	\hline
  		 \end{tabularx}
  		 \newline
-		 
+		 \subsubsection{}
 		  \begin{tabularx}{\textwidth}{| c|X|}
 		  	\hline \textbf{Test Case Identifier} & \label{SBac2.2}SBac2.2, \label{SRes2.2}SRes2.2 \\
 		  	\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
@@ -654,8 +654,7 @@
 		  	\hline
 		  \end{tabularx}
 		  \newline
-		  
-		  
+		  \subsubsection{}
 		  \begin{tabularx}{\textwidth}{| c|X|}
 		  	\hline \textbf{Test Case Identifier} & \label{SLogs2.2}SLogs2.2 \\
 		  	\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
@@ -680,7 +679,7 @@
 		 	\hline
 		 \end{tabularx}
 		 \newline
-		 
+		 \subsubsection{}
 		 \begin{tabularx}{\textwidth}{| c|X|}
 		 	\hline \textbf{Test Case Identifier} & \label{PReqList2.3}PReqList2.3 \\
 		 	\hline \textbf{Integrated Components} & API $\rightarrow $ Account Manager \\
@@ -693,7 +692,7 @@
 		 \end{tabularx}
 		 \newline
 		
-		 
+		 \subsubsection{}
  		 \begin{tabularx}{\textwidth}{| c|X|}
 	 		 	\hline \textbf{Test Case Identifier} & \label{SAcc2.4}SAcc2.4 \\
 	 		 	\hline \textbf{Integrated Components} &  Administration Manager $\rightarrow $ Account Manager \\
@@ -720,6 +719,7 @@
 	 		\hline
 	 	\end{tabularx}
 	 	\newline
+	 \subsubsection{}
 	 \begin{tabularx}{\textwidth}{| c|X|}
 	 	\hline \textbf{Test Case Identifier} & \label{PRemReq2.5}PRemReq2.5 \\
 	 	\hline \textbf{Integrated Components} & API  $\rightarrow $ RequestManager (IncomingRequest, IncomingReservation) \\
@@ -734,7 +734,7 @@
 	 	\hline
 	 \end{tabularx}
 	 \newline
-	 
+	 \subsubsection{}
 	 \begin{tabularx}{\textwidth}{| c|X|}
 	 	\hline \textbf{Test Case Identifier} & \label{PPro2.5}PPro2.5 \\
 	 	\hline \textbf{Integrated Components} & API  $\rightarrow $ RequestManager (IncomingRequest, IncomingReservation) \\
@@ -761,7 +761,7 @@
 	 	\hline
 	 	\end{tabularx}
 	 	\newline
-	 	
+	 	\subsubsection{}
 	 	This component belongs to the TaxiManager component and it's implemented by the RequestResolver. This two functionalities are requested from the taxi application when the driver accepts or refuses a request.
 	 \begin{tabularx}{\textwidth}{| c|X|}
 	 	\hline \textbf{Test Case Identifier} & \label{TReqEvents2.7}TReqEvents2.7\\
@@ -774,7 +774,7 @@
 	 	\hline
 	 \end{tabularx}
 	 \newline	
-	 	
+	\subsubsection{}
 	 \begin{tabularx}{\textwidth}{| c|X|}
 			 	\hline \textbf{Test Case Identifier} & \label{TNotif2.7}TNotif2.7\\
 			 	\hline \textbf{Integrated Components} & API  $\rightarrow $  ZoneManager/TaxiManager \\
@@ -787,7 +787,7 @@
 			 	\hline
 	 \end{tabularx}
 	 \newline
-	 
+	 \subsubsection{}
 	 \begin{tabularx}{\textwidth}{| c|X|}
 	 	\hline \textbf{Test Case Identifier} & \label{TLoc2.7}TLoc2.7\\
 	 	\hline \textbf{Integrated Components} & API  $\rightarrow $  ZoneManager/TaxiManager \\
@@ -815,7 +815,7 @@
 			\hline
 		\end{tabularx}
 		\newline
-	
+		\subsubsection{}
 		\begin{tabularx}{\textwidth}{| c|X|}
 			\hline \textbf{Test Case Identifier} & \label{Acc3.5}Acc3.5 \\
 			\hline \textbf{Integrated Components} & Account Manager $\rightarrow $ Database \\
@@ -827,7 +827,7 @@
 			\hline
 		\end{tabularx}
 		\newline
-		
+		\subsubsection{}
 		\begin{tabularx}{\textwidth}{| c|X|}
 			\hline \textbf{Test Case Identifier} & \label{Adm3.2}Adm3.2 \\
 			\hline \textbf{Integrated Components} & Administration Manager $\rightarrow $ Database \\
@@ -839,7 +839,7 @@
 			\hline
 		\end{tabularx}
 		\newline
-		
+		\subsubsection{}
 		\begin{tabularx}{\textwidth}{| c|X|}
 			\hline \textbf{Test Case Identifier} & \label{Req3.3}Req3.3 \\
 			\hline \textbf{Integrated Components} & Request Manager $\rightarrow $ Database \\
@@ -851,7 +851,7 @@
 			\hline
 		\end{tabularx}
 		\newline
-		
+		\subsubsection{}
 		\begin{tabularx}{\textwidth}{| c|X|}
 			\hline \textbf{Test Case Identifier} & \label{Zon3.4}Zon3.4 \\
 			\hline \textbf{Integrated Components} & Zone Manager $\rightarrow $ Database \\
@@ -877,7 +877,7 @@
 				\hline
 			\end{tabularx}
 			\newline
-			
+			\subsubsection{}
 			\begin{tabularx}{\textwidth}{| c|X|}
 				\hline \textbf{Test Case Identifier} & \label{TReq4.2}TReq4.2 \\
 				\hline \textbf{Integrated Components} &  Request Manager $\rightarrow $ Notification Manager \\
@@ -889,7 +889,7 @@
 				\hline
 			\end{tabularx}
 			\newline
-			
+			\subsubsection{}
 			\begin{tabularx}{\textwidth}{| c|X|}
 				\hline \textbf{Test Case Identifier} & \label{TPro4.2}TPro4.2 \\
 				\hline \textbf{Integrated Components} &  Request Manager $\rightarrow $ Notification Manager \\
@@ -901,7 +901,7 @@
 				\hline
 			\end{tabularx}
 			\newline
-			
+			\subsubsection{}
 			\begin{tabularx}{\textwidth}{| c|X|}
 				\hline \textbf{Test Case Identifier} & \label{TReg4.1}TReg4.1 \\
 				\hline \textbf{Integrated Components} & Account Manager $\rightarrow $ Notification Manager \\
@@ -912,7 +912,7 @@
 				\hline
 			\end{tabularx}
 			\newline
-			
+			\subsubsection{}
 			\begin{tabularx}{\textwidth}{| c|X|}
 				\hline \textbf{Test Case Identifier} & \label{SOut4.4 }SOut4.4 \\
 				\hline \textbf{Integrated Components} & Notification Manager $\rightarrow $ API \\
@@ -923,7 +923,7 @@
 				\hline
 			\end{tabularx}
 			\newline
-			
+			\subsubsection{}
 			\begin{tabularx}{\textwidth}{| c|X|}
 				\hline \textbf{Test Case Identifier} & \label{SDev4.3}SDev4.3 \\
 				\hline \textbf{Integrated Components} & Zone Manager $\rightarrow $ API \\
