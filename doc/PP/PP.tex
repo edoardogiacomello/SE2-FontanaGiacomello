@@ -141,16 +141,206 @@
 		\end{tabularx}
 		\newpage
 		\subsection{Effort and Cost Estimation: COCOMO}
+		All the tables used in this analysis have been taken from COCOMO II, Model Definition
+		Manual at:
+		\newline
+		http://csse.usc.edu/csse/research/COCOMOII/cocomo2000.0/CII\textunderscore modelman2000.0.pdf
+		\newline
+		Elements of the COCOMO II model:
+		\begin{itemize}
+			\item Source Lines of Code (SLOC)
+			\item Scale Drivers
+			\item Cost Drivers
+			\item The Effort Equation
+			\item The Effort Adjustment Factor
+			\item The Schedule Equation
+			\item The SCED (Schedule Constraints) Cost Driver
+		\end{itemize}
+	    \subsubsection{Source Lines of Code (SLOC)}
+		
+		101 FPs * 53 = 5353  SLOC
+		\newline
+		Where 53 is found from this table :
+		\image{Co_ufp.png}
+		\subsubsection{Scale Drivers}
+		We use this table :
+		\image{Scale_factor.png}
+		
+		for defining the following parameters: 
+		\newline
+		\newline
+		\begin{tabularx}{\textwidth}{|X|c|c|}
+			\hline
+			\textbf{Scale Driver} &	\textbf{Factor} & \textbf{Value} \\
+			\hline Precedentedness & Low &	4.96  \\
+			 Development Flexibility & High & 2.03\\	
+			 Architecture / Risk Resolution & Very High & 1.41\\
+			 Team Cohesion & Nominal & 3.29\\
+			 Process Maturity & High & 3.12\\
+			\hline Total : & / & 14.81 \\
+			\hline
+		\end{tabularx}
+		\newline\newline\newline
+		Analysis of the results :
+		\begin{itemize}
+			\item Precedentedness : Low, the team was not expert with business scale projects.
+			\item Development Flexibility: High, the project has been structured in a way that facilitates further changes.
+			\item Architecture / Risk Resolution: Reflects the extent of risk analysis carried out, most of risk was deleted.
+			\item Team Cohesion : Reflects how well the development team know each other and work together, this is Nominal because this is the first project that we do together.
+			\item Process Maturity : This was evaluated around the 18 Key Process Area (KPAs) in the SEI Capability
+			Model.
+		\end{itemize}
+	
+		\subsubsection{Cost Drivers}
+		\begin{tabularx}{\textwidth}{|X|c|c|}
+			\hline
+			\textbf{Cost Driver} &	\textbf{Factor} & \textbf{Value} \\
+			\hline Required Software Reliability & Very Low &	0.82  \\
+			 Data Base Size & Low & 0.90\\	
+			 Product Complexity & High & 1.17\\
+			 Required Reusability & High & 1.07\\
+			 Documentation match to life-cycle needs & Nominal & 1.00\\
+			 Execution Time Constraint & High & 1.11\\
+			 Main Storage Constraint & Nominal & 1.00\\
+			 Platform Volatility & Very Low & n/a\\
+			 Analyst Capability & High & 0.85\\
+			 Programmer Capability & High & 0.88\\
+			 Application Experience & Low & 1.10\\
+			 Personnel continuity & Very Low & 1.29\\
+			 Platform Experience & Low & 1.09\\
+			 Language and Tool Experience & Low & 1.09\\
+			 Usage of Software Tools & Nominal  & 1.00\\
+			 Multisite development & Extra High & 0.80\\
+			 Required development schedule & High & 1.00\\			
+			\hline Total : & / & 16.17/17=0.95 \\
+			\hline
+		\end{tabularx}
+		\newline\newline
+		For define this table we use the information contained in these tables :
+		\textbf{Required Software Reliability :} Very Low, some slight inconvenience is allowed if recovered in a short time.
+		\image{rely.png}
+		\textbf{Data Base Size :} 
+		P=5353 SLOC
+		D= 640 KB
+		D/P=8.364
+		\image{data.png}
+    	\textbf{Product Complexity:} high according to the new COCOMO II CPLEX rating scale.
+		\image{cplx.png}
+		\textbf{Required Reusability:}
+		\image{ruse.png}
+		\textbf{Documentation match to life-cycle needs:}
+		\image{docu.png}
+		\textbf{Execution Time Constraint:}
+		\image{time.png}
+		\textbf{Main Storage Constraint:}
+		\image{stor.png}
+		\textbf{Platform Volatility:}
+		\image{pvol.png}
+		\textbf{Analyst Capability:}
+		\image{acap.png}
+		\textbf{Programmer Capability:}
+		\image{pcap.png}
+		\textbf{Application Experience:}
+		\image{apex.png}
+		\textbf{Platform Experience:}
+		\image{plex.png}
+		\textbf{Language and Tool Experience:}
+		\image{ltex.png}
+		\textbf{Personnel continuity:}
+		\image{pcon.png}
+		\textbf{Usage of Software Tools:}
+		\image{tool.png}
+		\textbf{Multisite development:}
+		\image{site.png}
+		\textbf{Required development schedule:}
+		\image{sced.png}
+		
+		\subsubsection{Effort Equation}
+		$ Effort = A * EAF * (KSLOC)^{E} $
+	    \newline
+		Where:
+		\begin{itemize}
+			\item 	A = 2.94
+			\item EAF = product of all the cost drivers, equal to : 0.95 ;
+			\item E = exponent derived from Scale Drivers. Is calculated as: \newline
+				B + 0.01 * sum\{i\} SF[i] := B + 0.01 *14.81 = 0.91 + 0.1481 = 1.0581;
+				in which B is equal to: 0.91 for COCOMO.2000 .
+			\item KSLOC = estimated lines of code using the FP analysis: 5,353
+		\end{itemize}
+	   $ Effort = 2.94* 0.95* 5,353^{1.0581}  = 16.4816 Person-months $
+		
+	   \subsubsection{Schedule Estimation}
+	   $Duration := 3.67 * Effort^{F}$
+	   \newline    
+	   Where:
+	   	\begin{itemize}
+	   		\item F := 0.28 + 0.2 * ( E - B ) = 0.28 + 0.2*(1.0581 - 0.91) = 0.30962
+	   	\end{itemize}
+	   The estimated project duration is: \newline
+	   $ Duration = 3.67 * 16.4816^{0.30962} = 8.739 = 9 Months$
+	   \newline
+	   The estimation of the team size for this project is:
+	   \newline
+	   $P = Effort / Duration = 16.4816/ 9 = 1.83 = 2 People $
+	   \newline
+	   \newline
+	   We want to give a more precise estimation adjusting some Scale Driver.
+	   To evaluate the COCOMO II and determine the effort required to complete the software project we also used an online tool (http://csse.usc.edu/tools/COCOMOII.php).\newline
+	   This is the result of the online tool: 
+	   \image{cocomo1.png}
+	   \image{cocomo2.png}
+		
 	\section{Tasks and Schedule}
+	
+	\subsection{RASD :}
+	\begin{itemize}
+		\item Identify the project objectives.
+		\item Describe the structure and functions of the project.
+		\item Define the specific requirements.
+		\item Identify the use cases and scenarios.
+		\item Representing UML diagrams.
+		\item Representing the model in Alloy.
+		\item Latex document.
+	\end{itemize}
+
+	\subsection{DD :}
+	\begin{itemize}
+		\item Describe the architecture of the system.
+		\item Describe component view and deployment view.
+		\item Describe runtime view and component interfaces.
+		\item Describe algorithm design.
+		\item Define user interface design.
+		\item Latex document.
+	\end{itemize}
+	
+	\subsection{Inspection Document :}
+	\begin{itemize}
+		\item Define functional rules.
+		\item Describe assignment checklist.
+		\item Latex document.
+	\end{itemize}
+	
+	\subsection{Testing :}
+	\begin{itemize}
+		\item Describe integration strategy.
+		\item Define individual steps and test description.
+		\item Define program stubs.
+		\item Latex document.
+	\end{itemize}
+	
+	\subsection{Planning :}
+	\begin{itemize}
+		\item Define Function points.
+		\item Define effort and cost estimation : Cocomo.
+		\item Describe tasks for the project and the schedule.
+		\item Define the risks.
+		\item Latex document.
+	\end{itemize}
+	
+	\subsection{Gantt Diagram :}
+	\image{ganttdiagramm.png}
 	\section{Resources Allocation}
 	\section{Risks and Management}
-
-
-
-
-
-
-
 
 	\section{Work Hours}
 		\begin{itemize}
