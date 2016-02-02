@@ -1,0 +1,44 @@
+\BOOKMARK [1][-]{section.1}{Assigned Classes and Methods}{}% 1
+\BOOKMARK [1][-]{section.2}{Functional Roles}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{WorkFlow}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Package overview}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{BaseContainer Class}{section.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Interfaces}{subsection.2.3}% 6
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Subclasses}{subsection.2.3}% 7
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Class Body}{subsection.2.3}% 8
+\BOOKMARK [2][-]{subsection.2.4}{Terminology and other Components}{section.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Local and Remote Clients}{subsection.2.4}% 10
+\BOOKMARK [3][-]{subsubsection.2.4.2}{EJB Container}{subsection.2.4}% 11
+\BOOKMARK [3][-]{subsubsection.2.4.3}{EJB Home}{subsection.2.4}% 12
+\BOOKMARK [3][-]{subsubsection.2.4.4}{EJB Local Object}{subsection.2.4}% 13
+\BOOKMARK [3][-]{subsubsection.2.4.5}{EJB Invocation}{subsection.2.4}% 14
+\BOOKMARK [3][-]{subsubsection.2.4.6}{JACC: Java Authorization Contract for Containers}{subsection.2.4}% 15
+\BOOKMARK [2][-]{subsection.2.5}{Methods}{section.2}% 16
+\BOOKMARK [3][-]{subsubsection.2.5.1}{mapLocal3xException}{subsection.2.5}% 17
+\BOOKMARK [3][-]{subsubsection.2.5.2}{authorize}{subsection.2.5}% 18
+\BOOKMARK [3][-]{subsubsection.2.5.3}{initializeEjbInterfaceMethods}{subsection.2.5}% 19
+\BOOKMARK [3][-]{subsubsection.2.5.4}{getJaccEjb}{subsection.2.5}% 20
+\BOOKMARK [3][-]{subsubsection.2.5.5}{assertValidLocalObject}{subsection.2.5}% 21
+\BOOKMARK [1][-]{section.3}{Checklist and Issues}{}% 22
+\BOOKMARK [2][-]{subsection.3.1}{Assigment Checklist}{section.3}% 23
+\BOOKMARK [2][-]{subsection.3.2}{Method : mapLocal3xException }{section.3}% 24
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Code}{subsection.3.2}% 25
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Checklist}{subsection.3.2}% 26
+\BOOKMARK [2][-]{subsection.3.3}{Method : authorize }{section.3}% 27
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Code}{subsection.3.3}% 28
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Checklist}{subsection.3.3}% 29
+\BOOKMARK [2][-]{subsection.3.4}{Method : initializeEjbInterfaceMethods }{section.3}% 30
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Code}{subsection.3.4}% 31
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Checklist}{subsection.3.4}% 32
+\BOOKMARK [2][-]{subsection.3.5}{Method : getJaccEjb }{section.3}% 33
+\BOOKMARK [3][-]{subsubsection.3.5.1}{Code}{subsection.3.5}% 34
+\BOOKMARK [3][-]{subsubsection.3.5.2}{Checklist}{subsection.3.5}% 35
+\BOOKMARK [2][-]{subsection.3.6}{Method : assertValidLocalObject }{section.3}% 36
+\BOOKMARK [3][-]{subsubsection.3.6.1}{Code}{subsection.3.6}% 37
+\BOOKMARK [3][-]{subsubsection.3.6.2}{Checklist}{subsection.3.6}% 38
+\BOOKMARK [1][-]{section.4}{Other problems}{}% 39
+\BOOKMARK [2][-]{subsection.4.1}{Class Inspection}{section.4}% 40
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Checklist}{subsection.4.1}% 41
+\BOOKMARK [1][-]{section.5}{References}{}% 42
+\BOOKMARK [1][-]{section.6}{Tools}{}% 43
+\BOOKMARK [1][-]{section.7}{Work Hours}{}% 44

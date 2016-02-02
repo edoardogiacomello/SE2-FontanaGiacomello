@@ -1,0 +1,86 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Revision History}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Purpose and Scope}{section.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Purpose}{subsection.1.2}% 4
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Scope}{subsection.1.2}% 5
+\BOOKMARK [2][-]{subsection.1.3}{List of Definitions and Abbreviations}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.4}{List of Reference Documents}{section.1}% 7
+\BOOKMARK [1][-]{section.2}{Integration Strategy}{}% 8
+\BOOKMARK [2][-]{subsection.2.1}{Entry Criteria}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.2}{Elements to be Integrated}{section.2}% 10
+\BOOKMARK [3][-]{subsubsection.2.2.1}{User Interface Layer}{subsection.2.2}% 11
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Service Access Layer}{subsection.2.2}% 12
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Business Layer}{subsection.2.2}% 13
+\BOOKMARK [3][-]{subsubsection.2.2.4}{Presentation Layer}{subsection.2.2}% 14
+\BOOKMARK [3][-]{subsubsection.2.2.5}{Persistance Layer}{subsection.2.2}% 15
+\BOOKMARK [2][-]{subsection.2.3}{Integration Testing Strategy}{section.2}% 16
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Rationale}{subsection.2.3}% 17
+\BOOKMARK [2][-]{subsection.2.4}{Sequence of Component/Function Integration}{section.2}% 18
+\BOOKMARK [2][-]{subsection.2.5}{Software Integration Sequence}{section.2}% 19
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Phase 1: User Interface I/O}{subsection.2.5}% 20
+\BOOKMARK [3][-]{subsubsection.2.5.2}{Phase 2:Business Layer Integration tests}{subsection.2.5}% 21
+\BOOKMARK [3][-]{subsubsection.2.5.3}{Phase 3: Persistence Level Integration}{subsection.2.5}% 22
+\BOOKMARK [3][-]{subsubsection.2.5.4}{Phase 4: Presentation Layer Integration}{subsection.2.5}% 23
+\BOOKMARK [1][-]{section.3}{Individual Steps and Test Description}{}% 24
+\BOOKMARK [2][-]{subsection.3.1}{User Interface vs API tests}{section.3}% 25
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Passenger Login}{subsection.3.1}% 26
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Passenger Registration}{subsection.3.1}% 27
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Passenger Map}{subsection.3.1}% 28
+\BOOKMARK [3][-]{subsubsection.3.1.4}{Passenger Taxi Request}{subsection.3.1}% 29
+\BOOKMARK [3][-]{subsubsection.3.1.5}{Passenger Taxi Reservation}{subsection.3.1}% 30
+\BOOKMARK [3][-]{subsubsection.3.1.6}{Passenger Logout}{subsection.3.1}% 31
+\BOOKMARK [3][-]{subsubsection.3.1.7}{Passenger Pending Reservation }{subsection.3.1}% 32
+\BOOKMARK [3][-]{subsubsection.3.1.8}{Passenger Profile }{subsection.3.1}% 33
+\BOOKMARK [3][-]{subsubsection.3.1.9}{Passenger Information }{subsection.3.1}% 34
+\BOOKMARK [3][-]{subsubsection.3.1.10}{Taxi Driver Login}{subsection.3.1}% 35
+\BOOKMARK [3][-]{subsubsection.3.1.11}{Taxi Driver Active Ride }{subsection.3.1}% 36
+\BOOKMARK [3][-]{subsubsection.3.1.12}{Taxi Driver Logout}{subsection.3.1}% 37
+\BOOKMARK [3][-]{subsubsection.3.1.13}{Taxi Driver Map}{subsection.3.1}% 38
+\BOOKMARK [3][-]{subsubsection.3.1.14}{Taxi Driver Request Incoming}{subsection.3.1}% 39
+\BOOKMARK [3][-]{subsubsection.3.1.15}{System Administrator Taxi Management}{subsection.3.1}% 40
+\BOOKMARK [3][-]{subsubsection.3.1.16}{System Administrator Account Management}{subsection.3.1}% 41
+\BOOKMARK [3][-]{subsubsection.3.1.17}{System Administrator Logs}{subsection.3.1}% 42
+\BOOKMARK [3][-]{subsubsection.3.1.18}{System Administrator Backup}{subsection.3.1}% 43
+\BOOKMARK [3][-]{subsubsection.3.1.19}{System Administrator Restore}{subsection.3.1}% 44
+\BOOKMARK [2][-]{subsection.3.2}{Business Layer Integration}{section.3}% 45
+\BOOKMARK [3][-]{subsubsection.3.2.1}{AuthenticationManager Integration}{subsection.3.2}% 46
+\BOOKMARK [3][-]{subsubsection.3.2.2}{}{subsection.3.2}% 47
+\BOOKMARK [3][-]{subsubsection.3.2.3}{AdministrationManager integration}{subsection.3.2}% 48
+\BOOKMARK [3][-]{subsubsection.3.2.4}{}{subsection.3.2}% 49
+\BOOKMARK [3][-]{subsubsection.3.2.5}{}{subsection.3.2}% 50
+\BOOKMARK [3][-]{subsubsection.3.2.6}{}{subsection.3.2}% 51
+\BOOKMARK [3][-]{subsubsection.3.2.7}{}{subsection.3.2}% 52
+\BOOKMARK [3][-]{subsubsection.3.2.8}{AccountManager integration}{subsection.3.2}% 53
+\BOOKMARK [3][-]{subsubsection.3.2.9}{}{subsection.3.2}% 54
+\BOOKMARK [3][-]{subsubsection.3.2.10}{}{subsection.3.2}% 55
+\BOOKMARK [3][-]{subsubsection.3.2.11}{RequestManager Integration}{subsection.3.2}% 56
+\BOOKMARK [3][-]{subsubsection.3.2.12}{}{subsection.3.2}% 57
+\BOOKMARK [3][-]{subsubsection.3.2.13}{}{subsection.3.2}% 58
+\BOOKMARK [3][-]{subsubsection.3.2.14}{ZoneManager/TaxiManager Integration}{subsection.3.2}% 59
+\BOOKMARK [3][-]{subsubsection.3.2.15}{}{subsection.3.2}% 60
+\BOOKMARK [3][-]{subsubsection.3.2.16}{}{subsection.3.2}% 61
+\BOOKMARK [3][-]{subsubsection.3.2.17}{}{subsection.3.2}% 62
+\BOOKMARK [2][-]{subsection.3.3}{Persistence Layer Integration}{section.3}% 63
+\BOOKMARK [3][-]{subsubsection.3.3.1}{}{subsection.3.3}% 64
+\BOOKMARK [3][-]{subsubsection.3.3.2}{}{subsection.3.3}% 65
+\BOOKMARK [3][-]{subsubsection.3.3.3}{}{subsection.3.3}% 66
+\BOOKMARK [3][-]{subsubsection.3.3.4}{}{subsection.3.3}% 67
+\BOOKMARK [2][-]{subsection.3.4}{Presentation Layer Integration}{section.3}% 68
+\BOOKMARK [3][-]{subsubsection.3.4.1}{}{subsection.3.4}% 69
+\BOOKMARK [3][-]{subsubsection.3.4.2}{}{subsection.3.4}% 70
+\BOOKMARK [3][-]{subsubsection.3.4.3}{}{subsection.3.4}% 71
+\BOOKMARK [3][-]{subsubsection.3.4.4}{}{subsection.3.4}% 72
+\BOOKMARK [3][-]{subsubsection.3.4.5}{}{subsection.3.4}% 73
+\BOOKMARK [1][-]{section.4}{Tools and Test Equipment Required}{}% 74
+\BOOKMARK [1][-]{section.5}{Program Stubs and Test Data Required}{}% 75
+\BOOKMARK [2][-]{subsection.5.1}{Drivers}{section.5}% 76
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Client Driver}{subsection.5.1}% 77
+\BOOKMARK [2][-]{subsection.5.2}{Stubs}{section.5}% 78
+\BOOKMARK [3][-]{subsubsection.5.2.1}{AuthenticationManager Stub}{subsection.5.2}% 79
+\BOOKMARK [3][-]{subsubsection.5.2.2}{RequestIntefrace Stub}{subsection.5.2}% 80
+\BOOKMARK [3][-]{subsubsection.5.2.3}{ZoneManager/TaxiManager Stub}{subsection.5.2}% 81
+\BOOKMARK [3][-]{subsubsection.5.2.4}{AdministratorManager Stub}{subsection.5.2}% 82
+\BOOKMARK [3][-]{subsubsection.5.2.5}{AccountManager Stub}{subsection.5.2}% 83
+\BOOKMARK [3][-]{subsubsection.5.2.6}{DatabaseManager Stub}{subsection.5.2}% 84
+\BOOKMARK [2][-]{subsection.5.3}{Client Interface Stub}{section.5}% 85
+\BOOKMARK [1][-]{section.6}{Work Hours}{}% 86

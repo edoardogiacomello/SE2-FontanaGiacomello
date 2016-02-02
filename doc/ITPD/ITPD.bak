@@ -1,0 +1,944 @@
+\documentclass[11pt, a4paper,titlepage]{article}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\graphicspath{{img/}}
+\author{Edoardo Giacomello \and Mattia Fontana}
+\title{SE2 Integration Test Plan Document} 
+%Definisce il titolo
+\newcommand{\productname}{MyTaxiService}
+\newcommand{\image}[1]{
+	\begin{center}
+		\noindent \includegraphics[width=\linewidth]{#1}
+	\end{center}
+}
+\newcommand{\link}[2]{\underline{\textbf{\hyperref[#1]{#2}}}}
+\newcommand{\linkitm}[1]{\underline{\textbf{\ref{#1}}}}
+
+
+\begin{document}
+	%Genera il titolo
+	\maketitle
+	%Inserisce tabella dei contenuti
+	\tableofcontents
+	\newpage
+	\section{Introduction}
+	\subsection{Revision History}
+	
+	\subsection{Purpose and Scope}
+	
+	\subsubsection{Purpose}
+	The purpose of this document is to provide a plan for integration testing for the \productname System. \newline
+	This document is intended to all the persons which are in charge to write and execute the tests, and it's intended to be a reference for the tests that are to be scheduled.
+	\subsubsection{Scope}
+	The \productname application is a system for managing taxi for a municipal environment. The product is composed of several parts and components that will be described in this document and must cooperate as expected in order to not run into malfunctions and unforeseen behaviours.
+	\subsection{List of Definitions and Abbreviations}
+	%TODO: Fill this
+	\subsection{List of Reference Documents}
+	\begin{itemize}
+		\item Assigment 1: Project Description
+		\item \productname Requirement and Specification Analysis Document
+		\item \productname Design Document
+	\end{itemize}
+	
+	\section{Integration Strategy}
+	%we can refer to this http://sce.uhcl.edu/helm/RUP_course_example/courseregistrationproject/artifacts/test/plans/test_plan_arch.htm
+	
+	\subsection{Entry Criteria}
+	%Describe what have to be true in order to begin integration testing (i.e. Unit Testing must be done)
+	The entry criteria for the integration phase are the following:
+	\begin{itemize}
+		\item All method groups have already been unit-tested, with particular attention to the taxi and request management algorithm;
+		\item All Interfaces implementation belongs to the classes as specified in the design document, therefore unit-tests also includes the implemented members;
+		\item The classes that are not detailed in the section “Element to be integrated” must have been already unit tested since they present a high level of coupling and can work as a single component;
+		\item The data model for the database has been already tested.
+	\end{itemize}
+	
+	\subsection{Elements to be Integrated}
+	%List of every element that have to be tested (Remember Data access)
+	\image{SystemHierarchy.png}
+	\newpage
+	
+	\subsubsection{User Interface Layer}
+	Web Interface / Application Interface
+	\begin{itemize}
+		\item Passengers
+		\begin{itemize}
+			\item Registration
+			\item Login
+			\item Map
+			\item Request
+			\item Reservation
+			\item Pending Reservation
+			\item Information
+			\item Profile
+			\item Logout
+		\end{itemize}
+		\item Taxi Drivers
+		\begin{itemize}
+			\item Login 
+			\item Map
+			\item Request Incoming 
+			\item Location Update
+			\item Active Ride
+			\item Ride Confirmation
+			\item Logout
+		\end{itemize}
+		\item  System Administrators
+		\begin{itemize}
+			\item Login
+			\item Taxi Management
+			\item Account Management
+			\item Logs
+			\item Backup/Restore
+			\item Logout
+		\end{itemize}
+	\end{itemize}
+	\subsubsection{Service Access Layer: MyTaxiService API}
+	Business Layer
+	\begin{itemize}
+		\item AuthenticationManager (Unit tested as a single component)
+		\item AdministrationManager
+		\begin{itemize}
+			\item AdministrationController
+		\end{itemize}
+		\item AccountManager
+		\begin{itemize}
+			\item AccountController
+		\end{itemize}
+		\item RequestManager
+		\begin{itemize}
+			\item RequestResolver
+			\item ReservationController
+		\end{itemize}
+		\item ZoneManager and TaxiManager (Referenced as a single unit, all TaxiManager interfaces are implemented by ZoneManager by design)
+		\begin{itemize}
+			\item ZoneController
+		\end{itemize}
+	\end{itemize}
+	\subsubsection{Presentation Layer}
+	\begin{itemize}
+		\item Notification Manager
+	\end{itemize}
+	\subsubsection{Persistance Layer}
+	\begin{itemize}
+		\item Database
+	\end{itemize}
+	
+	\newpage
+	\subsection{Integration Testing Strategy}
+	%Describe the approach and the rationale
+	The adopted test strategy will be \textbf{ Top-Down } with \textbf{functional grouping}. 
+	In particular, the first phase will comprehend the user interface and the issue of messages toward the server APIs. Once that the messages are proven to be consistent with the specifications of the APIs for each functionality, it will be possible to test the interaction between the API container and the other business components by testing each functionality separately, stepping down to the persistence layer. Then it will be possible to test the presentation layer, that is the set of components that provides the output to the client. 
+	A diagram describing the process, given n functionalities, is given below:
+	\image{TestingStrategy.png}
+	\subsubsection{Rationale}
+	This strategy has been adopted because of the hierarchical structure of the project, that allows to modularize the testing process. In particular, the system API interface allows to separate the user interface testing from the backend testing by writing appropriate stubs for the former and a client driver and backend stubs for the latter.
+	Another advantage of this strategy is the possibility to run the tests in parallel if more than one team is working together, by assigning each functionality to different teams.
+	
+	\newpage
+	\subsection{Sequence of Component/Function Integration}
+	%Describe the order in which the component are analized
+	The first phase of the integration testing will consider the User Interface Layer against the Service Access Layer (MyTaxiService APIs).
+	In particular, the User Interface Layer is composed by the following subsystems:
+	\begin{itemize}
+		\item Passenger Mobile/Web Application
+		\item Taxi Driver Mobile Application
+		\item Administrator Web Interface
+	\end{itemize}
+	For the test concerning the Passenger application there will be noted only a single instance; it is intended that both the web and mobile application test must be runned.
+	\newpage
+	\subsection{Software Integration Sequence}
+	\subsubsection{Phase 1: User Interface I/O}
+	\image{test_phase1.png}
+	\begin{tabularx}{\textwidth}{| c | X | X | X |}
+		\hline \textbf{Source Component} &\textbf{Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
+		\hline Passenger Interface & APIs & Passenger Registration & \ref{PReg1} \\
+		\hline Passenger Interface & APIs & Passenger Login & \ref{PLog1}\\
+		\hline Taxi Interface & APIs & Taxi Login & \ref{TLog1}\\
+		\hline Passenger Interface & APIs & Logout & \ref{PLog1.2}\\
+		\hline Taxi Interface & APIs & Logout &\ref{TLog1.2}\\
+		\hline Passenger Interface & APIs & Map Request & \ref{PMap1}\\
+		\hline Passenger Interface & APIs &  Request and Reservation & \ref{PReg1}, \ref{PRes1}\\
+		\hline Passenger Interface & APIs & Pending Reservations & \ref{PPen1}\\
+		\hline Passenger Interface & APIs & Profile &\ref{PPro1}\\
+		\hline Taxi Interface & APIs & Driver Response & \ref{TReq1}\\
+		\hline Taxi Interface & APIs & Driver Notification &\ref{TReq1}\\
+		\hline Administrator Interface & APIs & Taxi Management &\ref{STax1}\\
+		\hline Administrator Interface & APIs & Account Management & \ref{SAcc1}\\
+		\hline Administrator Interface & APIs & Database Management & \ref{SBac1}, \ref{SRes1}\\
+		\hline
+	\end{tabularx}
+	\newpage
+	For this set of Tests, please refer to the corresponding inverse test \newline
+	
+	\begin{tabularx}{\textwidth}{| X |c |X |c|}
+		\hline \textbf{Source Component} &\textbf{ Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
+		\hline Administrator Interface & MyTaxiService APIs & Log Management & \ref{SLog1} \\
+		\hline MyTaxiService APIs & Passenger Interface & 
+		Login\newline
+		Logout\newline
+		Registration\newline
+		TaxiProbeResponse\newline
+		TaxiConfirmation\newline
+		Notification\newline
+		RequestList\newline
+		Account Information.
+		&\\
+		\hline MyTaxiService APIs & Taxi Interface & 
+		Login\newline
+		Logout\newline
+		DriverRequest.		
+		&\\
+		\hline MyTaxiService APIs & Administrator Interface & 
+		Login\newline
+		Logout\newline
+		TaxiList\newline
+		AccountList\newline
+		LogList.
+		&\\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	Once this set of test is passed, it is possible to set up the integration tests for the backend.
+	\newline
+	\newpage
+	\subsubsection{Phase 2:Business Layer Integration tests}
+	\image{test_phase2.png}	
+	All of these tests require a Client Driver that simulates the client requests intercepted by the APIs. An appropriate Stub has to be written in order to emulate the behaviour of lower layers, in particular the business components that are still not tested and the database.
+	\newline
+	\newline
+	\begin{tabularx}{\textwidth}{| X |X |X |X|}
+		\hline \textbf{Source Component} &\textbf{Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
+		\hline MyTaxiService APIs & Authentication Manager & 
+		Login\newline
+		Logout\newline
+		Account Registration\newline
+		APIRegistration.
+		& \ref{PLog2.1} PLog2.1 \newline \ref{SLog2.1} SLog2.1 \newline \ref{TLog2.1} TLog2.1 \newline \ref{PReg2.1} PReg2.1 \newline \ref{AReg2.1} AReg2.1
+		\\
+		\hline MyTaxiService APIs & Administration Manager &  
+		AddTaxi\newline
+		RemoveTaxi\newline
+		EditTaxi\newline
+		AddAccount\newline
+		EditAccount\newline
+		Backup\newline
+		Restore\newline
+		Logs.
+		&
+		\ref{TAdd2.2} TAdd2.2 \newline
+		\ref{TRem2.2} TRem2.2 \newline
+		\ref{TEdi2.2} TEdi2.2 \newline
+		\ref{AAdd2.2} AAdd2.2 \newline
+		\ref{AEdi2.2} AEdi2.2 \newline
+		\ref{ALis2.2} ALis2.2 \newline
+		\ref{SBac2.2} SBac2.2 \newline
+		\ref{SRes2.2} SRes2.2 \newline
+		\ref{SLogs2.2} SLogs2.2 \newline
+		\\
+		\hline Authentication Manager & Account Manager & 
+		GetAccount\newline
+		EditAccount\newline
+		AddAccount\newline
+		RemoveAccount\newline
+		&\\
+			\hline API & Account Manager & 
+			RequestList
+			&\\
+		\hline
+	\end{tabularx}
+	\begin{tabularx}{\textwidth}{| X |X |X |c|}
+		\hline \textbf{Source Component} &\textbf{ Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
+		\hline Administration Manager & Account Manager &  
+		EditAccount\newline
+		AddAccount\newline
+		RemoveAccount\newline
+		&\\
+		\hline MyTaxiService APIs & RequestManager &  
+		TaxiRequest\newline
+		TaxiReservation\newline
+		RemoveRequest\newline
+		TaxiProbe.
+		&\\
+		\hline RequestManager & ZoneManager &  
+		getTaxiInZone\newline
+		getZones\newline
+		getAdjacents\newline
+			
+		&\\
+		\hline MyTaxiService APIs & TaxiManager &  
+		OnRequestAccepted\newline
+		OnRequestRefused\newline
+		TaxiAvailable\newline
+		UpdateLocation\newline
+		OnZoneEnter\newline
+		OnZoneExit
+		&\\
+		\hline
+	\end{tabularx}
+	\newline
+	\newpage
+	\subsubsection{Phase 3: Persistence Level Integration}
+	\image{test_phase3.png}
+	Now every component that accesses the business data have to be tested against the database.
+	\newline
+	\begin{tabularx}{\textwidth}{| X |X |X |c|}
+		\hline \textbf{Source Component} &\textbf{ Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
+		\hline Autenthication Manager & Database & Account Retrieval for Login &\\
+		\hline Account Manager & Database & Account Data Editing &\\
+		\hline Administration Manager & Database & Log Access\newline Taxi Data Access &\\
+		\hline Request Manager & Database & Request and Reservation data access &\\
+		\hline Zone Manager & Database & Zone Data Access\newline Taxi Data Access &\\
+		\hline
+	\end{tabularx}
+	\newline
+	\newpage
+	\subsubsection{Phase 4: Presentation Layer Integration}
+	This layer checks if the component that generates the system output use a format that is compliant with specifications.
+	\newline
+	\image{test_phase4.png}
+	\begin{tabularx}{\textwidth}{| X |X |X |c|}
+		\hline \textbf{Source Component} &\textbf{ Destination Component}&\textbf{Functionality} & \textbf{Reference} \\
+		\hline Request Manager & Notification Manager & RequestConfirmation,\newline RequestNotification, DriverRequest,  TaxiProbeResponse & \\
+		\hline Account Manager & NotificationManager & RegistrationConfirmation, Password Reset &\\
+		\hline Notification Manager & MyTaxiService APIs & OutputMessageGeneration &\\
+		\hline Zone Manager & MyTaxiService APIs & GetZone for 3rd-party applications &\\
+		\hline
+	\end{tabularx}	
+	\newpage
+	\section{Individual Steps and Test Description}
+	%Describe each relation between the components and how it is expected to work in order to pass the test
+	\subsection{User Interface vs API tests}
+	\subsubsection{Passenger Login}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{PLog1}PLog1 \\
+		\hline \textbf{Integrated Components} & Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Login $\rightarrow $ AutenticationRequests	 \\
+		\hline \textbf{Input Specification} & Login email and password \\
+		\hline \textbf{Output Specification} & 
+		The data passed to the AuthenticationRequests are consistant and fulfills specifications.\newline
+		The HomePage is shown after successful login.\newline
+		An error is shown if the login fails. \\
+		\hline \textbf{Environmental Needs} & AuthenticationManager Stub
+		\\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Passenger Registration}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{PReg1}PReg1 \\
+		\hline \textbf{Integrated Components} &  Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Registration $\rightarrow $ AutenticationRequests \\
+		\hline \textbf{Input Specification} & User Registration Data \\
+		\hline \textbf{Output Specification} & 
+		The data passed to the AuthenticationRequests are consistant and fulfills specifications.\newline
+		A confirmation is shown if the registration is successful.\newline
+		An error is shown if the registration fails (duplicate account or mising data). \\
+		\hline \textbf{Environmental Needs} & AuthenticationManager Stub \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Passenger Map}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{PMap1}PMap1 \\
+		\hline \textbf{Integrated Components} &  Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Map $\rightarrow $ PassengerRequests \\
+		\hline \textbf{Input Specification} & TaxiProbe Specifications \\
+		\hline \textbf{Output Specification} & 
+		The TaxiProbe request fulfills the specifications of the API.\newline	
+		The list of taxi positions is retrieved if the request is successful (TaxiProbeResponse).\newline
+		A default map position is sent if the request fails.  \\
+		\hline \textbf{Environmental Needs} & RequestInteface Stub \newline PLog1 test has to be successful \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Passenger Taxi Request}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{PReq1}PReq1 \\
+		\hline \textbf{Integrated Components} &  Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Request $\rightarrow $ PassengerRequests \\
+		\hline \textbf{Input Specification} & Request Specifications \\
+		\hline \textbf{Output Specification} & 
+		The Request object fulfills the specifications of the taxiRequest method.\newline	
+		A taxiConfirmation message is received if the request is successful.\newline
+		An error message is shown if the request fails. \\
+		\hline \textbf{Environmental Needs} & RequestInteface Stub \newline PLog1 test has to be successful \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newpage
+	\subsubsection{Passenger Taxi Reservation}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{PRes1}PRes1 \\
+		\hline \textbf{Integrated Components} & Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Reservation $\rightarrow $ PassengerRequests \\
+		\hline \textbf{Input Specification} & ReservationData specification (Email, currentTime, meetingTime, meetingLocation, arrivalLocation) \\
+		\hline \textbf{Output Specification} & 
+		The Reservation object fulfills the specifications of the taxiReservation method.\newline
+		A taxiConfirmation message is received if the reservation is successful.\newline
+		An error message is shown if the reservation fails. \\
+		\hline \textbf{Environmental Needs} & RequestInteface Stub \newline PLog1 test has to be successful \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Passenger Logout}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{PLog1.2}PLog1.2 \\
+		\hline \textbf{Integrated Components} & Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Logout $\rightarrow $ AutenticationRequests \\
+		\hline \textbf{Input Specification} & / \\
+		\hline \textbf{Output Specification} & 
+		The page of Login is shown after successful logout.\newline
+		An error is shown if the logout fails .\\
+		\hline \textbf{Environmental Needs} & AuthenticationManager Stub \newline	PLog1 Test has to be successful \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Passenger Pending Reservation }
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{PPen1}PPen1 \\
+		\hline \textbf{Integrated Components} & Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\ 
+		\hline \textbf{Test Items} & PendingReservation $\rightarrow $ PassengerRequest \\
+		\hline \textbf{Input Specification} & / \\
+		\hline \textbf{Output Specification} & The list of reservation is displayed.\newline An error message is shown if the visualization fails. \\
+		\hline \textbf{Environmental Needs} & RequestInteface Stub\newline PLog1 test has to be successful. \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Passenger Profile }
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{PPro1}PPro1 \\
+		\hline \textbf{Integrated Components} &  Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\ 
+		\hline \textbf{Test Items} & Profile $\rightarrow $ PassengerRequest \\
+		\hline \textbf{Input Specification} & / \\
+		\hline \textbf{Output Specification} & Data insert by user when he registered to the application.\newline 	An error message is shown if the visualization fails. \\
+		\hline \textbf{Environmental Needs} & RequestInteface Stub \newline PLog1 test has to be successful. \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Passenger Information }
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{PInf1}PInf1 \\
+		\hline \textbf{Integrated Components} &  Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Information $\rightarrow $ PassengerRequest \\
+		\hline \textbf{Input Specification} & / \\
+		\hline \textbf{Output Specification} & Informations about the application are visualizzed.\newline An error message is shown if the visualization fails. \\
+		\hline \textbf{Environmental Needs} & RequestInteface Stub \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Taxi Driver Active Ride }
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{TAct1}TAct1 \\
+		\hline \textbf{Integrated Components} & Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & ActiveRide $\rightarrow $ TaxiRequests \\
+		\hline \textbf{Input Specification} & Complete or Release ride. \\
+		\hline \textbf{Output Specification} & Informations about the ride are visualizzed with two options for complete or release the ride.\newline An error message is shown if the visualization fails. \\
+		\hline \textbf{Environmental Needs} & TaxiManager stub.\newline TLog1 test has to be successful. \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Taxi Driver Logout}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{TLog1.2}TLog1.2 \\
+		\hline \textbf{Integrated Components} & Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Logout $\rightarrow $ AutenticationRequests \\
+		\hline \textbf{Input Specification} & / \\
+		\hline \textbf{Output Specification} & 
+		The page of Login is shown after successful logout.\newline
+		An error is shown if the logout fails .\\
+		\hline \textbf{Environmental Needs} & AuthenticationManager Stub \newline	TLog1 Test has to be successful \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Taxi Driver Login}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{TLog1}TLog1 \\
+		\hline \textbf{Integrated Components} & Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Login $\rightarrow $ AutenticationRequests \\
+		\hline \textbf{Input Specification} & Login email and password \\
+		\hline \textbf{Output Specification} & 
+		The data passed to the AuthenticationRequests are consistant and fulfills specifications.\newline
+		The HomePage is shown after successful login.\newline
+		An error is shown if the login fails.  \\
+		\hline \textbf{Environmental Needs} & AuthenticationManager Stub\\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Taxi Driver Map}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{TMap1}TMap1 \\
+		\hline \textbf{Integrated Components} & Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Map $\rightarrow $ TaxiRequests \\
+		\hline \textbf{Input Specification} & TaxiProbe Specifications \\
+		\hline \textbf{Output Specification} & On map is showed the position of the request that taxi driver recived. \\
+		\hline \textbf{Environmental Needs} & ZoneManager Stub \newline TLog1 test has to be successful. \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{Taxi Driver Request Incoming}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{TReq1}TReq1 \\
+		\hline \textbf{Integrated Components} & Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & RequestIncoming $\rightarrow $ TaxiRequests \\
+		\hline \textbf{Input Specification} & Accept or Refuse ride. \\
+		\hline \textbf{Output Specification} & Informations about the ride are visualizzed with two options for accept or refuse the ride.\newline An error message is shown if the visualization fails. \\
+		\hline \textbf{Environmental Needs} & TaxiManager stub.\newline TLog1  test has to be successful. \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{System Administrator Taxi Management}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{STax1}STax1 \\
+		\hline \textbf{Integrated Components} & Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & TaxiManagement $\rightarrow $ AdministratorRequests \\
+		\hline \textbf{Input Specification} & Add and Remove options are available. \\
+		\hline \textbf{Output Specification} & Informations about the list of taxi driver are visualizzed.\newline
+		An error message is shown if the visualization fails. \\
+		\hline \textbf{Environmental Needs} & AdministratorManager stub. \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{System Administrator Account Management}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{SAcc1}SAcc1 \\
+		\hline \textbf{Integrated Components} & Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & AccountManagement $\rightarrow $ AdministratorRequests \\
+		\hline \textbf{Input Specification} & Add and Remove options are available. \\
+		\hline \textbf{Output Specification} & Informations about the list of account are visualizzed.\newline An error message is shown if the visualization fails. \\
+		\hline \textbf{Environmental Needs} & AdministratorManager stub. \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{System Administrator Logs}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{SLog1}SLog1 \\
+		\hline \textbf{Integrated Components} & Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Logs$\rightarrow $ AdministratorRequests  \\
+		\hline \textbf{Input Specification} & / \\
+		\hline \textbf{Output Specification} & Informations about the list of logs are visualizzed.\newline
+		An error message is shown if the visualization fails. \\
+		\hline \textbf{Environmental Needs} & AdministratorManager stub. \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{System Administrator Backup}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{SBac1}SBac1 \\
+		\hline \textbf{Integrated Components} & Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Backup $\rightarrow $ AdministratorRequests \\
+		\hline \textbf{Input Specification} & / \\
+		\hline \textbf{Output Specification} & An error message is shown if the visualization fails. \\
+		\hline \textbf{Environmental Needs} & AdministratorManager stub. \\
+		\hline
+	\end{tabularx}
+	\newline
+	\newline
+	\subsubsection{System Administrator Restore}
+	\begin{tabularx}{\textwidth}{| c|X|}
+		\hline \textbf{Test Case Identifier} & \label{SRes1}SRes1 \\
+		\hline \textbf{Integrated Components} & Web Interface $\rightarrow $ MyTaxiService API \newline 
+		Application Interface $\rightarrow $ MyTaxiService API \\
+		\hline \textbf{Test Items} & Restore $\rightarrow $ AdministratorRequests \\
+		\hline \textbf{Input Specification} & / \\
+		\hline \textbf{Output Specification} & An error message is shown if the visualization fails. \\
+		\hline \textbf{Environmental Needs} & AdministratorManager stub. \\
+		\hline
+	\end{tabularx}
+	\subsection{Business Layer Integration}
+	 \subsubsection{AuthenticationManager Integration}
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & \label{PLog2.1}PLog2.1, \label{SLog2.1}SLog2.1, \label{TLog2.1}TLog2.1 \\
+	 	\hline \textbf{Integrated Components} &  API $\rightarrow $ Authentication Manager\\
+	 	\hline \textbf{Test Items} &  Authentication Request $\rightarrow $ System Authenticator (apiLogin)\\
+	 	\hline \textbf{Input Specification} &  Well-formed Account objects and their subclasses\\
+	 	\hline \textbf{Output Specification} & The component should generate a valid token on login if the user is authorized to access the resources \newline
+	 	The component should invalidate active tokens on logout \\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Client Driver, AccountManager Stub \\
+	 	\hline
+	 \end{tabularx}
+	 \newline
+	 
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} &  \label{PReg2.1}PReg2.1, \label{AReg2.1}AReg2.1 \\
+	 	\hline \textbf{Integrated Components} & API $\rightarrow $ Authentication Manager \\
+	 	\hline \textbf{Test Items} &  Authentication Requests $\rightarrow $ System Authenticator (userRegistration, apiSubscribe)\\
+	 	\hline \textbf{Input Specification} & Well-formed Account objects and their subclasses  \\
+	 	\hline \textbf{Output Specification} & The component should request the AccountManager to store the new account and generate a new valid token, or launch an exception instead \\
+	 	\hline \textbf{Environmental Needs} & Phase 1 Passed, Client Driver, AccountManager Stub \\
+	 	\hline
+	 \end{tabularx}
+	 \newline
+	 
+	 \subsubitem{AdministrationManager integration}
+	 
+	 	\begin{tabularx}{\textwidth}{| c|X|}
+	 		\hline \textbf{Test Case Identifier} & \label{TAdd2.2}TAdd2.2, \label{TRem2.2}TRem2.2, \label{TEdi2.2}TEdi2.2 \\
+	 		\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
+	 		\hline \textbf{Test Items} &  Administrator Requests  $\rightarrow $ Administration Controller\\
+	 		\hline \textbf{Input Specification} &  Well-Formed administrator Account, Well-Formed Taxi Object \\
+	 		\hline \textbf{Output Specification} & The TaxiManager Should be requested to Add, remove or Edit the Taxi data if the administrator is logged and the new data are well-formed or throw an exception instead\\
+	 		\hline \textbf{Environmental Needs} &  Phase 1, SLog2.1, TLog2.1 passed \newline 
+	 		Client Driver, TaxiManager Stub\\
+	 		\hline
+	 	\end{tabularx}
+	 	\newline
+		 \begin{tabularx}{\textwidth}{| c|X|}
+		 	\hline \textbf{Test Case Identifier} & \label{AAdd2.2}AAdd2.2, \label{AEdi2.2}AEdi2.2 \\
+		 	\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
+		 	\hline \textbf{Test Items} &  Administrator Requests  $\rightarrow $ Administration Controller\\
+		 	\hline \textbf{Input Specification} &  Well-Formed Administrator Account, Well-Formed Account to Edit \\
+		 	\hline \textbf{Output Specification} & The AccountManager Should be requested to Add, Remove or Edit the account data if the administrator is logged and the new data are well-formed or throw an exception instead\\
+		 	\hline \textbf{Environmental Needs} &  Phase 1, SLog2.1 passed \newline 
+		 	Client Driver, AccountManager Stub\\
+		 	\hline
+		 \end{tabularx}
+		 \newline
+		 
+ 		 \begin{tabularx}{\textwidth}{| c|X|}
+	 		 	\hline \textbf{Test Case Identifier} & \label{ALis2.2}ALis2.2 \\
+	 		 	\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
+	 		 	\hline \textbf{Test Items} &  Administrator Requests  $\rightarrow $ Administration Controller (List Account)\\
+	 		 	\hline \textbf{Input Specification} &  Well-Formed Administrator Account\\
+	 		 	\hline \textbf{Output Specification} & The AccountManager Should be requested to retrieve the account list if the administrator is logged or throw an exception instead\\
+	 		 	\hline \textbf{Environmental Needs} &  Phase 1, SLog2.1 passed \newline 
+	 		 	Client Driver, AccountManager Stub\\
+	 		 	\hline
+ 		 \end{tabularx}
+ 		 \newline
+		 
+		  \begin{tabularx}{\textwidth}{| c|X|}
+		  	\hline \textbf{Test Case Identifier} & \label{SBac2.2}SBac2.2, \label{SRes2.2}SRes2.2 \\
+		  	\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
+		  	\hline \textbf{Test Items} &  Administrator Requests  $\rightarrow $ Administration Controller (DB Backup/Restore)\\
+		  	\hline \textbf{Input Specification} &  Well-Formed Administrator Account\\
+		  	\hline \textbf{Output Specification} & The DatabaseManager Should be requested to backup/Restore the account list if the administrator is logged and the database parameters are compliant with the system or throw an exception instead\\
+		  	\hline \textbf{Environmental Needs} &  Phase 1, SLog2.1 passed \newline 
+		  	Client Driver, AccountManager Stub\\
+		  	\hline
+		  \end{tabularx}
+		  \newline
+		  
+		  
+		  \begin{tabularx}{\textwidth}{| c|X|}
+		  	\hline \textbf{Test Case Identifier} & \label{SLogs2.2}SLogs2.2 \\
+		  	\hline \textbf{Integrated Components} &  API $\rightarrow $ Administration Manager \\
+		  	\hline \textbf{Test Items} &  Administrator Requests  $\rightarrow $ Administration Controller (showLogs)\\
+		  	\hline \textbf{Input Specification} &  Well-Formed Administrator Account\\
+		  	\hline \textbf{Output Specification} & The DatabaseManager Should be requested to show system logs if the administrator is logged and the log files available or throw an exception instead\\
+		  	\hline \textbf{Environmental Needs} &  Phase 1, SLog2.1 passed \newline 
+		  	Client Driver, DatabaseManager Stub\\
+		  	\hline
+		  \end{tabularx}
+		  \newline
+		 
+		\subsubsection{AccountManager integration}
+		 \begin{tabularx}{\textwidth}{| c|X|}
+		 	\hline \textbf{Test Case Identifier} & \label{SAcc2.3}SAcc2.3 \\
+		 	\hline \textbf{Integrated Components} &  Authentication Manager $\rightarrow $ Account Manager \\
+		 	\hline \textbf{Test Items} &  Authentication Controller  $\rightarrow $ Account Controller (getAccount, addAccount, editAccount, removeAccount)\\
+		 	\hline \textbf{Input Specification} &  Well-Formed Account object\\
+		 	\hline \textbf{Output Specification} & The Account Manager should add, edit or remove the specified account if the data are well-formed. \newline The Account Manager should raise an exception on add if the account is alredy present, or on remove and edit if it is not present in the database.\\
+		 	\hline \textbf{Environmental Needs} &  Phase 1, SLog2.1 passed, \newline 
+		 	Client Driver, DatabaseManager Stub\\
+		 	\hline
+		 \end{tabularx}
+		 \newline
+		 
+		 \begin{tabularx}{\textwidth}{| c|X|}
+		 	\hline \textbf{Test Case Identifier} & \label{PReqList2.3}PReqList2.3 \\
+		 	\hline \textbf{Integrated Components} & API $\rightarrow $ Account Manager \\
+		 	\hline \textbf{Test Items} &  Passenger Requests  $\rightarrow $ Account Controller (requestList)\\
+		 	\hline \textbf{Input Specification} &  Well-Formed Account object\\
+		 	\hline \textbf{Output Specification} & The Account Manager should retrieve the list of reservations for the specified account if it is present on database and the requester is authorized to access that account data or raise an exception otherwise.\\
+		 	\hline \textbf{Environmental Needs} &  Phase 1, SLog2.1, passed, \newline Authentication Manager integrated \newline 
+		 	Client Driver, DatabaseManager Stub\\
+		 	\hline
+		 \end{tabularx}
+		 \newline
+		
+		 
+ 		 \begin{tabularx}{\textwidth}{| c|X|}
+	 		 	\hline \textbf{Test Case Identifier} & \label{SAcc2.4}SAcc2.4 \\
+	 		 	\hline \textbf{Integrated Components} &  Administration Manager $\rightarrow $ Account Manager \\
+	 		 	\hline \textbf{Test Items} &  Administrator Controller  $\rightarrow $ Account Controller (Edit, Add, Remove Account)\\
+	 		 	\hline \textbf{Input Specification} &  Well-Formed Account object\\
+	 		 	\hline \textbf{Output Specification} & The Account Manager edit, add or remove the specified account, or raise an exception if the account does not exists (for editing or removal) and if already exists in the case of adding.\\
+	 		 	\hline \textbf{Environmental Needs} & Phase 1, SLog2.1, passed, \newline Authentication Manager and Administration Manager integrated \newline 
+	 		 	Client Driver, DatabaseManager Stub\\
+	 		 	\hline
+ 		 \end{tabularx}
+ 		 \newline
+		 
+	 \subsubsection{RequestManager Integration}
+	 	\begin{tabularx}{\textwidth}{| c|X|}
+	 		\hline \textbf{Test Case Identifier} & \label{PReq2.5}PReq2.5, \label{PRes2.5}PRes2.5 \\
+	 		\hline \textbf{Integrated Components} & API  $\rightarrow $ RequestManager (IncomingRequest, IncomingReservation) \\
+	 		\hline \textbf{Test Items} & PassengerRequest $\rightarrow $ RequestInterface \\
+	 		\hline \textbf{Input Specification} & Reservation and Request Data \\
+	 		\hline \textbf{Output Specification} & An exception is raised if data are not well-formed \newline
+												   An exception is raised if the user is not logged and authorized \newline
+												   The request is stored in the database\\
+	 		\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+	 		Client Driver, Database Stub, ZoneManager Stub,\\
+	 		\hline
+	 	\end{tabularx}
+	 	\newline
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & \label{PRemReq2.5}PRemReq2.5 \\
+	 	\hline \textbf{Integrated Components} & API  $\rightarrow $ RequestManager (IncomingRequest, IncomingReservation) \\
+	 	\hline \textbf{Test Items} & PassengerRequest $\rightarrow $ RequestInterface \\
+	 	\hline \textbf{Input Specification} & Reservation and Request Data \\
+	 	\hline \textbf{Output Specification} & An exception is raised if data are not well-formed \newline
+	 	An exception is raised if the user is not logged and authorized \newline
+	 	An exception is raised if the request does not exist \newline
+	 	The request is removed from the database and the queues if meets the requirements (see RASD)\\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+	 	Client Driver, Database Stub, ZoneManager Stub,\\
+	 	\hline
+	 \end{tabularx}
+	 \newline
+	 
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & \label{PPro2.5}PPro2.5 \\
+	 	\hline \textbf{Integrated Components} & API  $\rightarrow $ RequestManager (IncomingRequest, IncomingReservation) \\
+	 	\hline \textbf{Test Items} & PassengerRequest $\rightarrow $ RequestInterface (TaxiProbe) \\
+	 	\hline \textbf{Input Specification} & Location Data \\
+	 	\hline \textbf{Output Specification} & If the Location Data are malformed or not covered by the service, the result for the default location is returned. The ZoneManager result is returned otherwise \newline
+	 	An exception is raised if the user is not logged and authorized \\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+	 	Client Driver, Database Stub, ZoneManager Stub,\\
+	 	\hline
+	 \end{tabularx}
+	 \newline
+	 
+	 \subsubsection{ZoneManager/TaxiManager Integration}
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & \label{ZTaxi2.6}ZTaxi2.6, \label{ZZone2.6}ZZone2.6, \label{ZAdj2.6}ZAdj2.6 \\
+	 	\hline \textbf{Integrated Components} & RequestManager  $\rightarrow $  ZoneManager/TaxiManager \\
+	 	\hline \textbf{Test Items} & RequestResolver $\rightarrow $ ZoneController (GetTaxiInZone, GetZones, GetAdjacents) \\
+	 	\hline \textbf{Input Specification} & Zone Data \\
+	 	\hline \textbf{Output Specification} & If the Zone Data are malformed an exception is raised \newline
+											The requested data is returned \\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+	 	Client Driver, Database Stub\\
+	 	\hline
+	 	\end{tabularx}
+	 	\newline
+	 	
+	 	This component belongs to the TaxiManager component and it's implemented by the RequestResolver. This two functionalities are requested from the taxi application when the driver accepts or refuses a request.
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & \label{TReqEvents2.7}TReqEvents2.7\\
+	 	\hline \textbf{Integrated Components} & API  $\rightarrow $  ZoneManager/TaxiManager \\
+	 	\hline \textbf{Test Items} & TaxiRequests(driverResponse) $\rightarrow $ RequestManager(OnRequestAccepted, OnRequestRefused) \\
+	 	\hline \textbf{Input Specification} & Taxi Data and Request Data \\
+	 	\hline \textbf{Output Specification} & The corresponding code implemented in the RequestManager component is executed on a taxi event. \newline An exception is raised if the taxi is not logged, if the Request is malformed or not assigned to that driver \\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated, RequestResolver integrated \newline 
+	 	Client Driver, Database Stub\\
+	 	\hline
+	 \end{tabularx}
+	 \newline	
+	 	
+	 \begin{tabularx}{\textwidth}{| c|X|}
+			 	\hline \textbf{Test Case Identifier} & \label{TNotif2.7}TNotif2.7\\
+			 	\hline \textbf{Integrated Components} & API  $\rightarrow $  ZoneManager/TaxiManager \\
+			 	\hline \textbf{Test Items} & TaxiRequests(driverNotifications) $\rightarrow $ RequestManager(OnAvailable, OnLogin, OnLogout) \\
+			 	\hline \textbf{Input Specification} & Taxi Data and Request Data \\
+			 	\hline \textbf{Output Specification} & The corresponding code implemented in the ZoneManager component is executed on a taxi event. \newline An exception is raised if the taxi is not logged, if the Request is malformed or not assigned to that driver. \newline
+			 	The OnAvailable, OnLogin and OnLogout events should be triggered according to the input data. \\
+			 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+			 	Client Driver, Database Stub\\
+			 	\hline
+	 \end{tabularx}
+	 \newline
+	 
+	 \begin{tabularx}{\textwidth}{| c|X|}
+	 	\hline \textbf{Test Case Identifier} & \label{TLoc2.7}TLoc2.7\\
+	 	\hline \textbf{Integrated Components} & API  $\rightarrow $  ZoneManager/TaxiManager \\
+	 	\hline \textbf{Test Items} & TaxiRequests(locationUpdate) $\rightarrow $ RequestManager(OnLocationUpdate, OnZoneEnter, OnZoneExit) \\
+	 	\hline \textbf{Input Specification} & Taxi Data and Location Data \\
+	 	\hline \textbf{Output Specification} & The corresponding code implemented in the ZoneManager component is executed on a taxi event. 
+	 	\newline An exception is raised if the taxi is not logged, or the Location is not valid. \newline
+	 	The OnLocationUpdate, OnZoneEnter and OnZoneExit events should be triggered according to the input data. \\
+	 	\hline \textbf{Environmental Needs} &  Phase 1 Passed, Authentication Manager integrated, Account Manager Integrated \newline 
+	 	Client Driver, Database Stub\\
+	 	\hline
+	 \end{tabularx}
+	 \newline
+	 	
+	\subsection{Persistence Layer Integration}
+	
+		\begin{tabularx}{\textwidth}{| c|X|}
+			\hline \textbf{Test Case Identifier} & \label{Aut3.1}Aut3.1 \\
+			\hline \textbf{Integrated Components} & Authentication Manager $\rightarrow $ Database \\
+			\hline \textbf{Test Items} & ApiToken, SystemAuthenticator $\rightarrow $ Account Model \\
+			\hline \textbf{Input Specification} & Account Data \\
+			\hline \textbf{Output Specification} & The component should raise an exception if the data is malformed or if the database connectivity is absent \newline
+			All data that is inserted, removed or updated should be consistent with the specifications\\
+			\hline \textbf{Environmental Needs} & Phase2 Passed, Entity Beans running, Database Running \\
+			\hline
+		\end{tabularx}
+		\newline
+	
+		\begin{tabularx}{\textwidth}{| c|X|}
+			\hline \textbf{Test Case Identifier} & \label{Acc3.5}Acc3.5 \\
+			\hline \textbf{Integrated Components} & Account Manager $\rightarrow $ Database \\
+			\hline \textbf{Test Items} & Account Controller $\rightarrow $ Account Model \\
+			\hline \textbf{Input Specification} & Account Data \\
+			\hline \textbf{Output Specification} & The component should raise an exception if the data is malformed or if the database connectivity is absent \newline
+			All data that is inserted, removed or updated should be consistent with the specifications\\
+			\hline \textbf{Environmental Needs} & Phase2 Passed, Entity Beans running, Database Running \\
+			\hline
+		\end{tabularx}
+		\newline
+		
+		\begin{tabularx}{\textwidth}{| c|X|}
+			\hline \textbf{Test Case Identifier} & \label{Adm3.2}Adm3.2 \\
+			\hline \textbf{Integrated Components} & Administration Manager $\rightarrow $ Database \\
+			\hline \textbf{Test Items} & Administration Controller (showLogs, taxi account management) $\rightarrow $ Log Data Model, Taxi Data \\
+			\hline \textbf{Input Specification} & Log Data, Taxi Data \\
+			\hline \textbf{Output Specification} & The component should raise an exception if the data is malformed or if the database connectivity is absent \newline
+			All data that is inserted, removed or updated should be consistent with the specifications\\
+			\hline \textbf{Environmental Needs} & Phase2 Passed, Entity Beans running, Database Running \\
+			\hline
+		\end{tabularx}
+		\newline
+		
+		\begin{tabularx}{\textwidth}{| c|X|}
+			\hline \textbf{Test Case Identifier} & \label{Req3.3}Req3.3 \\
+			\hline \textbf{Integrated Components} & Request Manager $\rightarrow $ Database \\
+			\hline \textbf{Test Items} & RequestResolver $\rightarrow $ Request and Reservation Model \\
+			\hline \textbf{Input Specification} & Request and Reservation Data \\
+			\hline \textbf{Output Specification} & The component should raise an exception if the data is malformed or if the database connectivity is absent \newline
+			All data that is inserted, removed or updated should be consistent with the specifications\\
+			\hline \textbf{Environmental Needs} & Phase2 Passed, Entity Beans running, Database Running \\
+			\hline
+		\end{tabularx}
+		\newline
+		
+		\begin{tabularx}{\textwidth}{| c|X|}
+			\hline \textbf{Test Case Identifier} & \label{Zon3.4}Zon3.4 \\
+			\hline \textbf{Integrated Components} & Zone Manager $\rightarrow $ Database \\
+			\hline \textbf{Test Items} &  Zone Manager $\rightarrow $ Zone and Taxi Model \\
+			\hline \textbf{Input Specification} & Zone and Taxi Data \\
+			\hline \textbf{Output Specification} & The component should raise an exception if the data is malformed or if the database connectivity is absent \newline
+			All data that is inserted, removed or updated should be consistent with the specifications\\
+			\hline \textbf{Environmental Needs} & Phase2 Passed, Entity Beans running, Database Running \\
+			\hline
+		\end{tabularx}
+		\newline
+	\subsection{Presentation Layer Integration}
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & \label{RConf4.2}RConf4.2, \label{RNotf4.2}RNotf4.2 \\
+				\hline \textbf{Integrated Components} & Request Manager $\rightarrow $ Notification Manager \\
+				\hline \textbf{Test Items} & RequestResolver $\rightarrow $ Passenger Notification (request confirmation, request notification) \\
+				\hline \textbf{Input Specification} & Request Data, Passenger Account \\
+				\hline \textbf{Output Specification} & The Confirmation should be triggered upon an accepted request, containing data as stated in the specification document. \newline
+				The notification should occur at the time specified in the Specification and Design documents \newline
+				Only the passenger associated with the request are suitable to receive this messages 
+				\\
+				\hline \textbf{Environmental Needs} & Phase 2 and 3 passed. Client Driver for Passenger and Taxi, Client Interface or Email Recipient \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & \label{TReq4.2}TReq4.2 \\
+				\hline \textbf{Integrated Components} &  Request Manager $\rightarrow $ Notification Manager \\
+				\hline \textbf{Test Items} & Request Resolver (driver Request) $\rightarrow $ Driver Notification Interface \\
+				\hline \textbf{Input Specification} & Valid Request Data, Active Taxi Data \\
+				\hline \textbf{Output Specification} & This taxi request is triggered upon a request that is being served by the RequestManager. It should be issued to the specified taxi. \newline
+				The taxi driver should be online and available in order to this request being issued \\
+				\hline \textbf{Environmental Needs} & Phase 2 and 3 passed. Client Driver for Passenger, Connected Taxi Driver Interface \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & \label{TPro4.2}TPro4.2 \\
+				\hline \textbf{Integrated Components} &  Request Manager $\rightarrow $ Notification Manager \\
+				\hline \textbf{Test Items} & Request Resolver (TaxiProbeResponse) $\rightarrow $ Passenger Notification Interface \\
+				\hline \textbf{Input Specification} & Valid Location Data \\
+				\hline \textbf{Output Specification} & This response is triggered upon a successful TaxiProbeRequest issued by an user. \newline
+				The data provided should be compliant with the specifications \\
+				\hline \textbf{Environmental Needs} & Phase 2 and 3 passed. Client Driver for Passenger, Connected Passenger Interface \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & \label{TReg4.1}TReg4.1 \\
+				\hline \textbf{Integrated Components} & Account Manager $\rightarrow $ Notification Manager \\
+				\hline \textbf{Test Items} & Account Controller $\rightarrow $ Email Server \\
+				\hline \textbf{Input Specification} & Pre Defined Registration confirmation messages, Account data \\
+				\hline \textbf{Output Specification} & The message should be issued to the email recipient of the specified user \\
+				\hline \textbf{Environmental Needs} & Phase 2 and 3 passed. Client Email Recipient \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & \label{SOut4.4 }SOut4.4 \\
+				\hline \textbf{Integrated Components} & Notification Manager $\rightarrow $ API \\
+				\hline \textbf{Test Items} & NotificationController $\rightarrow $ API Components (Multiple) \\
+				\hline \textbf{Input Specification} & Data output from previous tests \\
+				\hline \textbf{Output Specification} & The API component should generate Message-Driven Beans or JSON messages according to the specified function and targeting the specified client passed as parameter \\
+				\hline \textbf{Environmental Needs} & Phase 2 and 3 passed. Client Driver, Clients Connected \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+			\begin{tabularx}{\textwidth}{| c|X|}
+				\hline \textbf{Test Case Identifier} & \label{SDev4.3}SDev4.3 \\
+				\hline \textbf{Integrated Components} & Zone Manager $\rightarrow $ API \\
+				\hline \textbf{Test Items} & ZoneController $\rightarrow $ API Requests \\
+				\hline \textbf{Input Specification} & Database Model \\
+				\hline \textbf{Output Specification} & The API component should provide business data to authorized system developers
+				\newline The component must throw an exception if the associated APIToken is not valid \\
+				\hline \textbf{Environmental Needs} & Database Stub, Developer interface stub \\
+				\hline
+			\end{tabularx}
+			\newline
+			
+	\newpage
+	\section{Tools and Test Equipment Required}
+	\section{Program Stubs and Test Data Required}
+	\section{Work Hours}
+	
+\end{document}

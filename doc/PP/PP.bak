@@ -1,0 +1,160 @@
+\documentclass[11pt, a4paper,titlepage]{article}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\graphicspath{{img/}}
+\author{Edoardo Giacomello \and Mattia Fontana}
+\title{SE2 Project Plan Document} 
+%Definisce il titolo
+\newcommand{\productname}{MyTaxiService}
+\newcommand{\image}[1]{
+	\begin{center}
+		\noindent \includegraphics[width=\linewidth]{#1}
+	\end{center}
+}
+\newcommand{\link}[2]{\underline{\textbf{\hyperref[#1]{#2}}}}
+\newcommand{\linkitm}[1]{\underline{\textbf{\ref{#1}}}}
+
+
+\begin{document}
+	%Genera il titolo
+	\maketitle
+	%Inserisce tabella dei contenuti
+	\tableofcontents
+	\newpage
+	\section{Introduction}
+	\subsection{Revision History}
+	
+	\subsection{Purpose and Scope}
+	
+	\subsubsection{Purpose}
+	The purpose of this document is to provide an estimation of the size, the costs and the possible risks in the development context for the \productname System. \newline
+	\subsubsection{Scope}
+	The scope of this document is the planning and allocation of resources designated at the \productname software development. This document represent a starting point in cost and effort estimation.  
+	\subsection{List of Definitions and Abbreviations}
+	\begin{description}
+		\item[FP - Function Points]: Function points measure a software project by quantifying the information processing functionality associated with major external data or control input, output, or file types. 
+		\item[RET - Record Element Type]: A RET is user recognizable sub group of data elements within an ILF or an EIF.
+		\item[DET - Data Element Type] A DET is a unique user recognizable, non-recursive (non-repetitive) field. A DET is information that is dynamic and not static. A dynamic field is read from a file or created from DET’s contained in a FTR. Additionally, a DET can invoke transactions or can be additional information regarding transactions. If a DET is recursive then only the first occurrence of the DET is considered not every occurrence.
+		\item[EI - External Input]: Every unique user data or user control input type that enters the external boundary of the software system being measured
+		\item[EO - External Output]: Every unique user data or control output type that leaves the external
+		boundary of the software system being measured. 
+		\item[ILF - Internal Logical File]: Every major logical group of user data or control information that is generated, used or maintained by the software system
+		\item[EIF - External Interface File]: Files that are passed or shared between different software systems.
+		\item[EQ - External Inquiry] Every unique input-output combination, where input causes and generates an immediate output.
+	\end{description}
+	\subsection{List of Reference Documents}
+	\begin{itemize}
+		\item Assigment 1: Project Description
+		\item \productname Requirement and Specification Analysis Document
+		\item \productname Design Document
+	\end{itemize}
+	\newpage
+	\section{Project Size and Cost Estimation}
+		\subsection{Project Size: Function Points}
+		\subsubsection{Complexity Weights}
+		In the evaluation of the complexity weights we referred to this table: \newline
+		\image{fp_weights.png}
+		\newpage
+		\subsubsection{ILF: Internal Logical Files}
+		The data model resides in the database, which is typically counted as a single ILF which is structured as follow:
+		\newline
+		\begin{tabularx}{\textwidth}{|X|c|c|l|}
+			\hline
+			\textbf{Name} &	\textbf{RET} & \textbf{DET} & \textbf{Complexity} \\
+			\hline
+			Zone & 1 & 6 & Low \\
+			Location & 1 & 3 & Low \\
+			Taxi & 1 & 5 & Low \\
+			Requests and Reservations & 1 & 8 & Low \\
+			Account & 1 & 8 & Low \\
+			Logs & 1 & $\le$ 4 & Low \\
+			\hline
+		\end{tabularx}
+		
+		\subsubsection{EIFs (External Interface Files)}
+		The system does not rely on files that resides on external systems
+		\subsubsection{EIs (External Inputs)}
+				
+				\begin{tabularx}{\textwidth}{|X|X|X|l|}
+					\hline
+					\textbf{Name} &	\textbf{RET} & \textbf{DET} & \textbf{Complexity} \\
+					\hline
+					Login / Logout / Registration & 1: Account & $\le$8 & Low \\
+					\hline
+					TaxiProbe & 1: Location & 3 & Low \\
+					\hline
+					TaxiReservation input and processing & 2 \newline  Account, Reservation, Zones, Taxi  & 16 & High \\
+					\hline
+					DriverResponse & 1 & 3 \newline (ReqId + TaxiId + Accepted) & Low \\
+					\hline
+					DriverNotification & 1 & 3 \newline (ReqId + TaxiId + Completed) & Low \\
+					\hline
+					LocationUpdate & 1: Location & 3 & Low \\
+					\hline
+					BackupDatabase & n.a. &   & Avg \\
+					\hline
+					RestoreDatabase & n.a &   & Avg \\
+					\hline
+				\end{tabularx}
+				\newpage
+		\subsubsection{EIQs (External Inquiries)}
+		\begin{tabularx}{\textwidth}{|X|c|c|l|}
+			\hline
+			\textbf{Name} &	\textbf{RET} & \textbf{DET} & \textbf{Complexity} \\
+			\hline
+			ShowProfile & 1 & 8 & Low \\
+			ShowAccounts & 1 & 8 & Low \\
+			ShowTaxiList & 2 & 16 & Avg \\
+			ShowLogs  & n.a. &   & Avg \\
+			\hline
+		\end{tabularx}
+		\subsubsection{EOs (External Outputs)}
+		\begin{tabularx}{\textwidth}{|X|c|c|l|}
+			\hline
+			\textbf{Name} &	\textbf{RET} & \textbf{DET} & \textbf{Complexity} \\
+			\hline
+			TaxiProbeResponse &	1 &	5 \newline (Taxi + Location) & Low \\
+			Confirmation & 1\newline Reservation & 8 & Low \\
+			Notification & 1\newline Reservation & 8 & Low \\
+			DriverRequest & 1\newline Reservation & 8 & Low \\
+			\hline
+		\end{tabularx}
+		\subsubsection{UFPs (Un-adjusted Function-Points)}
+		\begin{tabularx}{\textwidth}{|X|c|c|c|l|}
+			\hline
+			\textbf{Name} &	\textbf{Low} & \textbf{Avg} & \textbf{High} & \textbf{Total}\\
+			\hline
+			ILF &	6*7 &	0 &	0 &	42 \\
+			EIFs & 0  &	0 &	0 &	0 \\
+			EIs & 5*3 & 2 *4 & 1*6 & 29 \\
+			EIQs & 2*3 & 2*4 & 0 & 14 \\
+			EOs & 4*4 & 0 & 0 & 16 \\
+			\hline
+			UFP & 79 & 16 & 6 & \textbf{101} \\			
+			\hline
+		\end{tabularx}
+		\newpage
+		\subsection{Effort and Cost Estimation: COCOMO}
+	\section{Tasks and Schedule}
+	\section{Resources Allocation}
+	\section{Risks and Management}
+
+
+
+
+
+
+
+
+	\section{Work Hours}
+		\begin{itemize}
+			\item \textbf{Edoardo Giacomello}: 
+			\item \textbf{Mattia Fontana}: 
+		\end{itemize}	
+\end{document}

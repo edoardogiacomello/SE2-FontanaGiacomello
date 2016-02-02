@@ -1,0 +1,86 @@
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}Revision History}{4}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Purpose and Scope}{4}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Purpose}{4}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Scope}{4}{subsubsection.1.2.2}
+\contentsline {subsection}{\numberline {1.3}List of Definitions and Abbreviations}{4}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}List of Reference Documents}{4}{subsection.1.4}
+\contentsline {section}{\numberline {2}Integration Strategy}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}Entry Criteria}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Elements to be Integrated}{6}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}User Interface Layer}{7}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Service Access Layer}{8}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Business Layer}{8}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}Presentation Layer}{8}{subsubsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.5}Persistance Layer}{8}{subsubsection.2.2.5}
+\contentsline {subsection}{\numberline {2.3}Integration Testing Strategy}{9}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Rationale}{10}{subsubsection.2.3.1}
+\contentsline {subsection}{\numberline {2.4}Sequence of Component/Function Integration}{11}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Software Integration Sequence}{12}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}Phase 1: User Interface I/O}{12}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}Phase 2:Business Layer Integration tests}{15}{subsubsection.2.5.2}
+\contentsline {subsubsection}{\numberline {2.5.3}Phase 3: Persistence Level Integration}{17}{subsubsection.2.5.3}
+\contentsline {subsubsection}{\numberline {2.5.4}Phase 4: Presentation Layer Integration}{18}{subsubsection.2.5.4}
+\contentsline {section}{\numberline {3}Individual Steps and Test Description}{19}{section.3}
+\contentsline {subsection}{\numberline {3.1}User Interface vs API tests}{19}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Passenger Login}{19}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Passenger Registration}{19}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Passenger Map}{20}{subsubsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.4}Passenger Taxi Request}{20}{subsubsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.5}Passenger Taxi Reservation}{21}{subsubsection.3.1.5}
+\contentsline {subsubsection}{\numberline {3.1.6}Passenger Logout}{21}{subsubsection.3.1.6}
+\contentsline {subsubsection}{\numberline {3.1.7}Passenger Pending Reservation }{22}{subsubsection.3.1.7}
+\contentsline {subsubsection}{\numberline {3.1.8}Passenger Profile }{22}{subsubsection.3.1.8}
+\contentsline {subsubsection}{\numberline {3.1.9}Passenger Information }{23}{subsubsection.3.1.9}
+\contentsline {subsubsection}{\numberline {3.1.10}Taxi Driver Login}{23}{subsubsection.3.1.10}
+\contentsline {subsubsection}{\numberline {3.1.11}Taxi Driver Active Ride }{24}{subsubsection.3.1.11}
+\contentsline {subsubsection}{\numberline {3.1.12}Taxi Driver Logout}{24}{subsubsection.3.1.12}
+\contentsline {subsubsection}{\numberline {3.1.13}Taxi Driver Map}{24}{subsubsection.3.1.13}
+\contentsline {subsubsection}{\numberline {3.1.14}Taxi Driver Request Incoming}{25}{subsubsection.3.1.14}
+\contentsline {subsubsection}{\numberline {3.1.15}System Administrator Taxi Management}{25}{subsubsection.3.1.15}
+\contentsline {subsubsection}{\numberline {3.1.16}System Administrator Account Management}{26}{subsubsection.3.1.16}
+\contentsline {subsubsection}{\numberline {3.1.17}System Administrator Logs}{26}{subsubsection.3.1.17}
+\contentsline {subsubsection}{\numberline {3.1.18}System Administrator Backup}{26}{subsubsection.3.1.18}
+\contentsline {subsubsection}{\numberline {3.1.19}System Administrator Restore}{27}{subsubsection.3.1.19}
+\contentsline {subsection}{\numberline {3.2}Business Layer Integration}{28}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}AuthenticationManager Integration}{28}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}}{28}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}AdministrationManager integration}{29}{subsubsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.4}}{29}{subsubsection.3.2.4}
+\contentsline {subsubsection}{\numberline {3.2.5}}{30}{subsubsection.3.2.5}
+\contentsline {subsubsection}{\numberline {3.2.6}}{30}{subsubsection.3.2.6}
+\contentsline {subsubsection}{\numberline {3.2.7}}{30}{subsubsection.3.2.7}
+\contentsline {subsubsection}{\numberline {3.2.8}AccountManager integration}{31}{subsubsection.3.2.8}
+\contentsline {subsubsection}{\numberline {3.2.9}}{31}{subsubsection.3.2.9}
+\contentsline {subsubsection}{\numberline {3.2.10}}{32}{subsubsection.3.2.10}
+\contentsline {subsubsection}{\numberline {3.2.11}RequestManager Integration}{33}{subsubsection.3.2.11}
+\contentsline {subsubsection}{\numberline {3.2.12}}{33}{subsubsection.3.2.12}
+\contentsline {subsubsection}{\numberline {3.2.13}}{34}{subsubsection.3.2.13}
+\contentsline {subsubsection}{\numberline {3.2.14}ZoneManager/TaxiManager Integration}{35}{subsubsection.3.2.14}
+\contentsline {subsubsection}{\numberline {3.2.15}}{35}{subsubsection.3.2.15}
+\contentsline {subsubsection}{\numberline {3.2.16}}{36}{subsubsection.3.2.16}
+\contentsline {subsubsection}{\numberline {3.2.17}}{36}{subsubsection.3.2.17}
+\contentsline {subsection}{\numberline {3.3}Persistence Layer Integration}{37}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}}{37}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}}{38}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}}{38}{subsubsection.3.3.3}
+\contentsline {subsubsection}{\numberline {3.3.4}}{39}{subsubsection.3.3.4}
+\contentsline {subsection}{\numberline {3.4}Presentation Layer Integration}{40}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}}{40}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}}{41}{subsubsection.3.4.2}
+\contentsline {subsubsection}{\numberline {3.4.3}}{41}{subsubsection.3.4.3}
+\contentsline {subsubsection}{\numberline {3.4.4}}{41}{subsubsection.3.4.4}
+\contentsline {subsubsection}{\numberline {3.4.5}}{42}{subsubsection.3.4.5}
+\contentsline {section}{\numberline {4}Tools and Test Equipment Required}{43}{section.4}
+\contentsline {section}{\numberline {5}Program Stubs and Test Data Required}{43}{section.5}
+\contentsline {subsection}{\numberline {5.1}Drivers}{43}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Client Driver}{43}{subsubsection.5.1.1}
+\contentsline {subsection}{\numberline {5.2}Stubs}{43}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}AuthenticationManager Stub}{44}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}RequestIntefrace Stub}{44}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}ZoneManager/TaxiManager Stub}{44}{subsubsection.5.2.3}
+\contentsline {subsubsection}{\numberline {5.2.4}AdministratorManager Stub}{44}{subsubsection.5.2.4}
+\contentsline {subsubsection}{\numberline {5.2.5}AccountManager Stub}{44}{subsubsection.5.2.5}
+\contentsline {subsubsection}{\numberline {5.2.6}DatabaseManager Stub}{44}{subsubsection.5.2.6}
+\contentsline {subsection}{\numberline {5.3}Client Interface Stub}{44}{subsection.5.3}
+\contentsline {section}{\numberline {6}Work Hours}{45}{section.6}

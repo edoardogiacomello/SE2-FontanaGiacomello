@@ -1,0 +1,44 @@
+\contentsline {section}{\numberline {1}Assigned Classes and Methods}{3}{section.1}
+\contentsline {section}{\numberline {2}Functional Roles}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}WorkFlow}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Package overview}{4}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}BaseContainer Class}{4}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Interfaces}{5}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Subclasses}{6}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}Class Body}{6}{subsubsection.2.3.3}
+\contentsline {subsection}{\numberline {2.4}Terminology and other Components}{8}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Local and Remote Clients}{8}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}EJB Container}{8}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}EJB Home}{9}{subsubsection.2.4.3}
+\contentsline {subsubsection}{\numberline {2.4.4}EJB Local Object}{9}{subsubsection.2.4.4}
+\contentsline {subsubsection}{\numberline {2.4.5}EJB Invocation}{10}{subsubsection.2.4.5}
+\contentsline {subsubsection}{\numberline {2.4.6}JACC: Java Authorization Contract for Containers}{10}{subsubsection.2.4.6}
+\contentsline {subsection}{\numberline {2.5}Methods}{11}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}mapLocal3xException}{11}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}authorize}{12}{subsubsection.2.5.2}
+\contentsline {subsubsection}{\numberline {2.5.3}initializeEjbInterfaceMethods}{13}{subsubsection.2.5.3}
+\contentsline {subsubsection}{\numberline {2.5.4}getJaccEjb}{13}{subsubsection.2.5.4}
+\contentsline {subsubsection}{\numberline {2.5.5}assertValidLocalObject}{14}{subsubsection.2.5.5}
+\contentsline {section}{\numberline {3}Checklist and Issues}{16}{section.3}
+\contentsline {subsection}{\numberline {3.1}Assigment Checklist}{17}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Method : mapLocal3xException }{22}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Code}{22}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Checklist}{23}{subsubsection.3.2.2}
+\contentsline {subsection}{\numberline {3.3}Method : authorize }{25}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Code}{25}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Checklist}{26}{subsubsection.3.3.2}
+\contentsline {subsection}{\numberline {3.4}Method : initializeEjbInterfaceMethods }{29}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}Code}{29}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}Checklist}{31}{subsubsection.3.4.2}
+\contentsline {subsection}{\numberline {3.5}Method : getJaccEjb }{34}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}Code}{34}{subsubsection.3.5.1}
+\contentsline {subsubsection}{\numberline {3.5.2}Checklist}{35}{subsubsection.3.5.2}
+\contentsline {subsection}{\numberline {3.6}Method : assertValidLocalObject }{37}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.6.1}Code}{37}{subsubsection.3.6.1}
+\contentsline {subsubsection}{\numberline {3.6.2}Checklist}{38}{subsubsection.3.6.2}
+\contentsline {section}{\numberline {4}Other problems}{39}{section.4}
+\contentsline {subsection}{\numberline {4.1}Class Inspection}{39}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Checklist}{40}{subsubsection.4.1.1}
+\contentsline {section}{\numberline {5}References}{41}{section.5}
+\contentsline {section}{\numberline {6}Tools}{41}{section.6}
+\contentsline {section}{\numberline {7}Work Hours}{41}{section.7}

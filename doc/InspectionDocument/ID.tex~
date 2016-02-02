@@ -1,0 +1,941 @@
+\documentclass[11pt, a4paper,titlepage]{article}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\graphicspath{{img/}}
+\author{Edoardo Giacomello \and Mattia Fontana}
+\title{SE2 Inspection Document} 
+%Definisce il titolo
+\newcommand{\productname}{Glassfish 4.4.1}
+\newcommand{\image}[1]{
+	\begin{center}
+		\noindent \includegraphics[width=\linewidth]{#1}
+	\end{center}
+	}
+\newcommand{\link}[2]{\underline{\textbf{\hyperref[#1]{#2}}}}
+\newcommand{\linkitm}[1]{\underline{\textbf{\ref{#1}}}}
+
+
+\begin{document}
+%Genera il titolo
+\maketitle
+%Inserisce tabella dei contenuti
+\tableofcontents
+\newpage
+\section{Assigned Classes and Methods}
+%<state the namespace pattern and name of the classes that were assigned to you>
+\textbf{Assigned Class}: BaseContainer.java
+\textbf{Location}:\newline appserver/ejb/ejb-container/src/main/java/com/sun/ejb/containers/BaseContainer.java
+\textbf{Package}: com.sun.ejb.containers
+Methods to Inspect:
+	\begin{enumerate}
+		\item	\textbf{Name}:mapLocal3xException( Throwable t )
+		\begin{itemize}
+		\item		\textbf{Start Line}:2337
+		\end{itemize}
+		\item	\textbf{Name}: authorize( EjbInvocation inv )
+		\begin{itemize}
+		\item		\textbf{Start Line}:2362
+		\end{itemize}
+		\item	\textbf{Name}:initializeEjbInterfaceMethods( )
+		\begin{itemize}
+		\item		\textbf{Start Line}:2408
+		\end{itemize}
+		\item	\textbf{Name}:getJaccEjb( EjbInvocation inv )
+		\begin{itemize}
+		\item		\textbf{Start Line}:2676
+		\end{itemize}
+		\item	\textbf{Name}:assertValidLocalObject( Object o )
+		\begin{itemize}
+		\item		\textbf{Start Line}:2725
+		\end{itemize}
+		\end{enumerate}
+
+\section{Functional Roles}
+% <elaborate on the functional role
+% you have identified for the class cluster that was assigned to you, also, elaborate
+% on how you managed to understand this role and provide the necessary
+% evidence, e.g., javadoc, diagrams, etc.>
+	This section will explain what is the functional role of the class and methods we analysed and will describe the process that have been used in order to discover these functional roles.
+	\newline
+	\newline
+	\subsection{WorkFlow}
+	For getting a better understanding of the analysed component functional roles and the general context, the following steps have been followed:
+	\begin{enumerate}
+		\item Javadoc inspection of the assigned class, with respect to implemented interfaces, subclasses and implementers.
+		\item Reading of the document "Enterprise JavaBeansTM Specification Version 2.0", in particular of the section regarding the container contract and functionalities overview 
+		\item Finding the usage of the methods to analyse by using the grep tool
+		\item Documentation inspection and usage analysis of caller methods and their classes
+		\item Documentation inspection of the methods that have been assigned for code review
+		\item Functional Inspection for the code of the methods that have been assigned
+		\item Definition of the Scope for the methods that have been assigned
+		\item Code inspection
+	\end{enumerate}
+	
+	\subsection{Package overview}
+	%TODO: Provide a short description about the other component within the package and a short scope description
+	The package com.sun.ejb.containers provides all the classes needed for implementing an EJB container, which can be either \textbf{Stateful} or \textbf{Stateless}, an Entity Bean container, or Message Bean Container. \newline
+	It also provides classes that implement the container Home interface, which defines the methods for the client to create, remove, and find EJB objects of the same type (EJBHomeImpl class).
+	
+	\subsection{BaseContainer Class}
+	In this section will be described the main scope of the class that contains the analysed methods. 
+	 
+	The \textbf{BaseContainer} class implements the Container interfaces as stated in the \textit{\textbf{EJB 2.0 specifications}}. It hosts the code that is shared between the \textit{Session Beans}, \textit{Entity Beans} and \textit{Message Driven Beans}. \newline
+	
+	The scope of this class is therefore to provide a common interface between the different types of Java Bean Containers. The context of operation can be inferred by the following diagram, included in the Java Bean Specification document:
+	 \image{ejb_contract.png}
+	 
+	An analysis of the code revealed that this class in particular manages the object that contains an EJB Method invocation in several context such as Authorization, Initialization, Pre-Invoking, Post-Invoking etc.
+	\subsubsection{Interfaces}
+	This class implements directly the following interfaces:
+	 \begin{description}
+	 	\item[\textbf{Container}]: This interface is the main contract for a EJB Container implementation. In this case the container is a specific implementation of this interface (see BaseContainer subclasses) and it is responsible for managing the lifecycle, state management, concurrency, transactions etc, by interposing actions before and after invocations on EJBs.
+	 	 The methods that have been analysed are specified in this interface.
+	 	 \item[\textbf{JavaEEContainer}]: The javadoc does not specifies a description for this interface, but the method names suggest that it provides some utility methods for all the JEE containers, such the retrieval of the component Id and the container descriptor.
+	 	 \item[\textbf{EjbContainerFacade}]: This interface provides ejb-specific methods for iiop middleware integration, which is a protocol for distributed systems that supports the mapping between TCP/IP and Inter-Object Request Broker messages.
+	 \end{description}
+	 \subsubsection{Subclasses}
+	  The \textbf{BaseContainer} class is derived by the following classes, each of them implementing a different type of EJB container.
+	  \begin{description}
+		  \item[EntityContainer]: This class represents a container for an Entity Bean and It is responsible for their instances and lifecycle management. In particular, this type of container (\textit{EJB Spec 2.0, section 10.5.9}) does not ensure that the instance has exclusive access to the state of the object in persistence storage, and the container must therefore synchronize the instance's state at the beginning of a transaction. 
+		  \item[MessageBeanContainer]
+		  This class provides container functionality specific to message-driven EJBs. At deployment time, one instance of the MessageDrivenBeanContainer is created for each message-driven bean in an application. (\textit{Class Javadoc})
+		  \item[StatefulSessionContainer]
+		  This class provides container functionality specific to stateful SessionBeans. At deployment time, one instance of the StatefulSessionContainer is created for each stateful SessionBean type (i.e. deployment descriptor) in a JAR. (\textit{Class Javadoc})
+		  \item[StatelessSessionContainer]
+		  This class provides container functionality specific to stateless SessionBeans. At deployment time, one instance of the StatelessSessionContainer is created for each stateless SessionBean type (i.e. deployment descriptor) in a JAR. \newline
+		  This container services invocations using a pool of EJB instances. An instance is returned to the pool immediately after the invocation completes, so the number of instances needed = number of concurrent invocations.
+		  
+		  A Stateless Bean can hold open DB connections across invocations. Its assumed that the Resource Manager can handle multiple incomplete transactions on the same connection.
+		  
+		  \item[AbstractSingletonContainer] Called from the JarManager at deployment time.
+	  \end{description}
+	 \subsubsection{Class Body}
+	 The \textbf{BaseContainer} class includes the following nested Classes:
+			\begin{description}
+				\item[ContainerInfo] This class contains strings for monitoring the container information.
+				\item[ContainerType] This enum specifies the type of the container, that can be Entity, MessageDriven, ReadOnly, Singleton, Stateful or Stateless
+				\item[PreInvokeException] This is a wrapper for the exceptions thrown from BaseContainer.preInvoke, so it indicates that the bean's method will not be called. \textit{(from Javadoc)}
+				The preInvokeMethod is a method which is called from the EJB home or object before the invocation of the bean method.
+			\end{description}
+	\newpage
+	\subsection{Terminology and other Components}
+	This section contains all the specific terminology and components that have been referred to during the functional description of the analysed code.
+	
+	\subsubsection{Local and Remote Clients}
+	From Oracle Documentation: \newline
+	A \textbf{local client} has these characteristics.
+	\begin{itemize}
+			\item It must run in the same application as the enterprise bean it accesses.
+			\item It can be a web component or another enterprise bean.
+			\item To the local client, the location of the enterprise bean it accesses is not transparent.
+	\end{itemize}
+	A \textbf{remote client} of an enterprise bean has the following traits.
+	\begin{itemize}
+		\item It can run on a different machine and a different JVM from the enterprise bean it accesses. (It is not required to run on a different JVM.)
+		\item It can be a web component, an application client, or another enterprise bean.
+		\item To a remote client, the location of the enterprise bean is transparent.
+		\item The enterprise bean must implement a business interface. That is, remote clients may not access an enterprise bean through a no-interface view.
+	\end{itemize}
+	\subsubsection{EJB Container}
+	Containers are the interface between a component and the low-level platform-specific functionality that supports the component. Before it can be executed, a web, enterprise bean, or application client component must be assembled into a Java EE module and deployed into its container. \newline
+	A more explicative description is given in the picture below:
+	\image{ejb_containers.png}
+	\subsubsection{EJB Home}
+	From EJBHome javadoc: \newline
+	The EJB Home is an interface that defines the methods that allow a remote client to create, find, and remove EJB objects. \newline
+	The remote home interface is defined by the enterprise bean provider and implemented by the enterprise bean container.\newline
+	Enterprise beans written to the EJB 3.0 and later APIs do not require a home interface.
+	\subsubsection{EJB Local Object}
+	From Oracle JavaDoc: \newline
+	An enterprise bean's local interface provides the local client view of an EJB object. An enterprise bean's local interface defines the business methods callable by local clients.
+	The enterprise bean's local interface is defined by the enterprise bean provider and implemented by the enterprise bean container.
+	Enterprise beans written to the EJB 3.0 and later APIs do not require a local interface that extends the EJBLocalObject interface. A local business interface can be used instead.
+
+	\subsubsection{EJB Invocation}
+	The EjbInvocation object contains the state associated with an invocation on an EJB or EJBHome (local/remote). It is usually created by generated code in *ObjectImpl and *HomeImpl classes. It is passed as a parameter to Container.preInvoke() and postInvoke(), which are called by the EJB(Local)Object/EJB(Local)Home before and after an invocation.
+	\subsubsection{JACC: Java Authorization Contract for Containers}
+	From Oracle Documentation:
+	The Java Authorization Contract for Containers (JACC) specification defines a contract between a Java EE application server and an authorization policy provider. All Java EE containers support this contract.
+	\newline \newline 
+	The JACC specification defines java.security.Permission classes that satisfy the Java EE authorization model. The specification defines the binding of container access decisions to operations on instances of these permission classes. It defines the semantics of policy providers that use the new permission classes to address the authorization requirements of the Java EE platform, including the definition and use of roles.
+	\newpage
+	 \subsection{Methods}
+	 All considered methods are implemented in the \textbf{BaseContainer} class. 
+	 \subsubsection{mapLocal3xException}
+	 \begin{description}
+	 	\item[Visibility]: Private Method.
+	 	\item[Definition Class]: \textbf{BaseContainer} class
+	 	\item[Called from]: 
+		 	\begin{itemize}
+		 		\item method \textbf{postInvoke} in class \textbf{BaseContainer}, row \textbf{2124}
+		 		\item method \textbf{mapRemoteException} in class \textbf{BaseContainer}, row \textbf{2292}
+		 	\end{itemize}
+	 	\item[Usage Analysis]: 
+	 	\begin{itemize}
+			\item The first usage occurrence is into the \textbf{postInvoke} method of this same class. The postInvoke method is a method which is called from the EJB Home or Container after the invocation of the bean method. In the case an exception is raised and the invocation is not remote, the exception dynamic type is mapped by the \textbf{mapLocal3xException} method and stored into the \textbf{EJBInvocation} object.
+			\item The second usage occurrence is into the \textbf{mapRemoteException} method of this same class. The mapRemoteException method checks if a remote exception invocation is asynchronous: in that case, as stated in comment lines, we are sure that the exception is raised by a remote business interface and not from a 2.x client, so it has to be mapped as a local exception by the \textbf{mapLocal3xException} method.
+	 	\end{itemize} 
+	 	\item[Functional Description]: This method consists in a check over the dynamic type of a \textbf{Throwable} taken as input. If the instance matches one of the exception type defined, it is re-instantiated as a corresponding non-local exception and returned.
+	 	
+	 	\item[Scope]: Although no javadoc is available for this method, through the usage and code analysis, with respect to the Oracle Javadoc of the package javax.ejb it has been possible to deduce that this is an helper method, which maps a Local EJB exception of the 3.x version into another corresponding exception that could be sent to the client.
+	 \end{description}
+	
+	 \subsubsection{authorize}
+		 \begin{description}
+		 	\item[Visibility]: Public Method
+		 	\item[Definition Class]: \textbf{Container} interface
+		 	\item[Called from]: 
+		 	\begin{itemize}
+		 		\item method \textbf{preInvoke} in class \textbf{BaseContainer}, row \textbf{1959}
+		 		\item method \textbf{authorizeLocalMethod} in class \textbf{BaseContainer}, row \textbf{2162}
+		 		\item method \textbf{authorizeRemoteMethod} in class \textbf{BaseContainer}, row \textbf{2185}
+		 		\item method \textbf{invoke} in class \textbf{WebServiceInvocationHandler}, row \textbf{2185} 
+		 		\item method \textbf{authorizeWebService} in class \textbf{EjbInvocation}, row \textbf{675}
+		 	\end{itemize}
+		 	\item[Usage Analysis]: 
+		 	\begin{itemize}
+		 		\item \textbf{preInvoke} is the method which is called from the EJB container before the invocation of the actual EJB method. It checks if the state of the method invocation is legitimate or it would lead to exceptions. \newline
+		 		The call of the authorize method is done in the context of security checking: if the authorize method returns false, an exception is raised which states that the client is not authorized to make that method invocation. 
+		 		\item the \textbf{authorizeLocalMethod} and \textbf{authorizeRemoteMethod} are called from the local/remote container home or object respectively in order to authorize the execution of a EJB method; the usage of the authorize method is similar to that in the previous point.
+		 		\item \textbf{WebServiceInvocationHandler} is a proxy invocation handler for web service ejb invocations.\newline
+		 		It calls the authorize method for checking if the client is authorized to call a certain method through that proxy
+		 		\item The \textbf{EjbInvocation} is the object that contains the state of an EJB Method invocation. No javadoc is available, but the name and the code suggest that the authorize method is used to authorize a web service method call by accessing the container that own the invocation itself. 
+		 	\end{itemize} 
+		 	\item[Functional Description]: The method first try to fetch the method invocation associated information and attaches it to the invocation object, because it would improve performance. \newline
+		 	Then it checks if the called method has been called from the business home interface, in that case it will return true; if not the method will call the authorize method of the security manager. If the security manager doesn't authorize the invocation, its context is released.
+		 	\item[Scope]: The JavaDoc states that this method contains the common code for managing the security manager authorization call. \newline
+		 	In practice, this method is useful to assert if the client who calls an EJB method is authorized to make that invocation. \newline
+		 	By code inspection it is possible to understand that this method will make a check on the source of the called EJB method and authorize it automatically or invoke the security manager instead. 
+		 \end{description}
+		 
+	 \subsubsection{initializeEjbInterfaceMethods}
+	 \begin{description}
+	 	\item[Visibility]: Private Method
+	 	\item[Definition Class]: \textbf{BaseContainer} class
+	 	\item[Called from]: 
+	 	\begin{itemize}
+	 		\item \textbf{Constructor} of \textbf{BaseContainer} class, row \textbf{840}.
+	 	\end{itemize}
+	 	\item[Usage Analysis]: 
+	 	\begin{itemize}
+	 		\item This method is called by the class Constructor during the initialization process of a Container.
+	 	\end{itemize} 
+	 	\item[Functional Description]: This method creates an array of Methods that will contains all methods of the EJB interface, according to its type (Local or Remote, Stateless or Stateful).
+	 	\item[Scope]: This method adds by reflection the interface methods that the BaseContainer class has implemented and assign the produced array of methods to the local ejb home or local object.
+	 \end{description}
+	 
+	 \subsubsection{getJaccEjb}
+	 \begin{description}
+	 	\item[Visibility]: Public method
+	 	\item[Definition Class]: \textbf{Container} interface.
+	 	\item[Called from]: 
+	 	\begin{itemize}
+	 		\item method \textbf{getJaccEjb} in class \textbf{EjbInvocation}, row \textbf{368}
+	 		\item Indirectly by method \textbf{getEnterpriseBean} in class \textbf{EJBPolicyContextDelegate}, row \textbf{60} (see Usage Analysis)
+	 	\end{itemize}
+	 	\item[Usage Analysis]: 
+	 	\begin{itemize}
+	 		\item The BaseContainer getJaccEjb method is only called in the method with the same name which below to the invocation itself. The javadoc of the invocation version of the method states that the user shall call the getJaccEjb method on the invocation object rather than directly on the EJB field, but it just call the Container method and return its value. \newline
+	 		\item The EJBPolicyContextDelegate is a delegate for the Policy Context and it calls getJaccEjb for returning the bean that is owned by the invocation object.
+	 	\end{itemize} 
+	 	\item[Functional Description]: The operation flow of this method is based on several assumptions that are specified in the comments. \newline
+	 	First of all the method make a check on the invocation passed as parameter, it has to be a business method invocation done through a remote, local or serviceEndpoint interface.
+	 	Then if the context for the invocation has not been set, it is done and the ejb for that context is returned. There an important consideration about the accessed variable is made in the comments, but it doesn't affect the way the method works.
+	 	\item[Scope]: This method retrieves the Java Bean from the invocation context. This is necessary for the JACC policy provider (see Terminology section). 
+	 \end{description}
+	 \subsubsection{assertValidLocalObject}
+	 \begin{description}
+	 	\item[Visibility]: Public method
+	 	\item[Definition Class]: \textbf{Container} interface
+	 	\item[Called from]: 
+	 	\begin{itemize}
+	 		\item method \textbf{assertValidLocalObject} in class \textbf{SunContainerHelper}, row \textbf{240}
+	 		\item Indirectly, method \textbf{assertValidLocalObject} in class \textbf{CMPHelper}, row \textbf{234}
+	 		
+	 		\item Indirectly, method \textbf{assertValidLocalObjectImpl} in class \textbf{JDOEJB20HelperImpl}, row \textbf{243}
+	 	\end{itemize}
+	 	\item[Usage Analysis]: 
+	 	\begin{itemize}
+	 		\item This method is used in helper class that manages the Container-Managed persistance for java beans. \newline In particular, the JDOEJB20HelperImpl is an helper class that is useful to convert persistance-capable beans from and to single object and collection of these.
+	 		
+	 	\end{itemize} 
+	 	\item[Functional Description]: This method receives as input an object, and it will raise an exception in the case the object is not a local valid one, or just return otherwise. It starts checking if the object is null and if it's an instance of a EJBLocalObject. In that case, it checks if the container of that object is the same of the object in which the assertValidLocalObject method is called. If the check don't passes, an error message is built and an exception is thrown.
+	 	\item[Scope]: The scope of this method is to check if the object passed as parameter is a Local object and belong to this container. It is used prevalently for the bean persistence management.  
+	 \end{description}
+\newpage
+\section{Checklist and Issues}
+% <report the classes/code
+% fragments that do not fulfill some points in the check list. Explain which point is
+% not fulfilled and why>.
+\subsection{Assigment Checklist}
+\begin{tabularx}{\textwidth}{| X | l | X |}
+	\hline \textbf{Category} & \textbf{Number} & \textbf{Description} \\
+	\hline
+	\multirow{7}{*}{Naming Conventions} & \label{itm:1} 1 & 
+	All class names, interface names, method names, class variables, method
+	variables, and constants used should have meaningful names and do what
+	the name suggests. \\ \cline{2-3}
+										& \label{itm:2} 2 &  
+	If one-character variables are used, they are used only for temporary
+	“throwaway” variables, such as those used in for loops. \\ \cline{2-3}
+										& \label{itm:3} 3 &  
+										Class names are nouns, in mixed case, with the first letter of each word in
+										capitalized. Examples: class Raster; class ImageSprite; \\ \cline{2-3}
+										& \label{itm:4} 4 & 
+										Interface names should be capitalized like classes. \\ \cline{2-3}
+										& \label{itm:5} 5 & 
+										Method names should be verbs, with the first letter of each addition word
+										capitalized. Examples: getBackground(); computeTemperature(). \\ \cline{2-3}
+										& \label{itm:6} 6 &  
+										Class variables, also called attributes, are mixed case, but might begin
+										with an underscore (‘\textunderscore’) followed by a lowercase first letter. All the
+										remaining words in the variable name have their first letter capitalized.
+										Examples: \textunderscore windowHeight, timeSeriesData. \\ \cline{2-3}
+										& \label{itm:7} 7 &  
+										Constants are declared using all uppercase with words separated by an
+										underscore. Examples: MIN\textunderscore WIDTH; MAX\textunderscore HEIGHT;	\\ \hline
+						\end{tabularx}
+						\begin{tabularx}{\textwidth}{| X | l | X |}
+							\hline
+	\multirow{2}{*}{Indention} 			& \label{itm:8} 8 & 
+										Three or four spaces are used for indentation and done so consistently \\	\cline{2-3}
+										& \label{itm:9} 9 &  
+										No tabs are used to indent	\\ \hline
+	\multirow{2}{*}{Braces} 			& \label{itm:10} 10 &  
+										Consistent bracing style is used, either the preferred “Allman” style (first
+										brace goes underneath the opening block) or the “Kernighan and Ritchie”
+										style (first brace is on the same line of the instruction that opens the new
+										block).	\\	\cline{2-3}
+										& \label{itm:11} 11 &  
+										All if, while, do-while, try-catch, and for statements that have only one
+										statement to execute are surrounded by curly braces.	\\   \hline
+										
+	\multirow{3}{*}{File Organization} 	& \label{itm:12} 12 &  
+										Blank lines and optional comments are used to separate sections
+										(beginning comments, package/import statements, class/interface
+										declarations which include class variable/attributes declarations,
+										constructors, and methods).\\	\cline{2-3}
+										& \label{itm:13} 13 &  
+										Where practical, line length does not exceed 80 characters.\\	\cline{2-3}
+										& \label{itm:14} 14 &  
+										When line length must exceed 80 characters, it does NOT exceed 120
+										characters.\\   \hline
+	\multirow{3}{*}{Wrapping Lines} 	& \label{itm:15} 15 &  
+										Line break occurs after a comma or an operator.\\	\cline{2-3}
+										& \label{itm:16} 16 &  
+										Higher-level breaks are used.\\	\cline{2-3}
+										& \label{itm:17} 17 &  
+										A new statement is aligned with the beginning of the expression at the
+										same level as the previous line.\\   \hline
+	\multirow{2}{*}{Comments} 			& \label{itm:18} 18 &  
+										Comments are used to adequately explain what the class, interface,
+										methods, and blocks of code are doing.\\	\cline{2-3}
+										& \label{itm:19} 19 &  
+										Commented out code contains a reason for being commented out and a
+										date it can be removed from the source file if determined it is no longer
+										needed.\\   \hline
+									\end{tabularx}
+									\begin{tabularx}{\textwidth}{| X | l | X |}
+										\hline
+	\multirow{4}{*}{Java Source Files} 	& \label{itm:20} 20 &  
+										Each Java source file contains a single public class or interface.
+										\\	\cline{2-3}
+										& \label{itm:21} 21 &  
+										The public class is the first class or interface in the file.
+										\\	\cline{2-3}
+										& \label{itm:22} 22 &  
+										Check that the external program interfaces are implemented consistently
+										with what is described in the javadoc.
+										\\	\cline{2-3}	
+										& \label{itm:23} 23 &  
+										Check that the javadoc is complete (i.e., it covers all classes and files part
+										of the set of classes assigned to you).
+										\\   \hline
+	\multirow{1}{*}{Package and Import Statements} 	& \label{itm:24} 24 &  
+										If any package statements are needed, they should be the first non-
+										comment statements. Import statements follow.
+										\\	\hline
+	\multirow{3}{*}{Class and Interface Declaration}& \label{itm:25} 25 &  
+										The class or interface declarations structure
+										\\	\cline{2-3}
+										& \label{itm:26} 26 &  
+										Methods are grouped by functionality rather than by scope or
+										accessibility.
+										\\	\cline{2-3}
+										& \label{itm:27} 27 & 
+										Check that the code is free of duplicates, long methods, big classes,
+										breaking encapsulation, as well as if coupling and cohesion are adequate.
+										 \\   \hline
+	\multirow{6}{*}{Initialization and Declaration}	& \label{itm:28} 28 &  
+										Check that variables and class members are of the correct type. Check that
+										they have the right visibility (public/private/protected)
+										\\	\cline{2-3}
+										& \label{itm:29} 29 &  
+										Check that variables are declared in the proper scope
+										\\	\cline{2-3}
+										& \label{itm:30} 30 &  
+										Check that constructors are called when a new object is desired
+										\\	\cline{2-3}
+										& \label{itm:31} 31 &  
+										Check that all object references are initialized before use
+										\\	\cline{2-3}
+										& \label{itm:32} 32 &  
+										Variables are initialized where they are declared, unless dependent upon
+										a computation
+										\\	\cline{2-3}
+										& \label{itm:33} 33 &  
+										Declarations appear at the beginning of blocks (A block is any code
+										surrounded by curly braces “{“ and “}” ). The exception is a variable can
+										be declared in a ‘for’ loop.
+										\\   \hline
+										
+									\end{tabularx}
+									\begin{tabularx}{\textwidth}{| X | l | X |}
+										\hline
+										
+	\multirow{3}{*}{Method Calls}		& \label{itm:34} 34 &  
+										Check that parameters are presented in the correct order
+										\\	\cline{2-3}
+										& \label{itm:35} 35 &  
+										Check that the correct method is being called, or should it be a different
+										method with a similar name
+										\\	\cline{2-3}
+										& \label{itm:36} 36 & 
+										Check that method returned values are used properly 
+										\\   \hline
+	\multirow{3}{*}{Arrays}				& \label{itm:37} 37 &  
+										Check that there are no off-by-one errors in array indexing (that is, all
+										required array elements are correctly accessed through the index)
+										\\	\cline{2-3}
+										& \label{itm:38} 38 &  
+										Check that all array (or other collection) indexes have been prevented
+										from going out-of-bounds
+										\\	\cline{2-3}
+										& \label{itm:39} 39 &  
+										Check that constructors are called when a new array item is desired
+										\\   \hline
+	\multirow{1}{*}{Object Comparison} 	& \label{itm:40} 40 &  
+										Check that all objects (including Strings) are compared with "equals" and
+										not with "=="
+										\\	\hline
+	\multirow{3}{*}{Output Format}		& \label{itm:41} 41 &  
+										Check that displayed output is free of spelling and grammatical errors
+										\\	\cline{2-3}
+										& \label{itm:42} 42 &  
+										Check that error messages are comprehensive and provide guidance as to
+										how to correct the problem
+										\\	\cline{2-3}
+										& \label{itm:43} 43 &  
+										Check that the output is formatted correctly in terms of line stepping and
+										spacing
+										\\   \hline	
+									\end{tabularx}
+									\begin{tabularx}{\textwidth}{| X | l | X |}
+										\hline
+	\multirow{6}{*}{Computation, Comparisons and Assignments}& \label{itm:44} 44 &  
+										Check that the implementation avoids “brutish programming“
+										\\	\cline{2-3}
+										& \label{itm:45} 45 &  
+										Check order of computation/evaluation, operator precedence and
+										parenthesizing
+										\\	\cline{2-3}
+										& \label{itm:46} 46 &  
+										Check the liberal use of parenthesis is used to avoid operator precedence
+										problems.
+										\\	\cline{2-3}
+										& \label{itm:47} 47 &  
+										Check that all denominators of a division are prevented from being zero
+										\\	\cline{2-3}
+										& \label{itm:48} 48 &  
+										Check that integer arithmetic, especially division, are used appropriately
+										to avoid causing unexpected truncation/rounding
+										\\	\cline{2-3}
+										& \label{itm:49} 49 &  
+										Check that the comparison and Boolean operators are correct
+										\\	\cline{2-3}
+										& \label{itm:50} 50 &  
+										Check throw-catch expressions, and check that the error condition is
+										actually legitimate
+										\\	\cline{2-3}
+										& \label{itm:51} 51 &  
+										Check that the code is free of any implicit type conversions
+										\\   \hline
+	\multirow{2}{*}{Exceptions}			& \label{itm:52} 52 &  
+										Check that the relevant exceptions are caught
+										\\	\cline{2-3}
+										& \label{itm:53} 53 &  
+										Check that the appropriate action are taken for each catch block
+										\\   \hline
+	\multirow{3}{*}{Flow of Control}	& \label{itm:54} 54 &  
+										In a switch statement, check that all cases are addressed by break or
+										return
+										\\	\cline{2-3}
+										& \label{itm:55} 55 &  
+										Check that all switch statements have a default branch
+										\\	\cline{2-3}
+										& \label{itm:56} 56 &  
+										Check that all loops are correctly formed, with the appropriate
+										initialization, increment and termination expressions
+										\\   \hline	
+	\multirow{4}{*}{Files}			 	& \label{itm:57} 57 &  
+										Check that all files are properly declared and opened
+										\\	\cline{2-3}
+										& \label{itm:58} 58 &  
+										Check that all files are closed properly, even in the case of an error
+										\\	\cline{2-3}
+										& \label{itm:59} 59 &  
+										Check that EOF conditions are detected and handled correctly
+										\\	\cline{2-3}	
+										& \label{itm:60} 60 &  
+										Check that all file exceptions are caught and dealt with accordingly
+										\\   \hline	
+										
+
+										\end{tabularx}
+% table 1 for mapLocal3xException
+\newpage
+\subsection{Method : mapLocal3xException }
+\subsubsection{Code}
+\image{code_1.png}
+\newpage
+\subsubsection{Checklist}
+\begin{tabularx}{\textwidth}{| c | c |X |}
+	\hline \textbf{Name} & & mapLocal3xException \\
+	\hline \textbf{Naming Conventions} & \link{itm:1}{1}  & Passed  \\
+	\hline  & \link{itm:2}{2} & \#2337 t is used in a "if",it isn't used for temporary “throwaway” variables\\
+	\hline  & \link{itm:1}{1} & Passed \\
+	\hline  & 4 & Passed \\
+	\hline  & 5 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+	\hline  & 6 & Passed \\
+	\hline  & 7 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+	\hline \textbf{Indention} & 8 & Passed \\
+	\hline  & 9 & Passed \\
+	\hline \textbf{Braces} & 10 & Passed, Kernighan and Ritchie style \\
+	\hline  & 11 & Passed \\
+	\hline \textbf{File Organization} & 12 & no, because there are blank lines that don't separates sections \\
+	\hline  & 13 & Passed (max = 71) \\
+	\hline  & 14 & Passed \\
+	\hline \textbf{Wrapping Lines} & 15 & Passed \\
+	\hline  & 16 & Passed \\
+	
+	\hline
+\end{tabularx}
+\newpage
+\begin{tabularx}{\textwidth}{| c |c |X |}
+	\hline  & 17 & Passed \\
+	\hline \textbf{Comments} & 18 & Passed, no comments \\
+	\hline  & 19 & Passed, no comments \\
+	\hline \textbf{Java Source Files} & 20 & Passed \\
+	\hline  & 21 & Passed \\
+	\hline  & 22 & Passed \\
+	\hline  & 23 & no, because the javadoc isn't complete. \\
+	\hline \textbf{Package and Import Statements} & 24 & Passed \\
+	\hline \textbf{Class and Interface Declarations} & 25 & \#189-582 Variables are not declared in the right order \\
+	\hline  & 26 & Passed \\
+	\hline  & 27 & Passed \\
+	\hline \textbf{Initialization and Declarations} & 28 & Passed \\
+	\hline  & 29 & Passed \\
+	\hline  & 30 & Passed \\
+	\hline  & 31 & Passed \\
+	\hline  & 32 & Passed \\
+	\hline  & 33 & Passed \\
+	\hline \textbf{Method Calls} & 34 & Passed \\
+	\hline  & 35 & Passed \\
+	\hline  & 36 & Passed \\
+	\hline \textbf{Arrays} & 37 & Passed, no arrays \\
+	\hline  & 38 & Passed, no arrays \\
+	\hline  & 39 & Passed, no arrays \\
+	\hline \textbf{Object Comparison} & 40 & Passed \\
+	\hline \textbf{Output Format} & 41 & Passed \\
+	\hline  & 42 & Passed \\
+	\hline  & 43 & Passed \\
+	\hline \textbf{Computation, Comparisons and Assignments} & 44 & Passed \\
+	\hline  & 45 & Passed \\
+	\hline  & 46 & Passed \\
+	\hline
+\end{tabularx}
+\begin{tabularx}{\textwidth}{| c |c |X |}
+	\hline  & 47 & Passed \\
+	\hline  & 48 & Passed \\
+	\hline  & 49 & Passed \\
+	\hline  & 50 & Passed \\
+	\hline  & 51 & Passed \\
+	\hline \textbf{Exceptions} & 52 & Passed \\
+	\hline  & 53 & Passed \\
+	\hline \textbf{Flow of Control} & 54 & Passed, no switches \\
+	\hline  & 55 & Passed,no switches \\
+	\hline  & 56 & Passed,no loops \\
+	\hline \textbf{Files} & 57 & Passed \\
+	\hline  & 58 & Passed \\
+	\hline  & 59 & Passed \\
+	\hline  & 60 & Passed \\
+	\hline
+\end{tabularx}
+
+
+% table 2 for authorize
+\newpage
+\subsection{Method : authorize }
+\subsubsection{Code}
+\image{code_2.png}
+\newpage
+\subsubsection{Checklist}
+ \begin{tabularx}{\textwidth}{| c |c |X |}
+ 	\hline \textbf{Name} & & authorize \\
+ 	\hline \textbf{Naming Conventions} & 1  & Passed  \\
+ 	\hline  & 2 & Passed\\
+ 	\hline  & 3 & Passed \\
+ 	\hline  & 4 & Passed \\
+ 	\hline  & 5 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+ 	\hline  & 6 & Passed \\
+ 	\hline  & 7 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+ 	\hline \textbf{Indention} & 8 & \#2374-2376 inconsistent spacing, \#2382 exceeding space
+ 	\\
+ 	\hline  & 9 & Passed \\
+ 	\hline \textbf{Braces} & 10 & Passed, Kernighan and Ritchie style
+ 	\\
+ 	\hline  & 11 & Passed \\
+ 	\hline \textbf{File Organization} & 12 & no, because there are blank lines that don't separe sections
+ 	\\
+ 	\hline  & 13 & Passed (max = 75) \\
+ 	\hline  & 14 & Passed \\
+ 	\hline \textbf{Wrapping Lines} & 15 & \#2382 exceeding newline before !!
+ 	\\
+ 	\hline  & 16 & Passed \\
+ 	\hline  & 17 & Passed \\
+ 	\hline \textbf{Comments} & 18 & Passed \\
+ 	\hline  & 19 & Passed \\
+ 	\hline \textbf{Java Source Files} & 20 & Passed \\
+ 	\hline  & 21 & Passed \\
+ 	\hline
+ \end{tabularx}
+ \newpage
+ \begin{tabularx}{\textwidth}{| c |c |X |}
+ 	\hline  & 22 & Passed, implementation of the "Container" interface method
+ 	\\
+ 	\hline  & 23 & Passed,present both in BaseContainer and Container Javadoc
+ 	\\
+ 	\hline \textbf{Package and Import Statements} & 24 & Passed \\
+ 	\hline \textbf{Class and Interface Declarations} & 25 & \#189-582 Variables are not declared in the right order \\
+ 	\hline  & 26 & Passed \\
+ 	\hline  & 27 & Passed \\
+ 	\hline \textbf{Initialization and Declarations} & 28 & Passed \\
+ 	\hline  & 29 & Passed \\
+ 	\hline  & 30 & Passed \\
+ 	\hline  & 31 & Passed \\
+ 	\hline  & 32 & Passed \\
+ 	\hline  & 33 & no, because there is a declaration at row \#2387 \\
+ 	\hline \textbf{Method Calls} & 34 & Passed \\
+ 	\hline  & 35 & Passed \\
+ 	\hline  & 36 & Passed \\
+ 	\hline \textbf{Arrays} & 37 & Passed,no array \\
+ 	\hline  & 38 & Passed,no array \\
+ 	\hline  & 39 & Passed,no array \\ 
+ 	\hline \textbf{Object Comparison} & 40 & \#2373 "==" is used instead of "equals",\#2381, \#2383 "==" is used instead of  "equals"
+ 	\\
+ 	\hline \textbf{Output Format} & 41 & Passed \\
+ 	\hline  & 42 & Passed \\
+ 	\hline  & 43 & Passed \\
+ 	\hline
+ \end{tabularx}
+ \newpage
+ \begin{tabularx}{\textwidth}{| c |c |X |}
+ 	\hline \textbf{Computation, Comparisons and Assignments} & 44 & Passed \\
+ 	\hline  & 45 & Passed \\
+ 	\hline  & 46 & Passed \\
+ 	\hline  & 47 & Passed \\
+ 	\hline  & 48 & Passed \\
+ 	\hline  & 49 & Passed \\
+ 	\hline  & 50 & Passed \\
+ 	\hline  & 51 & Passed \\
+ 	\hline \textbf{Exceptions} & 52 & Passed \\
+ 	\hline  & 53 & Passed \\
+ 	\hline \textbf{Flow of Control} & 54 & Passed,no switch \\
+ 	\hline  & 55 & Passed,no switch \\
+ 	\hline  & 56 & Passed,no loop \\
+ 	\hline \textbf{Files} & 57 & Passed \\
+ 	\hline  & 58 & Passed \\
+ 	\hline  & 59 & Passed \\
+ 	\hline  & 60 & Passed \\
+ 	\hline
+ \end{tabularx}
+% table 3 for initializeEjbInterfaceMethods
+\newpage
+\subsection{Method : initializeEjbInterfaceMethods }
+\subsubsection{Code}
+\image{code_31.png}
+\image{code_32.png}
+\newpage
+\subsubsection{Checklist}
+  \begin{tabularx}{\textwidth}{| c |c |X |}
+  	\hline \textbf{Name} & & initializeEjbInterfaceMethods \\
+  	\hline \textbf{Naming Conventions} & 1  & Passed  \\
+  	\hline  & 2 & \#2462 m is defined in a if.
+  	\\
+  	\hline  & 3 & Passed \\
+  	\hline  & 4 & Passed \\
+  	\hline  & 5 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+  	\hline  & 6 & Passed \\
+  	\hline  & 7 & This methods \#1836 externalPreInvoke(), \#1866 externalPostInvoke(), \#1922 preInvoke(), \#2034 webServicePostInvoke(), \#1731 \textunderscore constructEJBContextImpl(), \#1736 \textunderscore constructEJBInstance(), don't respect the convention. \\
+  	\hline \textbf{Indention} & 8 & \#2416 exceeding space, \#2419 exceeding space, \#2424 inconsistent space,
+  	\#2435 indentation incorrect, \#2449 incosistent space, \#2458 indentation incorrect. \\
+  	\hline  & 9 & Passed \\
+  	\hline \textbf{Braces} & 10 & Kernighan and Ritchie style, \#2408 Allman style. \\
+  	\hline  & 11 & Passed \\
+  	\hline \textbf{File Organization} & 12 & no, because there are blank lines that don't separe sections: \#2424, \#2449 \\
+  	\hline  & 13 & Passed (max = 78) \\
+  	\hline  & 14 & Passed \\
+  	\hline \textbf{Wrapping Lines} & 15 & Passed \\
+  	\hline  & 16 & \#2416, \#2448, \#2458, \#2435 are incorrects \\
+  	\hline  & 17 & Passed \\
+  	\hline \textbf{Comments} & 18 & Passed \\
+  	\hline  & 19 & Passed \\
+  	\hline \textbf{Java Source Files} & 20 & Passed \\ 
+  	\hline
+  \end{tabularx}
+  \newpage
+  \begin{tabularx}{\textwidth}{| c |c |X |}
+  	\hline  & 21 & Passed \\
+  	\hline  & 22 & Passed \\
+  	\hline  & 23 & no, because the javadoc isn't complete; it doesn't cover this method. \\
+  	\hline \textbf{Package and Import Statements} & 24 & Passed \\
+  	\hline \textbf{Class and Interface Declarations} & 25 & \#189-582 Variables are not declared in the right order \\
+  	\hline  & 26 & Passed \\
+  	\hline  & 27 & Passed \\
+  	\hline \textbf{Initialization and Declarations} & 28 & Passed \\
+  	\hline  & 29 & Passed \\
+  	\hline  & 30 & Passed \\
+  	\hline  & 31 & \#2437,\#2460 isStatelessSession can do error.
+  	\\
+  	\hline  & 32 & Passed \\
+  	\hline  & 33 & no,because there is a declaration at row \#2462 \\
+  	\hline \textbf{Method Calls} & 34 & Passed \\
+  	\hline  & 35 & Passed \\
+  	\hline  & 36 & Passed \\
+  	\hline \textbf{Arrays} & 37 & Passed \\
+  	\hline  & 38 & Passed \\
+  	\hline  & 39 & Passed \\
+  	\hline \textbf{Object Comparison} & 40 & Passed \\
+  	\hline \textbf{Output Format} & 41 & Passed \\
+  	\hline  & 42 & Passed,no error message\\
+  	\hline  & 43 & Passed \\
+  	\hline \textbf{Computation, Comparisons and Assignments} & 44 & Passed \\
+  	\hline  & 45 & Passed \\
+  	\hline  & 46 & Passed \\
+  	\hline  & 47 & Passed \\
+  	\hline
+  \end{tabularx}
+  \newpage
+  \begin{tabularx}{\textwidth}{| c |c |X |}
+  	\hline  & 48 & Passed \\
+  	\hline  & 49 & Passed \\
+  	\hline  & 50 & Passed \\
+  	\hline  & 51 & Passed \\
+  	\hline \textbf{Exceptions} & 52 & Passed \\
+  	\hline  & 53 & Passed \\
+  	\hline \textbf{Flow of Control} & 54 & Passed, no switch \\
+  	\hline  & 55 & Passed, no switch \\
+  	\hline  & 56 & Passed, no loop \\
+  	\hline \textbf{Files} & 57 & Passed, no file \\
+  	\hline  & 58 & Passed, no file \\
+  	\hline  & 59 & Passed, no file \\
+  	\hline  & 60 & Passed, no file \\
+  	\hline
+  \end{tabularx}
+
+
+% table 4 for getJaccEjb
+\newpage
+\subsection{Method : getJaccEjb }
+\subsubsection{Code}
+\image{code_4.png}
+\newpage
+\subsubsection{Checklist}
+\begin{tabularx}{\textwidth}{| c |c |X |}
+	\hline \textbf{Name} & & getJaccEjb \\
+	\hline \textbf{Naming Conventions} & 1  & Passed  \\
+	\hline  & 2 & Passed \\
+	\hline  & 3 & Passed \\
+	\hline  & 4 & Passed \\
+	\hline  & 5 & Passed \\
+	\hline  & 6 & Passed \\
+	\hline  & 7 & Passed \\
+	\hline \textbf{Indention} & 8 & \#2683 exceeding space
+	\\
+	\hline  & 9 & Passed for this method, but found 170 occurrences in other functions
+	\\
+	\hline \textbf{Braces} & 10 & Passed for the methods (Kernighan and Ritchie style), but not consistent for all the file \\
+	\hline  & 11 & Passed \\
+	\hline \textbf{File Organization} & 12 & \#564-562 are not consistent with the file style
+	\\
+	\hline  & 13 & \#207-243 exceeds 80 characters several time. Log messages could be written in several lines.
+	\#268, \#273, inline comments exceeding optimal row length
+	\\
+	\hline  & 14 & \#2101 Line too long, \#2249 string too long, \#1628 line too long, \#4824, \#4880, line too long \\
+	\hline \textbf{Wrapping Lines} & 15 & \#2684 exceeding newline before "! !".
+	\\
+	\hline  & 16 & Passed \\
+	\hline  & 17 & Passed \\
+	\hline \textbf{Comments} & 18 & Passed \\
+	\hline  & 19 & Passed \\
+	\hline \textbf{Java Source Files} & 20 & Passed \\
+	\hline  & 21 & Passed \\
+	\hline  & 22 & Passed, implementation of the "Container" interface method
+	\\
+	\hline  & 23 & Passed, present both in BaseContainer and Container javadoc
+	\\
+	\hline
+\end{tabularx}
+\newpage
+\begin{tabularx}{\textwidth}{| c |c |X |}
+	\hline \textbf{Package and Import Statements} & 24 & Passed \\
+	\hline \textbf{Class and Interface Declarations} & 25 & \#189-582 Variables are not declared in the right order \\
+	\hline  & 26 & Passed \\
+	\hline  & 27 & Passed \\
+	\hline \textbf{Initialization and Declarations} & 28 & Passed \\
+	\hline  & 29 & Passed \\
+	\hline  & 30 & Passed \\
+	\hline  & 31 & Passed \\
+	\hline  & 32 & Passed \\
+	\hline  & 33 & Passed \\
+	\hline \textbf{Method Calls} & 34 & Passed \\
+	\hline  & 35 & Passed \\
+	\hline  & 36 & Passed \\
+	\hline \textbf{Arrays} & 37 & Passed, no arrays \\
+	\hline  & 38 & Passed, no arrays \\
+	\hline  & 39 & Passed, no arrays \\
+	\hline \textbf{Object Comparison} & 40 & Passed \\
+	\hline \textbf{Output Format} & 41 & Passed \\
+	\hline  & 42 & Passed \\
+	\hline  & 43 & Passed \\
+	\hline \textbf{Computation, Comparisons and Assignments} & 44 & Passed \\
+	\hline  & 45 & Passed \\
+	\hline  & 46 & Passed \\
+	\hline  & 47 & Passed \\
+	\hline  & 48 & Passed \\
+	\hline  & 49 & Passed \\
+	\hline  & 50 & Passed \\
+	\hline  & 51 & Passed \\
+	\hline \textbf{Exceptions} & 52 & Passed \\
+	\hline  & 53 & Passed \\
+	\hline \textbf{Flow of Control} & 54 & Passed \\
+	\hline  & 55 & Passed \\
+	\hline  & 56 & Passed \\
+	\hline \textbf{Files} & 57 & Passed \\
+	\hline  & 58 & Passed \\
+	\hline  & 59 & Passed \\
+	\hline  & 60 & Passed \\
+	\hline
+\end{tabularx}
+
+
+% table 5 for assertValidLocalObject
+\newpage
+\subsection{Method : assertValidLocalObject }
+\subsubsection{Code}
+\image{code_5.png}
+\newpage
+\subsubsection{Checklist}
+  \begin{tabularx}{\textwidth}{| c |c |X |}
+  	\hline \textbf{Name} & & assertValidLocalObject \\
+  	\hline \textbf{Naming Conventions} & 1  & Passed  \\
+  	\hline  & 2 & \#2725: The parameter "o" should be called "object" since it's not a throwaway variable \\
+  	\hline  & 3 & Passed \\
+  	\hline  & 4 & Passed \\
+  	\hline  & 5 & Passed \\
+  	\hline  & 6 & Passed \\
+  	\hline  & 7 & Passed \\
+  	\hline \textbf{Indention} & 8 & \#2743 exceeding space, \#2749-2752 inconsistent spacing \\
+  	\hline  & 9 & Passed for this method, but found 170 occurrences in other functions \\
+  	\hline \textbf{Braces} & 10 & Passed for the methods (Kernighan and Ritchie style), but not consistent for all the file \\
+  	\hline  & 11 & Passed \\
+  	\hline \textbf{File Organization} & 12 & \#564-562 are not consistent with the file style \\
+  	\hline  & 13 & \#207-243 exceeds 80 characters several time. Log messages could be written in several lines.
+  	\#268, \#273, inline comments exceeding optimal row length
+  	\\
+  	\hline  & 14 & \#2101 Line too long, \#2249 string too long, \#1628 line too long, \#4824, \#4880, line too long \\
+  	\hline \textbf{Wrapping Lines} & 15 & Passed \\
+  	\hline  & 16 & Passed \\
+  	\hline  & 17 & Passed \\
+  	\hline \textbf{Comments} & 18 & Passed \\
+  	\hline  & 19 & Passed \\
+  	\hline \textbf{Java Source Files} & 20 & Passed \\
+  	\hline  & 21 & Passed \\
+  	\hline  & 22 & Passed, implementation of the "Container" interface method \\ 
+  	\hline  & 23 & Passed, present both in BaseContainer and Container javadoc \\
+  	\hline \textbf{Package and Import Statements} & 24 & Passed \\
+  	\hline
+  \end{tabularx}
+  \newpage
+  \begin{tabularx}{\textwidth}{| c |c |X |}
+  	\hline \textbf{Class and Interface Declarations} & 25 & \#189-582 Variables are not declared in the right order \\
+  	\hline  & 26 & Passed \\
+  	\hline  & 27 & Passed \\
+  	\hline \textbf{Initialization and Declarations} & 28 & Passed \\
+  	\hline  & 29 & Passed \\
+  	\hline  & 30 & Passed \\
+  	\hline  & 31 & Passed \\
+  	\hline  & 32 & Passed \\
+  	\hline  & 33 & Passed \\
+  	\hline \textbf{Method Calls} & 34 & Passed \\
+  	\hline  & 35 & Passed \\
+  	\hline  & 36 & Passed \\
+  	\hline \textbf{Arrays} & 37 & Passed, no Arrays \\
+  	\hline  & 38 & Passed, no Arrays \\
+  	\hline  & 39 & Passed, no Arrays \\
+  	\hline \textbf{Object Comparison} & 40 & \#2738 "==" used instead of .equals for comparing two non-null objects \\
+  	\hline \textbf{Output Format} & 41 & Passed \\
+  	\hline  & 42 & Passed \\
+  	\hline  & 43 & Passed \\   
+  	\hline \textbf{Computation, Comparisons and Assignments} & 44 & Passed \\
+  	\hline  & 45 & Passed \\
+  	\hline  & 46 & Passed \\
+  	\hline  & 47 & Passed \\
+  	\hline  & 48 & Passed \\
+  	\hline  & 49 & Passed \\
+  	\hline  & 50 & Passed \\
+  	\hline  & 51 & Passed \\
+  	\hline \textbf{Exceptions} & 52 & Passed \\
+  	\hline  & 53 & Passed \\
+  	\hline \textbf{Flow of Control} & 54 & Passed \\
+  	\hline  & 55 & Passed \\
+  	\hline  & 56 & Passed \\
+  	\hline \textbf{Files} & 57 & Passed \\
+  	\hline  & 58 & Passed \\
+  	\hline  & 59 & Passed \\
+  	\hline  & 60 & Passed \\
+  	\hline
+  \end{tabularx} 
+
+\section{Other problems}
+% <list here all the parts of code that
+% you think create or may create a bug and explain why>.
+%TODO: Insert here the parts of checklist in which our methods passed but the other failed
+\section{References}
+	\begin{itemize}
+		\item Assignment document part 3: Document structure and checklist
+		\item "Brutish Programming", Dr. John Dalbey: Code quality inspection
+		\item http://glassfish.pompel.me/ Javadoc for Glassfish
+		\item http://www.javadocumentation.com/ Javadoc for the specific package we analysed
+		\item Enterprise JavaBeansTM Specification Version 2.0 - Sun Microsystems 
+		\item Oracle Documentation: Component descriptions and some JavaDocs
+		
+	\end{itemize}
+\section{Tools}
+	\begin{itemize}
+		\item \textbf{SVN}: For the checkout of the source code
+		\item \textbf{Gedit}: Text editor for code inspection
+		\item \textbf{GrepCode}: Preliminary package analysis
+		\item \textbf{grep}: For usage inspection
+	\end{itemize}
+\section{Work Hours}
+	\begin{itemize}
+		\item Mattia Fontana:
+		\item Edoardo Giacomello: 
+	\end{itemize}
+\end{document}

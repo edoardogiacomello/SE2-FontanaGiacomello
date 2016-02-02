@@ -53,8 +53,6 @@
 		\item Assigment 1: Project Description
 		\item \productname Requirement and Specification Analysis Document
 		\item \productname Design Document
-		\item COCOMO Model Definition Manual: \newline 
-		\hyperref{http://csse.usc.edu/csse/research/COCOMOII/cocomo2000.0/CII_modelman2000.0.pdf}{}{COCOMO Model Definition Manual }{http://csse.usc.edu/csse/research/COCOMOII/cocomo2000.0/CII\_modelman2000.0.pdf}
 	\end{itemize}
 	\newpage
 	\section{Project Size and Cost Estimation}
@@ -159,144 +157,138 @@
 			\item The SCED (Schedule Constraints) Cost Driver
 		\end{itemize}
 	    \subsubsection{Source Lines of Code (SLOC)}
-	    
-	    101 FPs * 46 = 4646  SLOC
+		
+		101 FPs * 53 = 5353  SLOC
+		\newline
+		Where 53 is found from this table :
+		\image{Co_ufp.png}
+		\subsubsection{Scale Drivers}
+		We use this table :
+		\image{Scale_factor.png}
+		
+		for defining the following parameters: 
+		\newline
+		\newline
+		\begin{tabularx}{\textwidth}{|X|c|c|}
+			\hline
+			\textbf{Scale Driver} &	\textbf{Factor} & \textbf{Value} \\
+			\hline Precedentedness & Low &	4.96  \\
+			 Development Flexibility & High & 2.03\\	
+			 Architecture / Risk Resolution & Very High & 1.41\\
+			 Team Cohesion & Nominal & 3.29\\
+			 Process Maturity & High & 3.12\\
+			\hline Total : & / & 14.81 \\
+			\hline
+		\end{tabularx}
+		\newline\newline\newline
+		Analysis of the results :
+		\begin{itemize}
+			\item Precedentedness : Low, the team was not expert with business scale projects.
+			\item Development Flexibility: High, the project has been structured in a way that facilitates further changes.
+			\item Architecture / Risk Resolution: Reflects the extent of risk analysis carried out, most of risk was deleted.
+			\item Team Cohesion : Reflects how well the development team know each other and work together, this is Nominal because this is the first project that we do together.
+			\item Process Maturity : This was evaluated around the 18 Key Process Area (KPAs) in the SEI Capability
+			Model.
+		\end{itemize}
+	
+		\subsubsection{Cost Drivers}
+		\begin{tabularx}{\textwidth}{|X|c|c|}
+			\hline
+			\textbf{Cost Driver} &	\textbf{Factor} & \textbf{Value} \\
+			\hline Required Software Reliability & Very Low &	0.82  \\
+			 Data Base Size & Low & 0.90\\	
+			 Product Complexity & High & 1.17\\
+			 Required Reusability & High & 1.07\\
+			 Documentation match to life-cycle needs & Nominal & 1.00\\
+			 Execution Time Constraint & High & 1.11\\
+			 Main Storage Constraint & Nominal & 1.00\\
+			 Platform Volatility & Very Low & n/a\\
+			 Analyst Capability & High & 0.85\\
+			 Programmer Capability & High & 0.88\\
+			 Application Experience & Low & 1.10\\
+			 Personnel continuity & Very Low & 1.29\\
+			 Platform Experience & Low & 1.09\\
+			 Language and Tool Experience & Low & 1.09\\
+			 Usage of Software Tools & Nominal  & 1.00\\
+			 Multisite development & Extra High & 0.80\\
+			 Required development schedule & High & 1.00\\			
+			\hline Total : & / & 16.17/17=0.95 \\
+			\hline
+		\end{tabularx}
+		\newline\newline
+		For define this table we use the information contained in these tables :
+		\textbf{Required Software Reliability :} Very Low, some slight inconvenience is allowed if recovered in a short time.
+		\image{rely.png}
+		\textbf{Data Base Size :} 
+		P=5353 SLOC
+		D= 640 KB
+		D/P=8.364
+		\image{data.png}
+    	\textbf{Product Complexity:} high according to the new COCOMO II CPLEX rating scale.
+		\image{cplx.png}
+		\textbf{Required Reusability:}
+		\image{ruse.png}
+		\textbf{Documentation match to life-cycle needs:}
+		\image{docu.png}
+		\textbf{Execution Time Constraint:}
+		\image{time.png}
+		\textbf{Main Storage Constraint:}
+		\image{stor.png}
+		\textbf{Platform Volatility:}
+		\image{pvol.png}
+		\textbf{Analyst Capability:}
+		\image{acap.png}
+		\textbf{Programmer Capability:}
+		\image{pcap.png}
+		\textbf{Application Experience:}
+		\image{apex.png}
+		\textbf{Platform Experience:}
+		\image{plex.png}
+		\textbf{Language and Tool Experience:}
+		\image{ltex.png}
+		\textbf{Personnel continuity:}
+		\image{pcon.png}
+		\textbf{Usage of Software Tools:}
+		\image{tool.png}
+		\textbf{Multisite development:}
+		\image{site.png}
+		\textbf{Required development schedule:}
+		\image{sced.png}
+		
+		\subsubsection{Effort Equation}
+		$ Effort = A * EAF * (KSLOC)^{E} $
 	    \newline
-	    Where 46 is found from this table :
-	    \image{Co_ufp.png}
-	    \subsubsection{Scale Drivers}
-	    We use this table :
-	    \image{Scale_factor.png}
-	    
-	    for create this results: 
-	    \newline
-	    \newline
-	    \begin{tabularx}{\textwidth}{|X|c|c|}
-	    	\hline
-	    	\textbf{Scale Driver} &	\textbf{Factor} & \textbf{Value} \\
-	    	\hline Precedentedness & Low &	4.96  \\
-	    	\hline Development Flexibility & High & 2.03\\	
-	    	\hline Architecture / Risk Resolution & Very High & 1.41\\
-	    	\hline Team Cohesion & Nominal & 3.29\\
-	    	\hline Process Maturity & High & 3.12\\
-	    	\hline Total : & / & 14.81 \\
-	    	\hline
-	    \end{tabularx}
-	    \newline\newline\newline
-	    Analisy of the results :
-	    \begin{itemize}
-	    	\item Precedentedness : Low because this is the first enterprise project the team develops.
-	    	\item Development Flexibility : High because only general requirements are given by the client, and the team can design the system with a large degree of flexibility.
-	    	\item Architecture / Risk Resolution : Reflects the extent of risk analysis carried out, most of risks were considered in the requirements.
-	    	\item Team Cohesion : Reflects how well the development team know each other and work together, this is Nominal because this is the first project that we do together but each team member knows the capabilities of other members.
-	    	\item Process Maturity : This was evaluated around the 18 Key Process Area (KPAs) in the SEI Capability
-	    	Model.
-	    \end{itemize}
-	    
-	    \subsubsection{Cost Drivers}
-	    \begin{tabularx}{\textwidth}{|X|c|c|}
-	    	\hline
-	    	\textbf{Cost Driver} &	\textbf{Factor} & \textbf{Value} \\
-	    	\hline Required Software Reliability & Very Low &	0.82  \\
-	    	\hline Data Base Size & High & 1.14\\	
-	    	\hline Product Complexity & High & 1.17\\
-	    	\hline Required Reusability & High & 1.07\\
-	    	\hline Documentation match to life-cycle needs & Nominal & 1.00\\
-	    	\hline Execution Time Constraint & High & 1.11\\
-	    	\hline Main Storage Constraint & Nominal & 1.00\\
-	    	\hline Platform Volatility & Very Low & n/a\\
-	    	\hline Analyst Capability & High & 0.85\\
-	    	\hline Programmer Capability & High & 0.88\\
-	    	\hline Application Experience & Low & 1.10\\
-	    	\hline Personnel continuity & Very Low & 1.29\\
-	    	\hline Platform Experience & Low & 1.09\\
-	    	\hline Language and Tool Experience & Low & 1.09\\
-	    	\hline Usage of Software Tools & Nominal  & 1.00\\
-	    	\hline Multisite development & Extra High & 0.80\\
-	    	\hline Required development schedule & High & 1.00\\			
-	    	\hline Total : & / & 16.41/17=0.96 \\
-	    	\hline
-	    \end{tabularx}
-	    \newline\newline\newline
-	    For defining this table we used the information contained in these tables :
-	    \textbf{Required Software Reliability :} Very Low some slight inconvenience aren't crucial.	
-	    \image{rely.png}
-	    \textbf{Data Base Size :} \newline
-	    P=4646 SLOC\newline
-	    D= 640 KB\newline
-	    D/P=137.75
-	    \newline
-	    This result show that the value is High.
-	    \image{data.png}
-	    \textbf{Product Complexity:} high according to the new COCOMO II CPLEX rating scale.
-	    \newline
-	    Control operations, computational operations,device-dependent operations, data management operations and user interface management operations are the five areas in this complexity is organized.
-	    \image{cplx.png}
-	    \textbf{Required Reusability:}
-	    “Across program” could apply to reuse across multiple financial applications projects for a single organization.
-	    \image{ruse.png}
-	    \textbf{Documentation match to life-cycle needs:}
-	    This is Nominal because we defined all information necessary to understand the system in the RASD and DD document.
-	    \image{docu.png}
-	    \textbf{Execution Time Constraint:} is High because the system must be available the most of the time.
-	    \image{time.png}
-	    \textbf{Main Storage Constraint:} is Nominal because the system doesn't use all the information storage
-	    \image{stor.png}
-	    \textbf{Platform Volatility:} is Very Low because the hardware and software structure don't change very often in normal conditions.
-	    \image{pvol.png}
-	    \textbf{Analyst Capability:} is High because this project is based on analysis of the problem of MytaxiService.
-	    \image{acap.png}
-	    \textbf{Programmer Capability:} is High because this is an ability that is very important to communicate and collaborate.
-	    \image{pcap.png}
-	    \textbf{Application Experience:} is low because we works to this project since less than 6 months.
-	    \image{apex.png}
-	    \textbf{Platform Experience:} is Low because the platforms that we used in this project were new to us.
-	    \image{plex.png}
-	    \textbf{Language and Tool Experience:} is Low because the language that tools we used in this project were new to us.
-	    \image{ltex.png}
-	    \textbf{Personnel continuity:} is Very Low because this project cover a period of time that is very small.
-	    \image{pcon.png}
-	    \textbf{Usage of Software Tools:} is Nominal because for creating this project we use basic tools.
-	    \image{tool.png}
-	    \textbf{Multisite development:} is Extra High because for doing this project we used different instruments:
-	    phone, mail and drive.
-	    \image{site.png}
-	    \textbf{Required development schedule:} is High because our efforts were well distributed over the available development time in order to deliver the project in time for the deadlines.
-	    \image{sced.png}
-	    
-	    \subsubsection{Effort Equation}
-	    $ Effort = A * EAF * (KSLOC)^{E} $
-	    \newline
-	    Where:
-	    \begin{itemize}
-	    	\item 	A = 2.94
-	    	\item EAF = product of all the cost drivers, equal to : 0.96 ;
-	    	\item E = exponent derived from Scale Drivers. Is calculated as: \newline
-	    	B + 0.01 * sum\{i\} SF[i] := B + 0.01 *14.81 = 0.91 + 0.1481 = 1.0581;
-	    	in which B is equal to: 0.91 for COCOMO.2000 .
-	    	\item KSLOC = estimated lines of code using the FP analysis: 4.646
-	    \end{itemize}
-	    $ Effort = 2.94* 0.96* 4.646^{1.0581}  = 14.33689 Person-months $
-	    
-	    \subsubsection{Schedule Estimation}
-	    $Duration := 3.67 * Effort^{F}$
-	    \newline    
-	    Where:
-	    \begin{itemize}
-	    	\item F := 0.28 + 0.2 * ( E - B ) = 0.28 + 0.2*(1.0581 - 0.91) = 0.30962
-	    \end{itemize}
-	    $ Duration = 3.67 * 14.33689^{0.30962} = 8.37 = 8 Months$
-	    \newline
-	    As for the required number of people the estimation is:
-	    \newline
-	    $P = Effort / Duration = 14.33689/ 8 = 1.79 = 2 People $
-	    \newline
-	    \newline
-	    We want to give a more precise estimation adjusting some Scale Driver.
-	    To evaluate the COCOMO II and determine the effort required to complete the software project we also use an online tool (http://csse.usc.edu/tools/COCOMOII.php).\newline
-	    This is the result of the online tool: 
-	    \image{cocomo1.png}
-	    \image{cocomo2.png}
+		Where:
+		\begin{itemize}
+			\item 	A = 2.94
+			\item EAF = product of all the cost drivers, equal to : 0.95 ;
+			\item E = exponent derived from Scale Drivers. Is calculated as: \newline
+				B + 0.01 * sum\{i\} SF[i] := B + 0.01 *14.81 = 0.91 + 0.1481 = 1.0581;
+				in which B is equal to: 0.91 for COCOMO.2000 .
+			\item KSLOC = estimated lines of code using the FP analysis: 5,353
+		\end{itemize}
+	   $ Effort = 2.94* 0.95* 5,353^{1.0581}  = 16.4816 Person-months $
+		
+	   \subsubsection{Schedule Estimation}
+	   $Duration := 3.67 * Effort^{F}$
+	   \newline    
+	   Where:
+	   	\begin{itemize}
+	   		\item F := 0.28 + 0.2 * ( E - B ) = 0.28 + 0.2*(1.0581 - 0.91) = 0.30962
+	   	\end{itemize}
+	   The estimated project duration is: \newline
+	   $ Duration = 3.67 * 16.4816^{0.30962} = 8.739 = 9 Months$
+	   \newline
+	   The estimation of the team size for this project is:
+	   \newline
+	   $P = Effort / Duration = 16.4816/ 9 = 1.83 = 2 People $
+	   \newline
+	   \newline
+	   We want to give a more precise estimation adjusting some Scale Driver.
+	   To evaluate the COCOMO II and determine the effort required to complete the software project we also used an online tool (http://csse.usc.edu/tools/COCOMOII.php).\newline
+	   This is the result of the online tool: 
+	   \image{cocomo1.png}
+	   \image{cocomo2.png}
 		
 	\section{Tasks and Schedule}
 	
@@ -452,98 +444,11 @@
 			\hline
 			\textbf{Risk} &	\textbf{Severity} & \textbf{Possible Resolution} \\
 			\hline
-			Inadequate Infrastructures & High & 
-			The client should be informed about the infrastructure costs and the device requirements and an agreement has to be reached. \\
-			
-			\hline
-			Frequent Data loss & 
-			High & 
-			A system administrator should be assigned to investigate the problem. Frequent database backups should be performed anyway. \\
-			
-			
-			\hline
-			Excessive Average System Load & 
-			High & 
-			A code inspection could be performed for analysing the complexity of the code. It it's not sufficient the managers could consider a system upgrade or the implementation of a distributed system, depending on the costs. A cloud hosting is also a feasible possibility. \\
-			
-			
-			\hline
-			The system security is proven to be not sufficient & 
-			High & 
-			A security specialist have to join the team in order to improve overall security of the system \\
-			
-			\hline
-			Malfunction of any device used to communicate with the system. & 
-			Moderate & 
-			Periodic maintenance should be performed on the system infrastructure. If a taxi driver terminal is not functional, it has to be replaced \\
-			
-			
-			\hline
-			JEE platform malfunctions & 
-			Moderate & 
-			The platform has to be updated \\
-			
-			
-			\hline
-			Faults in reusable software components have to be repaired before these components are reused. & 
-			Moderate & 
-			A team will be dedicated to repair the malfunctioning components before reusing. \\
-			
-			\hline
-			The database used in the system cannot process as many
-			transactions per second as expected. & 
-			Moderate & 
-			A system upgrade should be considered, the cost analysis should consider a possible increase in the number of users and requests. \\
-				\hline
-				\end{tabularx}
-				
-				\begin{tabularx}{\textwidth}{|X|l|X|}
-					\hline
-		
-			Improper use of application - i.e. Taxi Drivers interact with the application while driving & 
-			Moderate & 
-			User Interface improvement - It could be possible to add a control that prevents the users to interact with the application while the device is in movement \\
-			
-			\hline
-			Delays in project development & 
-			Moderate & 
-			The schedule could be re-organised to better fit the team members necessities. The precedence could be given to the core functionalities and testing, while the code and user interface inspection could be delayed. \\
-			
-			\hline
-			Low Web Interface quality & 
-			Moderate & 
-			A web specialist could be enrolled in order to improve the interface quality  \\
-			
-			\hline
-			The organization is restructured so that different
-			managers are responsible for the project. & 
-			Low & 
-			The responsibles have to be informed about the current state of the project. This documentation has to be kept updated constantly \\
-			
-			\hline
-			Personnel Adaptation & 
-			Low  & 
-			For taxi driver users the interface has been kept as simple as possible, so it is difficult to have issues in migrating to the new system. 
-			System Administrators should be instructed to accomplish their new tasks as the system is delivered, although the process should not require much time \\
-			
-			
-			\hline
-			A new feature is requested & 
-			Low & 
-			By design it is possible to add a new component to improve the system functionalities \\
-			
-			
-			\hline
-			Changes in the user interface. & 
-			Low & 
-			The modularity of this system should allow modifications on system interface with no or small modification of the system backend, depending on the nature of the modification. \\
-			
-			\hline
 	\end{tabularx}
 
 	\section{Work Hours}
 		\begin{itemize}
-			\item \textbf{Edoardo Giacomello}: 23 hours
-			\item \textbf{Mattia Fontana}: 18,5 hours
+			\item \textbf{Edoardo Giacomello}: 
+			\item \textbf{Mattia Fontana}: 
 		\end{itemize}	
 \end{document}
